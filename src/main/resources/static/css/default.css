@@ -66,6 +66,7 @@ a:active {
 	letter-spacing: 0.1em;
 	color: #888;
 	display: inline-block;
+	float:left;
 }
 
 .codrops-top a:hover {
