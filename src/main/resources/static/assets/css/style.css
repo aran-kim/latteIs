@@ -8,7 +8,10 @@ body {
     text-align: center;
 }
 
-strong { font-weight: 500; }
+strong {
+	font-weight: 500;
+	color : black;
+}
 
 a, a:hover, a:focus {
 	color: #19b9e7;
@@ -80,6 +83,10 @@ img { max-width: 100%; }
 
 
 /***** Top content *****/
+.row {
+	margin-right: 25%;
+	margin-left: 25%;
+}
 
 .inner-bg {
     padding: 60px 0 80px 0;
@@ -104,7 +111,7 @@ img { max-width: 100%; }
 .top-content .description a:focus { border-bottom: 1px dotted #fff; }
 
 .form-box {
-	margin-top: 70px;
+	margin-top: 5px;
 
 }
 

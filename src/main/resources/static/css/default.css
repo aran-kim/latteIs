@@ -58,6 +58,7 @@ a:active {
 	width: 100%;
 	font-size: 0.69em;
 	line-height: 2.2;
+	float:left;
 }
 
 .codrops-top a {
