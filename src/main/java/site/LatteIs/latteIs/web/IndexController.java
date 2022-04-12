@@ -22,10 +22,12 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/loginHome")
-    public String loginHome(){
+    @GetMapping("/login")
+    public String loginHome(Model model, @LoginUser SessionUser user){
 
-        return "loginHome";
+        if(user != null)
+            model.addAttribute("userName", user.getName());
+        return "index";
     }
 
     @GetMapping("/loginGoogle")
