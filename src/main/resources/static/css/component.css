@@ -42,7 +42,7 @@
 }
 
 .grid figcaption span:before {
-	content: 'by ';
+	/* content: 'by '; */
 }
 
 .grid figcaption a {
