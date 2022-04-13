@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import site.LatteIs.latteIs.domain.User;
 import site.LatteIs.latteIs.domain.UserRepository;
 
+// Security config에서 loginProcessingUrl("/login");
+// login 요청이 오면 자동으로 UserDetailsService 타입으로 IoC되어 있는 loadUserByUsername 함수가 실행
 @Service
 public class PrincipalDetailsService implements UserDetailsService {
 // UserDetailsService는 FormLogin시 loadUserByUsername 메소드로 로그인한 유저가 DB에 저장되어 있는 지 검색

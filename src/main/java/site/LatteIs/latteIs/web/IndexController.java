@@ -50,7 +50,7 @@ public class IndexController {
 
     @GetMapping("/loginForm")
     public String loginForm(){
-        return "login";
+        return "loginForm";
     }
 
     @GetMapping("/join")

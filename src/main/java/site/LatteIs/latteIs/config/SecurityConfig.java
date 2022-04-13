@@ -27,12 +27,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().permitAll() //나머지 주소는 인증없이 접근 가능
                 .and()
                     .formLogin() // form 기반의 로그인인 경우
-                        .loginPage("/login") // 인증이 필요한 url에 접근하면 /login으로 이동
-                        .usernameParameter("id") // 로그인 시 form에서 가져올 값
-                        .passwordParameter("pw") // 로그인 시 form에서 가져올 값
+                        .loginPage("/loginForm") // 인증이 필요한 url에 접근하면 /login으로 이동
                         .loginProcessingUrl("/login") // 로그인을 처리할 URL
                         .defaultSuccessUrl("/") // 로그인 성공 시 "/"로 이동
-                        .failureUrl("/login") // 로그인 실패 시 "/login"으로 이동
+                        .failureUrl("/loginForm") // 로그인 실패 시 "/login"으로 이동
                 .and()
                     .logout() // 로그아웃할 경우
                         .logoutUrl("/logout") // 로그아웃을 처리할 URL
