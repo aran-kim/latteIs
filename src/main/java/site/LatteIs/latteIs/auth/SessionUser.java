@@ -1,4 +1,18 @@
 package site.LatteIs.latteIs.auth;
 
-public class SessionUser {
+import lombok.Getter;
+import site.LatteIs.latteIs.domain.User;
+
+import java.io.Serializable;
+
+@Getter
+public class SessionUser implements Serializable {
+    private String username;
+    private String email;
+
+    public SessionUser(User user) {
+        this.username = user.getUsername();
+        this.email = user.getEmail();
+    }
+
 }

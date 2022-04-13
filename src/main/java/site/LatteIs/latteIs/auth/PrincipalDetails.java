@@ -9,11 +9,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+// 시큐리티가 "/login" 주소 요청이 오면 낚아채서 로그인을 진행
+// 로그인을 진행이 완료가 되면 시큐리티 session을 만들어줌 (Security ContextHolder)
+// 오브젝트 타입 -> Authentication 타입 객체
+// Authentication 안에 User 정보가 있어야 됨
+// User 오브젝트 타입 -> UserDetails 타입 객체
 
-// Authentication 객체에 저장할 수 있는 유일한 타입
+// Security Session -> Authentication -> UserDetails(PrincipalDetails)
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
-    private User user;
+    private User user; //콤포지션
     private Map<String, Object> attributes;
 
     // 일반 로그인시 사용
@@ -62,7 +67,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<? extends GrantedAuthority> getAuthorities() { // 해당 User의 권한을 반환
         Collection<GrantedAuthority> collet = new ArrayList<GrantedAuthority>();
         collet.add(()->{ return user.getRole();});
         return collet;

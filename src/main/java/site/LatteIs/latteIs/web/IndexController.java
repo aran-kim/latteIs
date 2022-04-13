@@ -12,29 +12,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import site.LatteIs.latteIs.auth.LoginUser;
 import site.LatteIs.latteIs.auth.PrincipalDetails;
+import site.LatteIs.latteIs.auth.SessionUser;
 import site.LatteIs.latteIs.domain.Role;
 import site.LatteIs.latteIs.domain.User;
 import site.LatteIs.latteIs.domain.UserRepository;
 
 import java.util.Map;
 
-@Controller
+@Controller // View 반환
 public class IndexController {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping("/")
-    public String index(Model model, User user){
-       //SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        System.out.println("접속 아이디 : " + user.getUsername());
+    @GetMapping("/") // "Localhost:8080"
+    public String index(Model model, @LoginUser SessionUser user) {
 
-        if(user != null)
+        if(user != null){
+            System.out.println("접속 아이디 : " + user.getUsername());
             model.addAttribute("username", user.getUsername());
-        return "index";
+        }
+        return "index"; //src/main/resources/templates/index.mustache
     }
 
     @GetMapping("/user")
@@ -69,9 +72,9 @@ public class IndexController {
         System.out.println("회원가입 진행 전 : " + user);
         String rawPassword = user.getPassword();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-        user.setPassword(encPassword);
+        user.setPassword(encPassword); // 비밀번호 인코딩해서 저장
         user.setRole("ROLE_USER");
-        userRepository.save(user);
+        userRepository.save(user); // 회원가입
         System.out.println("회원가입 진행 후 : " + user);
         return "redirect:/";
     }

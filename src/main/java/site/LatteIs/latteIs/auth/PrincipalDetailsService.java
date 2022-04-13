@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import site.LatteIs.latteIs.domain.User;
 import site.LatteIs.latteIs.domain.UserRepository;
 
+import javax.servlet.http.HttpSession;
+
 // Security config에서 loginProcessingUrl("/login");
 // login 요청이 오면 자동으로 UserDetailsService 타입으로 IoC되어 있는 loadUserByUsername 함수가 실행
 @Service
@@ -18,6 +20,10 @@ public class PrincipalDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private HttpSession httpSession;
+
+    // Security session(내부 Authentication(내부 UserDetails))
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
         System.out.println(username);
@@ -27,8 +33,12 @@ public class PrincipalDetailsService implements UserDetailsService {
             System.out.println("로그인 실패");
             return null;
         }
-        else
+        else{
+            userRepository.save(user);
+            httpSession.setAttribute("user", new SessionUser(user));
             return new PrincipalDetails(user);
+        }
+
     }
 
 }
