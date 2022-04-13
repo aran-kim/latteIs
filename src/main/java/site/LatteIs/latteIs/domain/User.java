@@ -4,50 +4,26 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
+@Builder
+@Data
 @Entity
-@Getter
-@ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+@NoArgsConstructor
+@AllArgsConstructor
+public class User implements Serializable {
 
-    @Id
+    @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private int id;
     private String username;
-
-    @Setter
     private String password;
-
     private String email;
-
-    @Enumerated(EnumType.STRING)
-    @Setter
-    private Role role;
-
-    @CreationTimestamp //자동 생성
-    private Timestamp createTime;
-
+    private String role; //ROLE_USER, ROLE_ADMIN
+    // OAuth를 위해 구성한 추가 필드 2개
     private String provider;
-    private String providerID;
-
-    @Builder(builderClassName = "UserDetailRegister", builderMethodName = "userDetailRegister")
-    public User(String username, String password, String email, Role role) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-    }
-
-    @Builder(builderClassName = "OAuth2Register", builderMethodName = "oauth2Register")
-    public User(String username, String password, String email, Role role, String provider, String providerID) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-        this.provider = provider;
-        this.providerID = providerID;
-    }
+    private String providerId;
+    @CreationTimestamp
+    private Timestamp createDate;
 }

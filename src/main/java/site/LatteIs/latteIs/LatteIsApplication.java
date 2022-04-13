@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class LatteIsApplication {
 
 	@Bean
-	public BCryptPasswordEncoder encoder(){
+	public BCryptPasswordEncoder encode() {
 		return new BCryptPasswordEncoder();
 	}
 

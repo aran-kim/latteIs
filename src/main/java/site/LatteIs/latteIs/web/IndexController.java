@@ -1,6 +1,7 @@
 package site.LatteIs.latteIs.web;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,16 +18,29 @@ import site.LatteIs.latteIs.domain.UserRepository;
 
 import java.util.Map;
 
-@RequiredArgsConstructor
 @Controller
 public class IndexController {
 
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/")
     public String index(){
         return "index";
+    }
+
+    @GetMapping("/user")
+    @ResponseBody
+    public String user(){
+        return "user";
+    }
+
+    @GetMapping("/admin")
+    @ResponseBody
+    public String admin(){
+        return "admin";
     }
 
     @GetMapping("/login")
@@ -40,76 +54,19 @@ public class IndexController {
     }
 
     @GetMapping("/join")
-    public String joinForm(){
+    public String join(){
         return "join";
     }
 
-    @PostMapping("/join")
-    public String join(@ModelAttribute User user){
-        user.setRole(Role.ROLE_USER);
-
-        String encodePwd = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(encodePwd);
-
-        userRepository.save(user); //반드시 패스워드 암호화
-        return "redirect:/loginForm";
-    }
-
-    @GetMapping("/user")
-    @ResponseBody
-    public String user(){
-        return "user";
-    }
-
-    @GetMapping("/manager")
-    @ResponseBody
-    public String manager(){
-        return "manager";
-    }
-
-    @GetMapping("/admin")
-    @ResponseBody
-    public String admin(){
-        return "admin";
-    }
-
-    //OAuth로 로그인 시 이 방식대로 하면 CastException 발생
-    @GetMapping("/form/loginInfo")
-    @ResponseBody
-    public String formLoginInfo(Authentication authentication, @AuthenticationPrincipal PrincipalDetails principalDetails){
-        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-        User user = principal.getUser();
-        System.out.println(user);
-
-        User user1 = principalDetails.getUser();
-        System.out.println(user1);
-
-        return user.toString();
-    }
-
-    @GetMapping("/oauth/loginInfo")
-    @ResponseBody
-    public String oauthLoginInfo(Authentication authentication, @AuthenticationPrincipal OAuth2User oAuth2UserPrincipal){
-        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        Map<String, Object> attributes = oAuth2User.getAttributes();
-        System.out.println(attributes);
-
-        Map<String, Object> attributes1 = oAuth2UserPrincipal.getAttributes();
-
-        return attributes.toString();
-    }
-
-    @GetMapping("/loginInfo")
-    @ResponseBody
-    public String loginInfo(Authentication authentication, @AuthenticationPrincipal PrincipalDetails principalDetails){
-        String result = "";
-
-        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-        if(principal.getUser().getProvider() == null)
-            result = result + "Form 로그인 : " + principal;
-        else
-            result =  result + "OAuth2 로그인 : " + principal;
-
-        return result;
+    @PostMapping("/joinProc")
+    public String joinProc(User user){
+        System.out.println("회원가입 진행 전 : " + user);
+        String rawPassword = user.getPassword();
+        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+        user.setPassword(encPassword);
+        user.setRole("ROLE_USER");
+        userRepository.save(user);
+        System.out.println("회원가입 진행 후 : " + user);
+        return "redirect:/";
     }
 }

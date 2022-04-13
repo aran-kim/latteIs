@@ -17,7 +17,12 @@
                 <figcaption>
                     <h3>대화</h3>
                     <span>친구들과 하던 대화를 이어가요!</span>
-                    <a href="/login">Chatting</a>
+                    {{#username}}
+                        <a href="/chat">Chatting</a>
+                    {{/username}}
+                    {{^username}}
+                        <a href="/login">Login</a>
+                    {{/username}}
                 </figcaption>
             </figure>
         </li>

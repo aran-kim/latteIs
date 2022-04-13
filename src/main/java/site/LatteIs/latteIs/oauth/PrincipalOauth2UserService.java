@@ -12,7 +12,10 @@ import site.LatteIs.latteIs.auth.PrincipalDetails;
 import site.LatteIs.latteIs.domain.Role;
 import site.LatteIs.latteIs.domain.User;
 import site.LatteIs.latteIs.domain.UserRepository;
+import site.LatteIs.latteIs.oauth.provider.GoogleUserInfo;
+import site.LatteIs.latteIs.oauth.provider.OAuth2UserInfo;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -24,32 +27,59 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    // userRequest 는 code를 받아서 accessToken을 응답 받은 객체
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest); // google의 회원 프로필 조회
 
-        String provider = userRequest.getClientRegistration().getRegistrationId(); //google
-        String providerID = oAuth2User.getAttribute("sub");
-        String username = provider + "_" + providerID;
+        // code를 통해 구성한 정보
+        System.out.println("userRequest clientRegistration : " + userRequest.getClientRegistration());
+        // token을 통해 응답받은 회원정보
+        System.out.println("oAuth2User : " + oAuth2User);
 
-        String uuid = UUID.randomUUID().toString().substring(0, 6);
-        String password = bCryptPasswordEncoder.encode("패스워드"+uuid);
+        return processOAuth2User(userRequest, oAuth2User);
+    }
 
-        String email = oAuth2User.getAttribute("email");
-        Role role = Role.ROLE_USER;
+    private OAuth2User processOAuth2User(OAuth2UserRequest userRequest, OAuth2User oAuth2User){
 
-        User byUsername = userRepository.findByUsername(username);
-
-        if(byUsername == null){
-            byUsername = User.oauth2Register()
-                    .username(username).password(password).email(email).role(role)
-                    .provider(provider).providerID(providerID)
-                    .build();
-            userRepository.save(byUsername);
+        //Attribute를 파싱해서 공통 객체로 묶음 (관리 편리)
+        OAuth2UserInfo oAuth2UserInfo = null;
+        if (userRequest.getClientRegistration().getRegistrationId().equals("google")) {
+            System.out.println("구글 로그인 요청");
+            oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
+        } /*else if (userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
+            System.out.println("페이스북 로그인 요청");
+            oAuth2UserInfo = new FaceBookUserInfo(oAuth2User.getAttributes());
+        } else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")){
+            System.out.println("네이버 로그인 요청~);
+            oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
+        }*/ else {
+            System.out.println("구글만 지원");
         }
 
-        return new PrincipalDetails(byUsername, oAuth2User.getAttributes());
+        //System.out.println("oAuth2UserInfo.getProvider() : " + oAuth2UserInfo.getProvider());
+        //System.out.println("oAuth2UserInfo.getProviderId() : " + oAuth2UserInfo.getProviderId());
+        Optional<User> userOptional =
+                userRepository.findByProviderAndProviderId(oAuth2UserInfo.getProvider(), oAuth2UserInfo.getProviderId());
+
+        User user;
+        if (userOptional.isPresent()) {
+            user = userOptional.get();
+            // user가 존재하면 update 해주기
+            user.setEmail(oAuth2UserInfo.getEmail());
+            userRepository.save(user);
+        } else {
+            // user의 패스워드가 null이기 때문에 OAuth 유저는 일반적인 로그인을 할 수 없음.
+            user = User.builder()
+                    .username(oAuth2UserInfo.getProvider() + "_" + oAuth2UserInfo.getProviderId())
+                    .email(oAuth2UserInfo.getEmail())
+                    .role("ROLE_USER")
+                    .provider(oAuth2UserInfo.getProvider())
+                    .providerId(oAuth2UserInfo.getProviderId())
+                    .build();
+            userRepository.save(user);
+        }
+
+        return new PrincipalDetails(user, oAuth2User.getAttributes());
     }
 
 }
