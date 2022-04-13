@@ -32,7 +32,12 @@
                 <figcaption>
                     <h3>방 찾기</h3>
                     <span>대화를 할 친구를 찾아요!</span>
-                    <a href="/">Search</a>
+                    {{#username}}
+                        <a href="/loginForm">Login</a>
+                    {{/username}}
+                    {{^username}}
+                        <a href="/">Search</a>
+                    {{/username}}
                 </figcaption>
             </figure>
         </li>

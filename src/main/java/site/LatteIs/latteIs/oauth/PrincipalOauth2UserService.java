@@ -15,6 +15,7 @@ import site.LatteIs.latteIs.domain.UserRepository;
 import site.LatteIs.latteIs.oauth.provider.GoogleUserInfo;
 import site.LatteIs.latteIs.oauth.provider.OAuth2UserInfo;
 
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,6 +24,9 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    //@Autowired
+    //private HttpSession httpSession;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -35,6 +39,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         System.out.println("userRequest clientRegistration : " + userRequest.getClientRegistration());
         // token을 통해 응답받은 회원정보
         System.out.println("oAuth2User : " + oAuth2User);
+
+        //httpSession.setAttribute("user", new SessionUser(user));
 
         return processOAuth2User(userRequest, oAuth2User);
     }
