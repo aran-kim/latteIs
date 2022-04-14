@@ -13,6 +13,7 @@ import site.LatteIs.latteIs.auth.SessionUser;
 import site.LatteIs.latteIs.domain.Role;
 import site.LatteIs.latteIs.domain.User;
 import site.LatteIs.latteIs.domain.UserRepository;
+import site.LatteIs.latteIs.oauth.provider.FacebookUserInfo;
 import site.LatteIs.latteIs.oauth.provider.GoogleUserInfo;
 import site.LatteIs.latteIs.oauth.provider.OAuth2UserInfo;
 
@@ -56,14 +57,16 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         if (userRequest.getClientRegistration().getRegistrationId().equals("google")) {
             System.out.println("구글 로그인 요청");
             oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
-        } /*else if (userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
+        }
+        else if (userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
             System.out.println("페이스북 로그인 요청");
-            oAuth2UserInfo = new FaceBookUserInfo(oAuth2User.getAttributes());
-        } else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")){
+            oAuth2UserInfo = new FacebookUserInfo(oAuth2User.getAttributes());
+        }
+        /*else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")){
             System.out.println("네이버 로그인 요청~);
             oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
         }*/ else {
-            System.out.println("구글만 지원");
+            System.out.println("구글과 페이스북만 지원");
         }
 
         //System.out.println("oAuth2UserInfo.getProvider() : " + oAuth2UserInfo.getProvider());

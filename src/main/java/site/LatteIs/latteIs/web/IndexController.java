@@ -1,6 +1,7 @@
 package site.LatteIs.latteIs.web;
 
 import lombok.RequiredArgsConstructor;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,13 +14,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import site.LatteIs.latteIs.auth.LoginUser;
-import site.LatteIs.latteIs.auth.PrincipalDetails;
+import site.LatteIs.latteIs.auth.PhoneAuthenticationService;
 import site.LatteIs.latteIs.auth.SessionUser;
 import site.LatteIs.latteIs.domain.Role;
 import site.LatteIs.latteIs.domain.User;
 import site.LatteIs.latteIs.domain.UserRepository;
 
 import java.util.Map;
+import java.util.Random;
 
 @Controller // View 반환
 public class IndexController {
@@ -60,6 +62,18 @@ public class IndexController {
     @GetMapping("/loginForm")
     public String loginForm(){
         return "loginForm";
+    }
+
+    @GetMapping("/check")
+    public String check(){
+        return "sendSMS";
+    }
+
+    @ResponseBody
+    @GetMapping("/sendSMS")
+    public String sendSMS(String phoneNumber) throws CoolsmsException {
+
+        return PhoneAuthenticationService.phoneAuthentication(phoneNumber);
     }
 
     @GetMapping("/join")
