@@ -10,16 +10,14 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import site.LatteIs.latteIs.auth.PrincipalDetails;
 import site.LatteIs.latteIs.auth.SessionUser;
-import site.LatteIs.latteIs.domain.Role;
-import site.LatteIs.latteIs.domain.User;
-import site.LatteIs.latteIs.domain.UserRepository;
+import site.LatteIs.latteIs.web.domain.User;
+import site.LatteIs.latteIs.web.domain.UserRepository;
 import site.LatteIs.latteIs.oauth.provider.FacebookUserInfo;
 import site.LatteIs.latteIs.oauth.provider.GoogleUserInfo;
 import site.LatteIs.latteIs.oauth.provider.OAuth2UserInfo;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {

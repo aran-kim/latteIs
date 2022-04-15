@@ -1,7 +1,7 @@
 package site.LatteIs.latteIs.auth;
 
 import lombok.Getter;
-import site.LatteIs.latteIs.domain.User;
+import site.LatteIs.latteIs.web.domain.User;
 
 import java.io.Serializable;
 

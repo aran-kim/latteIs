@@ -1,27 +1,19 @@
 package site.LatteIs.latteIs.web;
 
-import lombok.RequiredArgsConstructor;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import site.LatteIs.latteIs.auth.LoginUser;
 import site.LatteIs.latteIs.auth.PhoneAuthenticationService;
 import site.LatteIs.latteIs.auth.SessionUser;
-import site.LatteIs.latteIs.domain.Role;
-import site.LatteIs.latteIs.domain.User;
-import site.LatteIs.latteIs.domain.UserRepository;
-
-import java.util.Map;
-import java.util.Random;
+import site.LatteIs.latteIs.web.domain.User;
+import site.LatteIs.latteIs.web.domain.UserRepository;
 
 @Controller // View 반환
 public class IndexController {
@@ -66,13 +58,14 @@ public class IndexController {
 
     @GetMapping("/check")
     public String check(){
+        System.out.println("checkControl 통과");
         return "sendSMS";
     }
 
     @ResponseBody
-    @GetMapping("/sendSMS")
-    public String sendSMS(String phoneNumber) throws CoolsmsException {
-
+    @GetMapping("/check/sendSMS")
+    public String sendSMS(@RequestParam ("phone") String phoneNumber) throws CoolsmsException {
+        System.out.println("sendSMS 통과");
         return PhoneAuthenticationService.phoneAuthentication(phoneNumber);
     }
 

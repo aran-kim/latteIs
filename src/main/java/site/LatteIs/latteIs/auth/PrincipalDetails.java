@@ -3,7 +3,7 @@ package site.LatteIs.latteIs.auth;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import site.LatteIs.latteIs.domain.User;
+import site.LatteIs.latteIs.web.domain.User;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package site.LatteIs.latteIs.domain;
+package site.LatteIs.latteIs.web.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

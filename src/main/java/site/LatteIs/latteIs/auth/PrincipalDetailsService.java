@@ -1,13 +1,12 @@
 package site.LatteIs.latteIs.auth;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import site.LatteIs.latteIs.domain.User;
-import site.LatteIs.latteIs.domain.UserRepository;
+import site.LatteIs.latteIs.web.domain.User;
+import site.LatteIs.latteIs.web.domain.UserRepository;
 
 import javax.servlet.http.HttpSession;
 
