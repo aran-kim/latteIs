@@ -4,23 +4,28 @@ var main = {
 
         $('#btn-send').on('click', function(){
             alert('인증 번호를 발송했습니다.');
-            var phone = $("#phoneNumber").val();
-            _this.send();
+            var phoneNumber = $("#phoneNumber").val();
+            _this.send(phoneNumber);
         });
 
     },
-    send : function(){
+    send : function(phoneNumber){
         $.ajax({
-            url: "/check/sendSMS?phone=" + phone,
+            url: "/check/sendSMS",
             type : "GET",
-            dataType: "json",
-            contentType : 'application/json; charset=utf-8'
-        })
-        .done(function(){
-
-        })
-        .fail(function(error){
-            alert(error);
+            cache : false,
+            data : { phoneNumber : phoneNumber},
+            success: function(data){
+                if(data == "error"){
+                    alert("휴대폰 번호가 올바르지 않습니다.")
+                        $("#phoneNumber").attr("autofocus",true);
+                }
+                else{
+                    $("#numStr").attr("disabled",false);
+                    $("#btn-send-check").css("display","inline-block");
+                    $("#phoneNumber").attr("readonly", true);
+                }
+            }
         })
     }
 

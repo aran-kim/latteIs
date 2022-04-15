@@ -64,7 +64,7 @@ public class IndexController {
 
     @ResponseBody
     @GetMapping("/check/sendSMS")
-    public String sendSMS(@RequestParam ("phone") String phoneNumber) throws CoolsmsException {
+    public String sendSMS(@RequestParam ("phoneNumber") String phoneNumber) throws CoolsmsException {
         System.out.println("sendSMS 통과");
         return PhoneAuthenticationService.phoneAuthentication(phoneNumber);
     }
