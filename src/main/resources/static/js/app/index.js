@@ -16,15 +16,16 @@ var main = {
             cache : false,
             data : { phoneNumber : phoneNumber},
             success: function(data){
-                if(data == "error"){
-                    alert("휴대폰 번호가 올바르지 않습니다.")
-                        $("#phoneNumber").attr("autofocus",true);
-                }
-                else{
-                    $("#numStr").attr("disabled",false);
-                    $("#btn-send-check").css("display","inline-block");
-                    $("#phoneNumber").attr("readonly", true);
-                }
+                $("#btn-send-check").click(function(){
+                    var numStr = $("#numStr").val();
+                    if(data == numStr){
+                        alert("성공이용!");
+                        window.location.href = "/join";
+                    }
+                    else{
+                        alert("아닌데용;");
+                    }
+                })
             }
         })
     }

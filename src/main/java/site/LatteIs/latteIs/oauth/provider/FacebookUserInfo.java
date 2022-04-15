@@ -29,4 +29,6 @@ public class FacebookUserInfo implements OAuth2UserInfo{
     public String getProvider(){
         return "facebook";
     }
+
+
 }
