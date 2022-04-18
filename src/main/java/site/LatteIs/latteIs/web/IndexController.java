@@ -85,4 +85,13 @@ public class IndexController {
         System.out.println("회원가입 진행 후 : " + user);
         return "redirect:/";
     }
+
+    @GetMapping("/chat")
+    public String chat(Model model, @LoginUser SessionUser user){
+        if(user != null){
+            System.out.println("접속 아이디 : " + user.getUsername());
+            model.addAttribute("username", user.getUsername());
+        }
+        return "chat";
+    }
 }
