@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import site.LatteIs.latteIs.auth.LoginUser;
 import site.LatteIs.latteIs.auth.PhoneAuthenticationService;
 import site.LatteIs.latteIs.auth.SessionUser;
+import site.LatteIs.latteIs.web.domain.Interest;
+import site.LatteIs.latteIs.web.domain.InterestRepository;
 import site.LatteIs.latteIs.web.domain.User;
 import site.LatteIs.latteIs.web.domain.UserRepository;
 
@@ -23,6 +25,9 @@ public class IndexController {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private InterestRepository interestRepository;
 
     @GetMapping("/") // "Localhost:8080"
     public String index(Model model, @LoginUser SessionUser user) {
@@ -83,6 +88,19 @@ public class IndexController {
         user.setRole("ROLE_USER");
         userRepository.save(user); // 회원가입
         System.out.println("회원가입 진행 후 : " + user);
+        return "redirect:/question";
+    }
+
+    @GetMapping("/question")
+    public String question(){
+        return "question";
+    }
+
+    @PostMapping("/questionProc")
+    public String questionProc(User user, Interest interest){
+        interest.setUser(user);
+        interestRepository.save(interest);
+        System.out.println("Interest 정보 : " + interest);
         return "redirect:/";
     }
 
