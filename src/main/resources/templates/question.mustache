@@ -29,15 +29,83 @@
                             </div>
                         </div>
                         <div class="form-bottom">
-                            <form action="/questionProc" method="post" class="login-form">
+                            <form action="/questionProc" method="post" class="question-form">
                                 <div class="form-group">
                                     <label class="sr-only" for="form-sex">성별</label>
-                                    <select name="sex">
-                                        <option value="male">남자</option>
-                                        <option value="female">여자</option>
-                                    </select>
+                                    <input type="radio" id="sex" name="sex" value="male">남자
+                                    <input type="radio" id="sex" name="sex" value="female">여자
                                 </div>
-                                <button type="submit" class="btn">끝! </button>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-birthday">생년월일</label>
+                                    <input type="text" id="birthday" name="birthday" placeholder="생년월일">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-university">학교</label>
+                                    <input type="radio" id="university" name="university" value="seoul">서울대학교
+                                    <input type="radio" id="university" name="university" value="korea">고려대학교
+                                    <input type="radio" id="university" name="university" value="kwangwoon">광운대학교
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-religion">종교</label>
+                                    <input type="radio" id="religion" name="religion" value="none">무교
+                                    <input type="radio" id="religion" name="religion" value="catholic">천주교
+                                    <input type="radio" id="religion" name="religion" value="christian">기독교
+                                    <input type="radio" id="religion" name="religion" value="buddhism">불교
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-amount_of_alcohol">주량</label>
+                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="none">전혀 안 함
+                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="half">반 병
+                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="one">한 병
+                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="two">두 병
+                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="many">많이
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-smoking">흡연</label>
+                                    <input type="radio" id="smoking" name="smoking" value="none">비흡연자
+                                    <input type="radio" id="smoking" name="smoking" value="smoking">흡연자
+                                </div>
+                                <div class="form-group"> <!-- 다중 선택 고려해야함 -->
+                                    <label class="sr-only" for="form-characteristic">특징</label>
+                                    <input type="radio" id="characteristic" name="characteristic" value="active">활발한
+                                    <input type="radio" id="characteristic" name="characteristic" value="quite">조용한
+                                    <input type="radio" id="characteristic" name="characteristic" value="cute">애교가 넘치는
+                                    <input type="radio" id="characteristic" name="characteristic" value="mature">어른스러운
+                                    <input type="radio" id="characteristic" name="characteristic" value="passive">열정적인
+                                    <input type="radio" id="characteristic" name="characteristic" value="calm">침착한
+                                    <input type="radio" id="characteristic" name="characteristic" value="crazy">또라이 같은
+                                    <input type="radio" id="characteristic" name="characteristic" value="kind">예의 바른
+                                    <input type="radio" id="characteristic" name="characteristic" value="humorous">유머러스한
+                                </div>
+                                <div class="form-group"> <!-- 다중 선택 고려해야함 -->
+                                    <label class="sr-only" for="form-hobby">취미</label>
+                                    <input type="radio" id="hobby" name="hobby" value="movie">영화
+                                    <input type="radio" id="hobby" name="hobby" value="netflix">넷플릭스
+                                    <input type="radio" id="hobby" name="hobby" value="cafe">카페
+                                    <input type="radio" id="hobby" name="hobby" value="sing">노래방
+                                    <input type="radio" id="hobby" name="hobby" value="alcohol">맥주
+                                    <input type="radio" id="hobby" name="hobby" value="shopping">쇼핑
+                                    <input type="radio" id="hobby" name="hobby" value="reading">독서
+                                    <input type="radio" id="hobby" name="hobby" value="tracking">등산
+                                    <input type="radio" id="hobby" name="hobby" value="foodFighter">맛집 탐방
+                                </div>
+                                <div class="form-group"> <!-- 다중 선택 고려해야함 -->
+                                    <label class="sr-only" for="form-friend_style">취미</label>
+                                    <input type="radio" id="friend_style" name="friend_style" value="good">예쁘고 잘생긴
+                                    <input type="radio" id="friend_style" name="friend_style" value="fashionable">옷 잘 입는
+                                    <input type="radio" id="friend_style" name="friend_style" value="reliable">듬직한
+                                    <input type="radio" id="friend_style" name="friend_style" value="petite">아담한
+                                    <input type="radio" id="friend_style" name="friend_style" value="highAge">연상
+                                    <input type="radio" id="friend_style" name="friend_style" value="lowAge">연하
+                                    <input type="radio" id="friend_style" name="friend_style" value="sameAge">동갑
+                                    <input type="radio" id="friend_style" name="friend_style" value="sameHobby">취미가 같은
+                                    <input type="radio" id="friend_style" name="friend_style" value="laughReadily">잘 웃어주는
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-mbti">MBTI</label>
+                                    <input type="text" id="mbti" name="mbti" placeholder="MBTI">
+                                </div>
+                                <button type="submit" id="btn-question">끝! </button>
                             </form>
                         </div>
                     </div>

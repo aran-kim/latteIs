@@ -8,6 +8,19 @@ var main = {
             _this.send(phoneNumber);
         });
 
+        $('#btn-index').on('click', function(){
+            var username = $("#username").val();
+            var init = $("#init").val();
+
+            if(username != undefined){
+                if(init == 0){
+                    if(confirm("첫 로그인입니다!"))
+                        document.location = "/question";
+                }
+            }
+
+        });
+
     },
     send : function(phoneNumber){
         $.ajax({
@@ -28,7 +41,7 @@ var main = {
                 })
             }
         })
-    }
+    };
 
 };
 

@@ -90,7 +90,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             userRepository.save(user);
             httpSession.setAttribute("user", new SessionUser(user)); // 로그인정보 세션에 저장
         }
-
         return new PrincipalDetails(user, oAuth2User.getAttributes());
     }
 

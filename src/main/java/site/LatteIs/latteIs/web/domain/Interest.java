@@ -20,18 +20,16 @@ public class Interest implements Serializable {
     private int id;
     private String sex;
     private String birthday;
-    private String location;
-    private String height;
+    private String university;
     private String religion;
     private String amount_of_alcohol;
     private String smoking;
-    private String job;
-    private String character;
+    private String characteristic;
     private String hobby;
     private String friend_style;
-    private String MBTI;
+    private String mbti;
 
     @ManyToOne
-    @JoinColumn(name = "uesr_id")
+    @JoinColumn(name = "user_id")
     private User user;
 }

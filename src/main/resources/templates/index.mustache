@@ -18,10 +18,12 @@
                     <h3>대화</h3>
                     <span>친구들과 하던 대화를 이어가요!</span>
                     {{#username}}
-                        <a href="/chat">Chatting</a>
+                        <input type="hidden" id="username" value="{{username}}">
+                        <input type="hidden" id="init" value="{{init}}">
+                        <a href="/chat" id="btn-index">Chatting</a>
                     {{/username}}
                     {{^username}}
-                        <a href="/loginForm">Login</a>
+                        <a href="/loginForm" id="btn-index">Login</a>
                     {{/username}}
                 </figcaption>
             </figure>

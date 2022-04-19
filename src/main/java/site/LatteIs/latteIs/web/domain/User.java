@@ -16,6 +16,7 @@ public class User implements Serializable {
 
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
     private String username;
     private String password;
@@ -26,4 +27,8 @@ public class User implements Serializable {
     private String providerId;
     @CreationTimestamp
     private Timestamp createDate;
+    private String nickName;
+    @CreationTimestamp
+    private Timestamp accessDate;
+    private int init;
 }
