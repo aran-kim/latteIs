@@ -22,8 +22,8 @@ public class Post implements Serializable {
     private int id;
     private String title;
     private String content;
-/*    @CreationTimestamp
-    private Timestamp createDate;*/
+    @CreationTimestamp
+    private Timestamp createDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -29,22 +29,23 @@
                             </div>
                         </div>
                         <div class="form-bottom">
+                            <a href="/board/{{board_id}}/post/save" role="button" class="btn-save">글 등록</a>
                             <table class="table-post-list">
                                 <thead class="thead-strong">
                                 <tr>
                                     <th>게시글 번호</th>
                                     <th>제목</th>
                                     <th>작성자</th>
-
+                                    <th>최종 수정일</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tbody">
                                 {{#post}}
                                     <tr>
                                         <td>{{id}}</td>
-                                        <td><a href="/board/postList/{{id}}">{{title}}</a></td>
+                                        <td><a href="/board/post/{{id}}">{{title}}</a></td>
                                         <td>{{username}}</td>
-
+                                        <td>{{createDate}}</td>
                                     </tr>
                                 {{/post}}
                                 </tbody>

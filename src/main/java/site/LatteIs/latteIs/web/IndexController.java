@@ -131,12 +131,38 @@ public class IndexController {
     public String postList(@PathVariable Long id, Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
-            System.out.println("받은 id : " + id);
+            System.out.println("받은 board_id : " + id);
             model.addAttribute("username", user.getUsername());
-            int board_id = id.intValue();
-            model.addAttribute("post", postRepository.findAllByBoardId(board_id));
+            model.addAttribute("board_id", id);
+            int check_id = id.intValue();
+            model.addAttribute("post", postRepository.findAllByBoardId(check_id));
         }
-        return "postList1";
+        return "post";
+    }
+
+    @GetMapping("/board/{id}/post/save")
+    public String postSave(@PathVariable Long id, Model model, @LoginUser SessionUser user){
+        if(user != null){
+            System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("받은 board_id : " + id);
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("board_id", id);
+            int check_id = id.intValue();
+            model.addAttribute("post", postRepository.findAllByBoardId(check_id));
+        }
+        return "postSave";
+    }
+
+    @PostMapping("/postSaveProc/{id}")
+    public String postSaveProc(@PathVariable Long id, Model model, @LoginUser SessionUser user, Post post){
+        User user1 = userRepository.findByUsername(user.getUsername());
+        Board board = boardRepository.findById(id.intValue());
+        post.setBoard(board);
+        post.setUser(user1);
+        System.out.println("Post save 전 정보 : " + post);
+        postRepository.save(post);
+        System.out.println("Post save 후 정보 : " + post);
+        return "redirect:/board/" + id;
     }
 
     @GetMapping("/chat")

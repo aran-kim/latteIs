@@ -21,28 +21,27 @@
                     <div class="form-box">
                         <div class="form-top">
                             <div class="form-top-left">
-                                <h1><strong>Info</strong></h1>
-                                <p>Update your infomation</p>
+                                <h1><strong>PostSave</strong></h1>
+                                <p>Create Post</p>
                             </div>
                             <div class="form-top-right">
                                 <i class="fa fa-key"></i>
                             </div>
                         </div>
                         <div class="form-bottom">
-                            <table class="table-board">
-                                <thead class="thead-strong">
-                                <tr>
-                                    <th>게시판 주제</th>
-                                </tr>
-                                </thead>
-                                <tbody id="tbody">
-                                {{#board}}
-                                    <tr>
-                                        <td><a href="/board/{{id}}">{{subject}}</a></td>
-                                    </tr>
-                                {{/board}}
-                                </tbody>
-                            </table>
+                            <form action="/postSaveProc/{{board_id}}" method="post" class="save-form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-title">Title</label>
+                                    <input type="text" name="title" id="title" placeholder="title..."
+                                           class="form-title form-control" id="form-title">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-content">Content</label>
+                                    <input type="text" name="content" id="content" placeholder="content..."
+                                           class="form-content form-control" id="form-content">
+                                </div>
+                                <button type="submit" id="btn-save">등록</button>
+                            </form>
                         </div>
                     </div>
 
