@@ -19,7 +19,6 @@
                     <span>친구들과 하던 대화를 이어가요!</span>
                     {{#username}}
                         <input type="hidden" id="username" value="{{username}}">
-                        <input type="hidden" id="init" value="{{init}}">
                         <a href="/chat" id="btn-index">Chatting</a>
                     {{/username}}
                     {{^username}}
@@ -49,7 +48,12 @@
                 <figcaption>
                     <h3>게시판</h3>
                     <span>정보를 함께 나눠요!</span>
-                    <a href="/">Board</a>
+                    {{#username}}
+                        <a href="/board">Board</a>
+                    {{/username}}
+                    {{^username}}
+                        <a href="/loginForm">Login</a>
+                    {{/username}}
                 </figcaption>
             </figure>
         </li>
@@ -59,7 +63,12 @@
                 <figcaption>
                     <h3>내 정보</h3>
                     <span>나의 정보를 확인해요!</span>
-                    <a href="/">Info</a>
+                    {{#username}}
+                        <a href="/info">Info</a>
+                    {{/username}}
+                    {{^username}}
+                        <a href="/loginForm">Login</a>
+                    {{/username}}
                 </figcaption>
             </figure>
         </li>

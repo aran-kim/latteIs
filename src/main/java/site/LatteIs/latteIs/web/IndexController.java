@@ -2,30 +2,26 @@ package site.LatteIs.latteIs.web;
 
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import site.LatteIs.latteIs.auth.*;
-import site.LatteIs.latteIs.web.domain.Interest;
-import site.LatteIs.latteIs.web.domain.InterestRepository;
-import site.LatteIs.latteIs.web.domain.User;
-import site.LatteIs.latteIs.web.domain.UserRepository;
-
-import java.sql.Timestamp;
+import site.LatteIs.latteIs.web.domain.*;
 
 @Controller // View 반환
 public class IndexController {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Autowired
     private InterestRepository interestRepository;
+    @Autowired
+    private BoardRepository boardRepository;
+    @Autowired
+    private PostRepository postRepository;
 
     @GetMapping("/") // "Localhost:8080"
     public String index(Model model, @LoginUser SessionUser user) {
@@ -121,7 +117,27 @@ public class IndexController {
         return "createNickname";
     }
 
+    @GetMapping("/board")
+    public String board(Model model, @LoginUser SessionUser user){
+        if(user != null){
+            System.out.println("접속 아이디 : " + user.getUsername());
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("board", boardRepository.findAll());
+        }
+        return "board";
+    }
 
+    @GetMapping("/board/{id}")
+    public String postList(@PathVariable Long id, Model model, @LoginUser SessionUser user){
+        if(user != null){
+            System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("받은 id : " + id);
+            model.addAttribute("username", user.getUsername());
+            int board_id = id.intValue();
+            model.addAttribute("post", postRepository.findAllByBoardId(board_id));
+        }
+        return "postList1";
+    }
 
     @GetMapping("/chat")
     public String chat(Model model, @LoginUser SessionUser user){
