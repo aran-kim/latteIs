@@ -1,5 +1,6 @@
 package site.LatteIs.latteIs.web;
 
+import lombok.extern.log4j.Log4j2;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +17,7 @@ import site.LatteIs.latteIs.web.domain.User;
 import site.LatteIs.latteIs.web.domain.UserRepository;
 
 @Controller // View 반환
+@Log4j2
 public class IndexController {
 
     @Autowired
@@ -86,12 +88,5 @@ public class IndexController {
         return "redirect:/";
     }
 
-    @GetMapping("/chat")
-    public String chat(Model model, @LoginUser SessionUser user){
-        if(user != null){
-            System.out.println("접속 아이디 : " + user.getUsername());
-            model.addAttribute("username", user.getUsername());
-        }
-        return "chat";
-    }
+
 }

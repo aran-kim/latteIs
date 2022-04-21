@@ -1,66 +1,110 @@
 {{>layout/header}}
 
 <nav class="codrops-demos">
-    <a href="index.html">Effect 1</a>
-    <a href="index2.html">Effect 2</a>
-    <a class="current-demo" href="index3.html">Effect 3</a>
-    <a href="index4.html">Effect 4</a>
-    <a href="index5.html">Effect 5</a>
-    <a href="index6.html">Effect 6</a>
-    <a href="index7.html">Effect 7</a>
+    <a  href="#">Home</a>
+    <a class="current-demo" href="#">Chatting</a>
+    <a href="#">Search</a>
+    <a href="#">Board</a>
+    <a href="#">Info</a>
+    <a href="#">미사용</a>
+    <a href="index7.html">미사용</a>
 </nav>
 </header>
 
-<div>
-    <!-- Top content -->
-    <div class="top-content">
+<form>
+    <h2>{{chatroom.roomname}}</h2>
+    <!-- 송신 메시지 작성하는 창 -->
+    <input id="textMessage" class="textMessage" type="text">
 
-        <div class="inner-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="form-box">
-                        <div class="form-top">
-                            <div class="form-top-left">
-                                <h1><strong>Talk</strong></h1>
-                                <p>Choose rooms that you chatted before</p>
-                            </div>
-                            <div class="form-top-right">
-                                <i class="fa fa-key"></i>
-                            </div>
-                        </div>
-                        <div class="form-bottom">
-                            <form action="/joinProc" method="post" class="login-form">
-                                <div class="form-group">
-                                    <label class="sr-only" for="form-username">Username</label>
-                                    <input type="text" name="username" placeholder="id..."
-                                           class="form-username form-control" id="form-username">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="form-password">Password</label>
-                                    <input type="password" name="password" placeholder="Password..."
-                                           class="form-password form-control" id="form-password">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="form-email">Email</label>
-                                    <input type="email" name="email" placeholder="email..."
-                                           class="form-email form-control" id="form-email">
-                                </div>
-                                <button type="submit" class="btn">Sign up!</button>
-                            </form>
-                        </div>
-                    </div>
+    <!-- 송신 버튼 -->
+    <input onclick="sendMessage()" value="Send" type="button">
 
-                </div>
+    <!-- 종료 버튼 -->
+    <input onclick="disconnect()" value="Disconnect" type="button">
 
-            </div>
-        </div>
+</form>
 
-    </div>
+<br />
 
-    <!-- Footer -->
-    <footer>
+<!-- 결과 메시지 보여주는 창 -->
 
-    </footer>
-</div>
+<textarea id="messageTextArea" rows="10000" cols="50"></textarea>
+
+<script type="text/javascript">
+
+    const webSocket = new WebSocket("ws://"+location.host+"/ws/chat?id="+{{chatroom.id}});
+
+    var messageTextArea = document.getElementById("messageTextArea");
+
+    //웹 소켓이 연결되었을 때 호출되는 이벤트
+
+    webSocket.onopen = function(message){
+
+        var option = {
+            messagetype : "ENTER",
+            roomId : {{chatroom.id}},
+            sender : "{{username}}",
+            msg : ' '
+        }
+        webSocket.send(JSON.stringify(option));
+    };
+
+    //웹 소켓이 닫혔을 때 호출되는 이벤트
+
+    webSocket.onclose = function(message){
+    };
+
+    //웹 소켓이 에러가 났을 때 호출되는 이벤트
+
+    webSocket.onerror = function(ev,message){
+        alert(ev.data);
+        messageTextArea.value += ev.data+"error...\n";
+    };
+
+    //웹 소켓에서 메시지가 날라왔을 때 호출되는 이벤트
+
+    webSocket.onmessage = function(data) {
+        var msg = data.data;
+        var d = JSON.parse(msg);
+        if (d.messagetype == "ENTER") {
+            messageTextArea.value += d.sender + "가 채팅방을 들어왔습니다.. \n";
+        } else if (d.messagetype == "TALK") {
+            if (d.sender == "{{username}}") {
+                messageTextArea.value += "나 : " + d.msg + "\n";
+            } else {
+                messageTextArea.value += d.sender + ": " + d.msg + "\n";
+            }
+        } else if (d.messagetype == "EXIT") {
+            messageTextArea.value += d.sender + "가 채팅방을 나갔습니다. \n";
+        }
+    };
+
+    //Send 버튼을 누르면 실행되는 함수
+    function sendMessage(){
+        var message = document.getElementById("textMessage");
+        var option = {
+            messagetype : "TALK",
+            roomId : {{chatroom.id}},
+            sender : "{{username}}",
+            msg : $("#textMessage").val()
+        }
+        webSocket.send(JSON.stringify(option));
+        message.value = "";
+    }
+
+    //웹소켓 종료
+    function disconnect(){
+        var option = {
+            messagetype : "EXIT",
+            roomId : {{chatroom.id}},
+            sender : "{{username}}",
+            msg : ' '
+        }
+        webSocket.send(JSON.stringify(option));
+        webSocket.close();
+    }
+
+</script>
+
 
 {{>layout/footer}}
