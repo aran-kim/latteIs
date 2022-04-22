@@ -22,6 +22,8 @@ public class ChatController {
 
     @Autowired
     private ChatRoomRepository chatRoomRepository;
+    @Autowired
+    private ChatMessageRepository chatMessageRepository;
 
     @GetMapping("/mychatroom")
     public String mychatroom(Model model, @LoginUser SessionUser user){
@@ -39,15 +41,16 @@ public class ChatController {
         chatroom.setRoomname(chatroom.getRoomname());
         chatroom.setMasterusername(user.getUsername());
 
-        chatRoomRepository.save(chatroom); // 회원가입
+        chatRoomRepository.save(chatroom); // 방 만들기
         return "redirect:/mychatroom";
     }
 
     @GetMapping("/chat")
-    public String chat(Model model,@RequestParam(value="id")long id, @LoginUser SessionUser user){
+    public String chat(Model model,@RequestParam(value="id")int room_id, @LoginUser SessionUser user){
         if(user != null){
             model.addAttribute("username", user.getUsername());
-            model.addAttribute("chatroom",chatRoomRepository.findById(id));
+            model.addAttribute("chatroom",chatRoomRepository.findById(room_id));
+            model.addAttribute("allMessage", chatMessageRepository.findAllByRoomId(room_id));
         }
         return "chat";
     }
