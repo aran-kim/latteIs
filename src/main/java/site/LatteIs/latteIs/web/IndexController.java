@@ -188,12 +188,4 @@ public class IndexController {
         return "postDetail";
     }
 
-    @GetMapping("/chat")
-    public String chat(Model model, @LoginUser SessionUser user){
-        if(user != null){
-            System.out.println("접속 아이디 : " + user.getUsername());
-            model.addAttribute("username", user.getUsername());
-        }
-        return "chat";
-    }
 }
