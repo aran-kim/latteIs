@@ -30,6 +30,7 @@
 
 <textarea id="messageTextArea" rows="10000" cols="50"></textarea>
 
+
 <script type="text/javascript">
 
     const webSocket = new WebSocket("ws://"+location.host+"/ws/chat?id="+{{chatroom.id}});
@@ -44,7 +45,7 @@
             messagetype : "ENTER",
             roomId : {{chatroom.id}},
             sender : "{{username}}",
-            msg : ' '
+            msg : "{{username}}" +'가 채팅방을 들어왔습니다.'
         }
         webSocket.send(JSON.stringify(option));
     };
@@ -98,7 +99,7 @@
             messagetype : "EXIT",
             roomId : {{chatroom.id}},
             sender : "{{username}}",
-            msg : ' '
+            msg : "{{username}}" +'가 채팅방을 나갔습니다.'
         }
         webSocket.send(JSON.stringify(option));
         webSocket.close();

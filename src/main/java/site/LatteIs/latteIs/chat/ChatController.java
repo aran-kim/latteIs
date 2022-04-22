@@ -50,7 +50,7 @@ public class ChatController {
         if(user != null){
             model.addAttribute("username", user.getUsername());
             model.addAttribute("chatroom",chatRoomRepository.findById(room_id));
-            model.addAttribute("allMessage", chatMessageRepository.findAllByRoomId(room_id));
+            model.addAttribute("saveMessage", chatMessageRepository.findAllMessageByRoomId(room_id));
         }
         return "chat";
     }
