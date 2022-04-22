@@ -134,8 +134,8 @@ public class IndexController {
         return "board";
     }
 
-    @GetMapping("/board/{board_id}")
-    public String postList(@PathVariable Long board_id, Model model, @LoginUser SessionUser user){
+    @GetMapping("/post")
+    public String post(@RequestParam(value = "board_id") Long board_id, Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
             System.out.println("받은 board_id : " + board_id);
@@ -147,8 +147,8 @@ public class IndexController {
         return "post";
     }
 
-    @GetMapping("/board/{board_id}/post/save")
-    public String postSave(@PathVariable Long board_id, Model model, @LoginUser SessionUser user){
+    @GetMapping("/postSave")
+    public String postSave(@RequestParam(value = "board_id") Long board_id, Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
             System.out.println("받은 board_id : " + board_id);
@@ -160,8 +160,8 @@ public class IndexController {
         return "postSave";
     }
 
-    @PostMapping("/postSaveProc/{board_id}")
-    public String postSaveProc(@PathVariable Long board_id, Model model, @LoginUser SessionUser user, Post post){
+    @PostMapping("/postSaveProc")
+    public String postSaveProc(@RequestParam(value = "board_id") Long board_id, Model model, @LoginUser SessionUser user, Post post){
         User user1 = userRepository.findByUsername(user.getUsername());
         Board board = boardRepository.findById(board_id.intValue());
         post.setBoard(board);
@@ -169,11 +169,11 @@ public class IndexController {
         System.out.println("Post save 전 정보 : " + post);
         postRepository.save(post);
         System.out.println("Post save 후 정보 : " + post);
-        return "redirect:/board/" + board_id;
+        return "redirect:/post?board_id=" + board_id;
     }
 
-    @GetMapping("/board/{board_id}/post/{post_id}")
-    public String postDetail(@PathVariable Long board_id, @PathVariable Long post_id, Model model, @LoginUser SessionUser user, Post post){
+    @GetMapping("/postDetail")
+    public String postDetail(@RequestParam(value = "board_id") Long board_id, @RequestParam(value = "post_id") Long post_id, Model model, @LoginUser SessionUser user, Post post){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
             System.out.println("받은 board_id : " + board_id);

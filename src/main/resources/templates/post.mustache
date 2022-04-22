@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <div class="form-bottom">
-                            <a href="/board/{{board_id}}/post/save" role="button" class="btn-save">글 등록</a>
+                            <a onclick="location.href='postSave?board_id='+{{board_id}}">글 등록</a>
                             <table class="table-post-list">
                                 <thead class="thead-strong">
                                 <tr>
@@ -42,7 +42,7 @@
                                 {{#post}}
                                     <tr>
                                         <td>{{id}}</td>
-                                        <td><a href="/board/{{board_id}}/post/{{id}}">{{title}}</a></td>
+                                        <td><a onclick="location.href='postDetail?board_id='+{{board_id}}+'&post_id='+{{id}}">{{title}}</a></td>
                                         <td>{{username}}</td>
                                     </tr>
                                 {{/post}}
