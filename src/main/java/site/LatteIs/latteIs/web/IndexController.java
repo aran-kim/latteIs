@@ -7,7 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import site.LatteIs.latteIs.auth.*;
-import site.LatteIs.latteIs.web.domain.*;
+import site.LatteIs.latteIs.web.domain.entity.Board;
+import site.LatteIs.latteIs.web.domain.entity.Interest;
+import site.LatteIs.latteIs.web.domain.entity.Post;
+import site.LatteIs.latteIs.web.domain.entity.User;
+import site.LatteIs.latteIs.web.domain.repository.BoardRepository;
+import site.LatteIs.latteIs.web.domain.repository.InterestRepository;
+import site.LatteIs.latteIs.web.domain.repository.PostRepository;
+import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
 @Controller // View 반환
 public class IndexController {
@@ -127,42 +134,58 @@ public class IndexController {
         return "board";
     }
 
-    @GetMapping("/board/{id}")
-    public String postList(@PathVariable Long id, Model model, @LoginUser SessionUser user){
+    @GetMapping("/board/{board_id}")
+    public String postList(@PathVariable Long board_id, Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
-            System.out.println("받은 board_id : " + id);
+            System.out.println("받은 board_id : " + board_id);
             model.addAttribute("username", user.getUsername());
-            model.addAttribute("board_id", id);
-            int check_id = id.intValue();
+            model.addAttribute("board_id", board_id);
+            int check_id = board_id.intValue();
             model.addAttribute("post", postRepository.findAllByBoardId(check_id));
         }
         return "post";
     }
 
-    @GetMapping("/board/{id}/post/save")
-    public String postSave(@PathVariable Long id, Model model, @LoginUser SessionUser user){
+    @GetMapping("/board/{board_id}/post/save")
+    public String postSave(@PathVariable Long board_id, Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
-            System.out.println("받은 board_id : " + id);
+            System.out.println("받은 board_id : " + board_id);
             model.addAttribute("username", user.getUsername());
-            model.addAttribute("board_id", id);
-            int check_id = id.intValue();
+            model.addAttribute("board_id", board_id);
+            int check_id = board_id.intValue();
             model.addAttribute("post", postRepository.findAllByBoardId(check_id));
         }
         return "postSave";
     }
 
-    @PostMapping("/postSaveProc/{id}")
-    public String postSaveProc(@PathVariable Long id, Model model, @LoginUser SessionUser user, Post post){
+    @PostMapping("/postSaveProc/{board_id}")
+    public String postSaveProc(@PathVariable Long board_id, Model model, @LoginUser SessionUser user, Post post){
         User user1 = userRepository.findByUsername(user.getUsername());
-        Board board = boardRepository.findById(id.intValue());
+        Board board = boardRepository.findById(board_id.intValue());
         post.setBoard(board);
         post.setUser(user1);
         System.out.println("Post save 전 정보 : " + post);
         postRepository.save(post);
         System.out.println("Post save 후 정보 : " + post);
-        return "redirect:/board/" + id;
+        return "redirect:/board/" + board_id;
+    }
+
+    @GetMapping("/board/{board_id}/post/{post_id}")
+    public String postDetail(@PathVariable Long board_id, @PathVariable Long post_id, Model model, @LoginUser SessionUser user, Post post){
+        if(user != null){
+            System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("받은 board_id : " + board_id);
+            System.out.println("받은 post_id : " + post_id);
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("board_id", board_id);
+            post = postRepository.findById(post_id.intValue());
+            model.addAttribute("post", post);
+            int writerId = post.getUser().getId();
+            model.addAttribute("writername", userRepository.findById(writerId).getUsername());
+        }
+        return "postDetail";
     }
 
     @GetMapping("/chat")

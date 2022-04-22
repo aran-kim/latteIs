@@ -3,13 +3,28 @@ package site.LatteIs.latteIs;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import site.LatteIs.latteIs.web.domain.entity.Follower;
+import site.LatteIs.latteIs.web.domain.entity.Post;
+import site.LatteIs.latteIs.web.domain.repository.*;
 
 import java.util.HashMap;
 import java.util.Random;
 
 @SpringBootTest
 class LatteIsApplicationTests {
+
+	@Autowired
+	PostRepository postRepository;
+	@Autowired
+	UserRepository userRepository;
+	@Autowired
+	FollowerRepository followerRepository;
+	@Autowired
+	FollowingRepository followingRepository;
+	@Autowired
+	BlacklistRepository blacklistRepository;
 
 	@Test
 	void contextLoads() throws CoolsmsException {
@@ -33,7 +48,29 @@ class LatteIsApplicationTests {
 		params.put("text", "라때는... 휴대폰인증 테스트 : 인증번호는" + "["+numStr+"]" + "입니다."); // 문자 내용
 
 		coolsms.send(params);
-
 	}
 
+	@Test
+	public void querytest(){
+		Post post1 = postRepository.findById(1);
+		System.out.println("findByID: " + post1);
+/*		Post post2 = postRepository.testQuery(1);
+		System.out.println("testQuery: " + post2);
+		User user2 = post2.getUser();
+		int user2id = user2.getId();
+		Post post = postRepository.findUsername(32);
+		System.out.println("findUsername: " + post);
+		User user = userRepository.findById(user2id);
+		System.out.println("user : " + user);*/
+	}
+
+	@Test
+	public void ffbtest(){
+		int user_id = 6;
+		Follower follower = followerRepository.findByUserId(user_id);
+		System.out.println(follower);
+		System.out.println(followerRepository.countFollowerByUserId(user_id));
+
+
+	}
 }

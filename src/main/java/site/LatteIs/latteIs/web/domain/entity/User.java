@@ -1,4 +1,4 @@
-package site.LatteIs.latteIs.web.domain;
+package site.LatteIs.latteIs.web.domain.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

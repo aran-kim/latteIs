@@ -1,10 +1,9 @@
 package site.LatteIs.latteIs.auth;
 
 import lombok.Getter;
-import site.LatteIs.latteIs.web.domain.User;
+import site.LatteIs.latteIs.web.domain.entity.User;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 @Getter
 public class SessionUser implements Serializable {
