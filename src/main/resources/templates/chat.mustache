@@ -44,7 +44,7 @@
             messagetype : "ENTER",
             roomId : {{chatroom.id}},
             sender : "{{username}}",
-            msg : ' '
+            msg : "{{username}}" +'가 채팅방을 들어왔습니다.'
         }
         webSocket.send(JSON.stringify(option));
     };
@@ -98,7 +98,7 @@
             messagetype : "EXIT",
             roomId : {{chatroom.id}},
             sender : "{{username}}",
-            msg : ' '
+            msg : "{{username}}" +'가 채팅방을 나갔습니다.'
         }
         webSocket.send(JSON.stringify(option));
         webSocket.close();
