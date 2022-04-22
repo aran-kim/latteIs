@@ -16,6 +16,8 @@ import site.LatteIs.latteIs.web.domain.repository.InterestRepository;
 import site.LatteIs.latteIs.web.domain.repository.PostRepository;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
+import java.util.List;
+
 @Controller // View 반환
 public class IndexController {
 
@@ -35,8 +37,9 @@ public class IndexController {
 
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
-            model.addAttribute("init", user.getInit());
+            model.addAttribute("nickName", user.getNickName());
         }
         return "index"; //src/main/resources/templates/index.mustache
     }
@@ -98,8 +101,9 @@ public class IndexController {
     public String question(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
-            model.addAttribute("init", user.getInit());
+            System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
+            model.addAttribute("nickName", user.getNickName());
         }
         return "question";
     }
@@ -114,21 +118,14 @@ public class IndexController {
         return "redirect:/";
     }
 
-    @GetMapping("/createNickname")
-    public String createNickname(User user){
-        return "createNickname";
-    }
-
-    @PostMapping("/createNicknameProc")
-    public String createNicknameProc(User user){
-        return "createNickname";
-    }
-
     @GetMapping("/board")
     public String board(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
+            model.addAttribute("nickName", user.getNickName());
+
             model.addAttribute("board", boardRepository.findAll());
         }
         return "board";
@@ -137,12 +134,21 @@ public class IndexController {
     @GetMapping("/post")
     public String post(@RequestParam(value = "board_id") Long board_id, Model model, @LoginUser SessionUser user){
         if(user != null){
+
             System.out.println("접속 아이디 : " + user.getUsername());
-            System.out.println("받은 board_id : " + board_id);
+            System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
+            model.addAttribute("nickName", user.getNickName());
+
+            System.out.println("받은 board_id : " + board_id);
             model.addAttribute("board_id", board_id);
+
             int check_id = board_id.intValue();
-            model.addAttribute("post", postRepository.findAllByBoardId(check_id));
+            //List<Post> post = postRepository.findPostNickNameByBoardId(check_id);
+            List<Post> post = postRepository.findAllByBoardId(check_id);
+            System.out.println("findPostNickName Test : " + post);
+            model.addAttribute("post", post);
+
         }
         return "post";
     }
@@ -150,9 +156,13 @@ public class IndexController {
     @GetMapping("/postSave")
     public String postSave(@RequestParam(value = "board_id") Long board_id, Model model, @LoginUser SessionUser user){
         if(user != null){
+
             System.out.println("접속 아이디 : " + user.getUsername());
-            System.out.println("받은 board_id : " + board_id);
+            System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
+            model.addAttribute("nickName", user.getNickName());
+
+            System.out.println("받은 board_id : " + board_id);
             model.addAttribute("board_id", board_id);
             int check_id = board_id.intValue();
             model.addAttribute("post", postRepository.findAllByBoardId(check_id));
@@ -175,10 +185,14 @@ public class IndexController {
     @GetMapping("/postDetail")
     public String postDetail(@RequestParam(value = "board_id") Long board_id, @RequestParam(value = "post_id") Long post_id, Model model, @LoginUser SessionUser user, Post post){
         if(user != null){
+
             System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("접속 닉네임 : " + user.getNickName());
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("nickName", user.getNickName());
+
             System.out.println("받은 board_id : " + board_id);
             System.out.println("받은 post_id : " + post_id);
-            model.addAttribute("username", user.getUsername());
             model.addAttribute("board_id", board_id);
             post = postRepository.findById(post_id.intValue());
             model.addAttribute("post", post);

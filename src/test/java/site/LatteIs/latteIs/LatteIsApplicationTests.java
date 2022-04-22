@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import site.LatteIs.latteIs.web.domain.entity.Follower;
 import site.LatteIs.latteIs.web.domain.entity.Post;
+import site.LatteIs.latteIs.web.domain.entity.User;
 import site.LatteIs.latteIs.web.domain.repository.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 @SpringBootTest
@@ -65,12 +67,8 @@ class LatteIsApplicationTests {
 	}
 
 	@Test
-	public void ffbtest(){
-		int user_id = 6;
-		Follower follower = followerRepository.findByUserId(user_id);
-		System.out.println(follower);
-		System.out.println(followerRepository.countFollowerByUserId(user_id));
-
-
+	public void postTest(){
+		List<Post> posts = postRepository.findAllByBoardId(1);
+		System.out.println("posts : "+posts);
 	}
 }

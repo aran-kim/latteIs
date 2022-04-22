@@ -52,13 +52,13 @@
     <!-- Top Navigation -->
     <div class="codrops-top clearfix">
         <a class="codrops-icon codrops-icon-prev" href="/.."><span>이전</span></a>
-        {{#username}}
-            세션 확인용 : {{username}}
+        {{#nickName}}
+            세션 확인용 : {{nickName}}
             <span class="right"><a class="codrops-icon codrops-icon-drop" href="/logout"><span>Log Out</span></a></span>
-        {{/username}}
-        {{^username}}
+        {{/nickName}}
+        {{^nickName}}
             <span class="right"><a class="codrops-icon codrops-icon-drop" href="/loginForm"><span>Log In</span></a></span>
-        {{/username}}
+        {{/nickName}}
     </div>
     <header>
         <img src="images/icon.png" height="130px">
