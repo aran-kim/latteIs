@@ -1,0 +1,70 @@
+{{>layout/header}}
+
+<nav class="codrops-demos">
+    <a href="index.html">Effect 1</a>
+    <a href="index2.html">Effect 2</a>
+    <a class="current-demo" href="index3.html">Effect 3</a>
+    <a href="index4.html">Effect 4</a>
+    <a href="index5.html">Effect 5</a>
+    <a href="index6.html">Effect 6</a>
+    <a href="index7.html">Effect 7</a>
+</nav>
+</header>
+
+<div>
+    <!-- Top content -->
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h1><strong>Post</strong></h1>
+                                <p>Read Post Content</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <table class="table-post">
+                                <thead class="thead-strong">
+                                <tr>
+                                    <th>게시글 번호</th>
+                                    <th>제목</th>
+                                    <th>작성자</th>
+                                    <th>내용</th>
+                                    <th>최종 수정일</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tbody">
+                                {{#post}}
+                                    <tr>
+                                        <td>{{id}}</td>
+                                        <td>{{title}}</td>
+                                        <td>{{writername}}</td>
+                                        <td>{{content}}</td>
+                                        <td>{{createDate}}</td>
+                                    </tr>
+                                {{/post}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+
+    </footer>
+</div>
+
+{{>layout/footer}}

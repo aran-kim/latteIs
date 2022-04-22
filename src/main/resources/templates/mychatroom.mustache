@@ -1,0 +1,69 @@
+{{>layout/header}}
+
+<nav class="codrops-demos">
+    <a  href="#">Home</a>
+    <a class="current-demo" href="#">Chatting</a>
+    <a href="#">Search</a>
+    <a href="#">Board</a>
+    <a href="#">Info</a>
+    <a href="#">미사용</a>
+    <a href="">미사용</a>
+</nav>
+</header>
+
+<div class="container" id="app" v-cloak>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>채팅방 리스트</h3>
+            <a href="#pop_info_1" class="btn-open">채팅방 만들기</a>
+            <div id="pop_info_1" class="pop_wrap" style="display:none;">
+                <div class="pop_inner">
+                    <p class="dsc">채팅창 만들기</p>
+                    <form action="/createChatRoom" method="post" class="room-form">
+                        <div class="form-group">
+                            <label class="sr-only" for="form-roomname">Room Name</label>
+                            <input type="text" name="roomname" placeholder="room..."
+                                   class="form-username form-control" id="form-username">
+                        </div>
+                        <button type="submit" class="btn">방 만들기</button>
+                    </form>
+
+                    <button type="button" class="btn_close">닫기</button>
+                </div>
+            </div>
+
+        </div>
+        {{#chatroom}}
+            <tr>
+                <td>{{roomname}}</td>
+                <button type="btn" onclick="location.href='chat?id='+{{id}}">입장</button>
+            </tr>
+            <br>
+        {{/chatroom}}
+
+    </div>
+</div>
+<script>
+    var target = document.querySelectorAll('.btn-open');
+    var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
+    var targetID;
+
+    // 팝업 열기
+    for(var i = 0; i < target.length; i++){
+        target[i].addEventListener('click', function(){
+            targetID = this.getAttribute('href');
+            document.querySelector(targetID).style.display = 'block';
+        });
+    }
+
+    // 팝업 닫기
+    for(var j = 0; j < target.length; j++){
+        btnPopClose[j].addEventListener('click', function(){
+            this.parentNode.parentNode.style.display = 'none';
+        });
+    }
+
+</script>
+
+
+{{>layout/footer}}

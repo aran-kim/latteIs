@@ -1,6 +1,7 @@
-package site.LatteIs.latteIs.web.domain;
+package site.LatteIs.latteIs.web.domain.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import site.LatteIs.latteIs.web.domain.entity.User;
 
 import java.util.Optional;
 
@@ -11,6 +12,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // findBy규칙: Username문법
     // SELECT * FROM user WHERE username = ?1
     User findByUsername(String username);
+
+    // select * from user where id = ?
+    User findById(int id);
 
     // SELECT * FROM user WHERE provider = ?1 and providerId = ?2
     Optional<User> findByProviderAndProviderId(String provider, String providerId);
