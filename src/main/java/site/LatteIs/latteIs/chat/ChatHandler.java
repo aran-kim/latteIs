@@ -10,12 +10,10 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import site.LatteIs.latteIs.web.domain.User;
-import site.LatteIs.latteIs.web.domain.UserRepository;
+import site.LatteIs.latteIs.web.domain.entity.User;
+import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
-import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

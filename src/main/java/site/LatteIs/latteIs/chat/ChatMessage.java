@@ -2,7 +2,7 @@ package site.LatteIs.latteIs.chat;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import site.LatteIs.latteIs.web.domain.User;
+import site.LatteIs.latteIs.web.domain.entity.User;
 
 import javax.persistence.*;
 import java.io.Serializable;

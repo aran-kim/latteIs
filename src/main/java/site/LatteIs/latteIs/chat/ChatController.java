@@ -1,6 +1,6 @@
 package site.LatteIs.latteIs.chat;
 
-import lombok.RequiredArgsConstructor;
+
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,12 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import site.LatteIs.latteIs.auth.LoginUser;
 import site.LatteIs.latteIs.auth.SessionUser;
-import site.LatteIs.latteIs.web.domain.User;
-import site.LatteIs.latteIs.web.domain.UserRepository;
 
-import javax.servlet.http.HttpServletRequest;
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller // View 반환

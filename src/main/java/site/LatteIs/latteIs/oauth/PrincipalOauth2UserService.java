@@ -10,8 +10,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import site.LatteIs.latteIs.auth.PrincipalDetails;
 import site.LatteIs.latteIs.auth.SessionUser;
-import site.LatteIs.latteIs.web.domain.User;
-import site.LatteIs.latteIs.web.domain.UserRepository;
+import site.LatteIs.latteIs.web.domain.entity.User;
+import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 import site.LatteIs.latteIs.oauth.provider.FacebookUserInfo;
 import site.LatteIs.latteIs.oauth.provider.GoogleUserInfo;
 import site.LatteIs.latteIs.oauth.provider.OAuth2UserInfo;
@@ -90,7 +90,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             userRepository.save(user);
             httpSession.setAttribute("user", new SessionUser(user)); // 로그인정보 세션에 저장
         }
-
         return new PrincipalDetails(user, oAuth2User.getAttributes());
     }
 

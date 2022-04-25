@@ -1,0 +1,60 @@
+{{>layout/header}}
+
+<nav class="codrops-demos">
+    <a href="index.html">Effect 1</a>
+    <a href="index2.html">Effect 2</a>
+    <a class="current-demo" href="index3.html">Effect 3</a>
+    <a href="index4.html">Effect 4</a>
+    <a href="index5.html">Effect 5</a>
+    <a href="index6.html">Effect 6</a>
+    <a href="index7.html">Effect 7</a>
+</nav>
+</header>
+
+<div>
+    <!-- Top content -->
+    <div class="top-content">
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h1><strong>PostSave</strong></h1>
+                                <p>Create Post</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <form action="/postSaveProc?board_id={{board_id}}" method="post" class="save-form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-title">Title</label>
+                                    <input type="text" name="title" id="title" placeholder="title..."
+                                           class="form-title form-control" id="form-title">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-content">Content</label>
+                                    <input type="text" name="content" id="content" placeholder="content..."
+                                           class="form-content form-control" id="form-content">
+                                </div>
+                                <button type="submit" id="btn-save">등록</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+
+    </footer>
+</div>
+
+{{>layout/footer}}
