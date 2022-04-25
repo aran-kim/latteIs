@@ -5,9 +5,7 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import site.LatteIs.latteIs.web.domain.entity.Follower;
-import site.LatteIs.latteIs.web.domain.entity.Post;
-import site.LatteIs.latteIs.web.domain.entity.User;
+import site.LatteIs.latteIs.web.domain.entity.*;
 import site.LatteIs.latteIs.web.domain.repository.*;
 
 import java.util.HashMap;
@@ -27,6 +25,10 @@ class LatteIsApplicationTests {
 	FollowingRepository followingRepository;
 	@Autowired
 	BlacklistRepository blacklistRepository;
+	@Autowired
+	InterestRepository interestRepository;
+	@Autowired
+	MBTIRepository mbtiRepository;
 
 	@Test
 	void contextLoads() throws CoolsmsException {
@@ -68,7 +70,67 @@ class LatteIsApplicationTests {
 
 	@Test
 	public void postTest(){
-		List<Post> posts = postRepository.findAllByBoardId(1);
-		System.out.println("posts : "+posts);
+		User userinfo = userRepository.findByUsername("test11");
+		MBTI mbti = mbtiRepository.findByUserId(userinfo.getId());
+		System.out.println(userinfo);
+		System.out.println(mbti);
+
+		int E_J = 0, N_S = 0, T_F = 0, J_P = 0;
+
+
+		String userMBTI = mbti.getMbti();
+		System.out.println("사용자의 MBTI : " + userMBTI);
+		String good, good2;
+		if(userMBTI.equals("ENFJ") || userMBTI.equals("INTJ")){
+			if(userMBTI.equals("ENFJ"))
+				good = "INTJ";
+			else
+				good = "ENFJ";
+		}
+		else if(userMBTI.equals("ENTJ") || userMBTI.equals("INFJ")){
+			if(userMBTI.equals("ENTJ"))
+				good = "INFJ";
+			else
+				good = "ENTJ";
+		}
+		else if(userMBTI.equals("ESTJ") || userMBTI.equals("ISFJ")){
+			if(userMBTI.equals("ESTJ"))
+				good = "ISFJ";
+			else
+				good = "ESTJ";
+		}
+		else if(userMBTI.equals("ESFJ") || userMBTI.equals("ISTJ")){
+			if(userMBTI.equals("ESFJ"))
+				good = "ISTJ";
+			else
+				good = "ESFJ";
+		}
+		else if(userMBTI.equals("ENFP") || userMBTI.equals("ISFP")){
+			if(userMBTI.equals("ENFP"))
+				good = "ISFP";
+			else
+				good = "ENFP";
+		}
+		else if(userMBTI.equals("ENTP") || userMBTI.equals("ISTP")){
+			if(userMBTI.equals("ENTP"))
+				good = "ISTP";
+			else
+				good = "ENTP";
+		}
+		else if(userMBTI.equals("ESTP") || userMBTI.equals("INTP")){
+			if(userMBTI.equals("ESTP"))
+				good = "INTP";
+			else
+				good = "ESTP";
+		}
+		else if(userMBTI.equals("ESFP") || userMBTI.equals("INFP")){
+			if(userMBTI.equals("ESFP"))
+				good = "INFP";
+			else
+				good = "ESFP";
+		}
+		else
+			good = null;
+		System.out.println("good : " + good);
 	}
 }

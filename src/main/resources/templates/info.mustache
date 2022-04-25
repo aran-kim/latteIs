@@ -1,0 +1,73 @@
+{{>layout/header}}
+
+<nav class="codrops-demos">
+    <a href="index.html">Effect 1</a>
+    <a href="index2.html">Effect 2</a>
+    <a class="current-demo" href="index3.html">Effect 3</a>
+    <a href="index4.html">Effect 4</a>
+    <a href="index5.html">Effect 5</a>
+    <a href="index6.html">Effect 6</a>
+    <a href="index7.html">Effect 7</a>
+</nav>
+</header>
+
+<div>
+    <!-- Top content -->
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h1><strong>Info</strong></h1>
+                                <p>Check your infomation</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            {{#userinfo}}
+                                <ul>내 정보
+                                    <li>유저 아이디: {{username}}</li>
+                                    <li>닉네임: {{nickName}}</li>
+                                </ul>
+                                <ul>계정
+                                    <li><a href="/changePwd">비밀번호 변경</a></li>
+                                    <li><a href="/changeEmail">이메일 변경</a></li>
+                                </ul>
+                                <ul>커뮤니티
+                                    <li><a href="/changeNickName">닉네임 설정</a></li>
+                                    <li><a href="/changeInterest">관심사 확인/변경</a> </li>
+                                    <li>신고 내역 확인(블랙리스트 확인)</li>
+                                    <li>팔로워, 팔로잉 확인</li>
+                                    <li>커뮤니티 이용규칙</li>
+                                </ul>
+                                <ul>이용 안내
+                                    <li>문의하기</li>
+                                    <li>공지사항</li>
+                                </ul>
+                                <ul>기타
+                                    <li>정보 동의 설정</li>
+                                    <li>회원 탈퇴</li>
+                                </ul>
+                            {{/userinfo}}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+
+    </footer>
+</div>
+
+{{>layout/footer}}

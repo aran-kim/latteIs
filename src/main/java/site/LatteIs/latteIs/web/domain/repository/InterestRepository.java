@@ -5,6 +5,6 @@ import site.LatteIs.latteIs.web.domain.entity.Interest;
 
 public interface InterestRepository extends JpaRepository<Interest, Long> {
 
-    Interest findByUserId(Long user_id);
+    Interest findByUserId(int user_id);
 
 }

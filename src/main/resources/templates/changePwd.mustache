@@ -1,0 +1,66 @@
+{{>layout/header}}
+
+<nav class="codrops-demos">
+    <a href="index.html">Effect 1</a>
+    <a href="index2.html">Effect 2</a>
+    <a class="current-demo" href="index3.html">Effect 3</a>
+    <a href="index4.html">Effect 4</a>
+    <a href="index5.html">Effect 5</a>
+    <a href="index6.html">Effect 6</a>
+    <a href="index7.html">Effect 7</a>
+</nav>
+</header>
+
+<div>
+    <!-- Top content -->
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h1><strong>비밀번호 변경</strong></h1>
+                                <p>Check your password</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <form action="/changePwdProc" method="post" class="changePwd-form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-NewPassword">새 비밀번호</label>
+                                    <input type="password" name="NewPassword" placeholder="NewPassword..."
+                                           class="form-NewPassword form-control" id="form-NewPassword">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-NewPasswordCheck">새 비밀번호 확인</label>
+                                    <input type="password" name="NewPasswordCheck" placeholder="NewPasswordCheck..."
+                                           class="form-NewPasswordCheck form-control" id="form-NewPasswordCheck">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-BeforePassword">현재 비밀번호</label>
+                                    <input type="password" name="BeforePassword" placeholder="BeforePassword..."
+                                           class="form-BeforePassword form-control" id="form-BeforePassword">
+                                </div>
+                                <button type="submit" id="btn-changePwd">Change!</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+
+    </footer>
+</div>
+
+{{>layout/footer}}

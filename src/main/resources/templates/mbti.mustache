@@ -1,0 +1,110 @@
+{{>layout/header}}
+
+<nav class="codrops-demos">
+    <a href="index.html">Effect 1</a>
+    <a href="index2.html">Effect 2</a>
+    <a class="current-demo" href="index3.html">Effect 3</a>
+    <a href="index4.html">Effect 4</a>
+    <a href="index5.html">Effect 5</a>
+    <a href="index6.html">Effect 6</a>
+    <a href="index7.html">Effect 7</a>
+</nav>
+</header>
+
+<div>
+    <!-- Top content -->
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h1><strong>MBTI</strong></h1>
+                                <p>Enter your characters</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <form action="/mbtiProc" method="post" class="mbti-form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-Q1">취미 모임에 도착한 당신, 어떻게 대화를 시작하나요?</label>
+                                    <input type="radio" id="Q1" name="Q1" value="0">“…” 다른 사람이 말 걸기를 기다린다.
+                                    <input type="radio" id="Q1" name="Q1" value="1">“어제 그거 보셨어요?” 대화를 먼저 시작한다
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-Q2">주변 사람들은 나를 어떤 사람이라 생각할까요?</label>
+                                    <input type="radio" id="Q2" name="Q2" value="0">조용하고 내성적인 친구
+                                    <input type="radio" id="Q2" name="Q2" value="1">완전 인싸! 외향적인 친구
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-Q3">팀원들과 1시간째 회의 중… 이젠 이런 아이디어 좀 나와라!</label>
+                                    <input type="radio" id="Q3" name="Q3" value="0">당장 적용 가능한 실용적인 아이디어
+                                    <input type="radio" id="Q3" name="Q3" value="1">창의적이고 흥미로운 아이디어
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-Q4">2022년 목표를 세운 당신, 어떻게 달성해 나갈 거야?</label>
+                                    <input type="radio" id="Q4" name="Q4" value="0">작은 일로 시작하여 큰 그림을 그린다
+                                    <input type="radio" id="Q4" name="Q4" value="1">큰 그림을 생각하고 작은 일에 착수한다
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-Q5">읽기를 쓰려고 다이어리를 폈다. 기억을 떠올려볼 때…</label>
+                                    <input type="radio" id="Q5" name="Q5" value="0">오늘 일어난 일을 상세하게 기억한다
+                                    <input type="radio" id="Q5" name="Q5" value="1">일어난 사건의 맥락을 전반적으로 기억한다
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-Q6">평소 의사 결정을 할 때, 무엇을 더 따르는 편인가요?</label>
+                                    <input type="radio" id="Q6" name="Q6" value="0">머리로 분석하여 판단
+                                    <input type="radio" id="Q6" name="Q6" value="1">가슴이 시키는 대로…
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-Q7">친구가 어울리지 않는 옷을 사겠다 연락이 왔다면?</label>
+                                    <input type="radio" id="Q7" name="Q7" value="0">“음… 너와 어울리지 않아” 있는 그대로 팩트를 말한다
+                                    <input type="radio" id="Q7" name="Q7" value="1">“예쁜데 다른 디자인은 없어?” 갈등을 피하기 위해 돌려 말한다
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-Q8">스터디에서 만난 빌런 중 나는 이런 사람이 더 싫다!</label>
+                                    <input type="radio" id="Q8" name="Q8" value="0">모르면서 아는 척하는 사람
+                                    <input type="radio" id="Q8" name="Q8" value="1">무례하게 행동하며 분위기 흐리는 사람
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-Q9">갓생을 살기로 다짐한 당신. 앞으로의 목표를 세워보자!</label>
+                                    <input type="radio" id="Q9" name="Q9" value="0">1달 계획부터 1년 계획까지! 캘린더에 세심하게 정리한다
+                                    <input type="radio" id="Q9" name="Q9" value="1">인생은 모르는 것… 그때그때 흐름에 맡겨본다
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-Q10">스터디 공부를 하고 있는데, 친구가 나오라고 연락이 왔다면?</label>
+                                    <input type="radio" id="Q10" name="Q10" value="0">하려던 공부가 우선! 다 끝내고 나중에 논다
+                                    <input type="radio" id="Q10" name="Q10" value="1">잠깐 놀고, 공부하지 뭐! 공부와 놀이를 함께 한다
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-Q11">친구가 갑자기 내 집에 놀러 온다네? 지금 내 방 상태는…</label>
+                                    <input type="radio" id="Q11" name="Q11" value="0">반짝반짝 넘어질 뻔… 깔끔하게 정리되어 있다
+                                    <input type="radio" id="Q11" name="Q11" value="1">음. 다음에 와 물건이 널브러져 있고 지저분하다
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-Q12">바쁜 하루가 지나고 밤이 깊었네요. 내가 좋아하는 상황은?</label>
+                                    <input type="radio" id="Q12" name="Q12" value="0">“드디어 나만의 시간인가…” 혼자서 조용히 하루를 정리한다
+                                    <input type="radio" id="Q12" name="Q12" value="1">“야 지금 나오실?” 친구들과 스트레스 풀게 놀러 간다
+                                </div>
+                                <button type="submit" id="btn-MBTI">끝! </button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+
+    </footer>
+</div>
+
+{{>layout/footer}}
