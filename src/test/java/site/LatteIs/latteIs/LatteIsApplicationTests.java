@@ -5,16 +5,24 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import site.LatteIs.latteIs.chat.ChatMessage;
+import site.LatteIs.latteIs.chat.ChatMessageRepository;
+import site.LatteIs.latteIs.chat.ChatRoomRepository;
 import site.LatteIs.latteIs.web.domain.entity.Follower;
 import site.LatteIs.latteIs.web.domain.entity.Post;
 import site.LatteIs.latteIs.web.domain.repository.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 @SpringBootTest
 class LatteIsApplicationTests {
 
+	@Autowired
+	ChatMessageRepository chatMessageRepository;
+	@Autowired
+	ChatRoomRepository chatRoomRepository;
 	@Autowired
 	PostRepository postRepository;
 	@Autowired
@@ -65,6 +73,11 @@ class LatteIsApplicationTests {
 	}
 
 	@Test
+	public void 엔터체크(){
+	}
+
+
+/*	@Test
 	public void ffbtest(){
 		int user_id = 6;
 		Follower follower = followerRepository.findByUserId(user_id);
@@ -72,5 +85,5 @@ class LatteIsApplicationTests {
 		System.out.println(followerRepository.countFollowerByUserId(user_id));
 
 
-	}
+	}*/
 }

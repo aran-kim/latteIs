@@ -33,6 +33,15 @@
             </div>
 
         </div>
+        <h3>입장된 채팅방</h3>
+        {{#mychatroom}}
+            <tr>
+                <td>{{chatRoom.roomname}}</td>
+                <button type="btn" onclick="location.href='chat?id='+{{chatRoom.id}}">입장</button>
+            </tr>
+            <br>
+        {{/mychatroom}}
+        <h3>내가 만든 채팅방</h3>
         {{#chatroom}}
             <tr>
                 <td>{{roomname}}</td>
