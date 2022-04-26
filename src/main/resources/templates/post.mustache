@@ -1,13 +1,11 @@
 {{>layout/header}}
 
 <nav class="codrops-demos">
-    <a href="index.html">Effect 1</a>
-    <a href="index2.html">Effect 2</a>
-    <a class="current-demo" href="index3.html">Effect 3</a>
-    <a href="index4.html">Effect 4</a>
-    <a href="index5.html">Effect 5</a>
-    <a href="index6.html">Effect 6</a>
-    <a href="index7.html">Effect 7</a>
+    <a href="/">Home</a>
+    <a href="/mychatroom">Chatting</a>
+    <a href="/search">Search</a>
+    <a class="current-demo" href="/board">Board</a>
+    <a href="/info">Info</a>
 </nav>
 </header>
 
@@ -43,7 +41,7 @@
                                     <tr>
                                         <td>{{id}}</td>
                                         <td><a onclick="location.href='postDetail?board_id='+{{board_id}}+'&post_id='+{{id}}">{{title}}</a></td>
-                                        <td>{{username}}</td>
+                                        <td>{{user.nickName}}</td>
                                     </tr>
                                 {{/post}}
                                 </tbody>

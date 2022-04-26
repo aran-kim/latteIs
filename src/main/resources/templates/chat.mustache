@@ -24,33 +24,12 @@
 
 </form>
 
+<br />
+
 <!-- 결과 메시지 보여주는 창 -->
 
-<div id="msgArea" class="col">
+<textarea id="messageTextArea" rows="10000" cols="50"></textarea>
 
-{{#saveMessage}}
-    <br>
-        {{^me}}
-        <div class='col-6'>
-        <div class='alert alert-warning'>
-            <b><tr>
-                <td>나</td>
-                <td>:</td>
-                <td>{{message}}</td>
-            </tr></b>
-        </div></div>
-        {{/me}}
-        <div class='col-6'>
-        <div class='alert alert-secondary'>
-         <b><tr>
-                <td>{{User.username}}</td>
-                <td>:</td>
-                <td>{{message}}</td>
-         </tr></b>
-        </div></div>
-
-{{/saveMessage}}
-</div>
 <script type="text/javascript">
 
     const webSocket = new WebSocket("ws://"+location.host+"/ws/chat?id="+{{chatroom.id}});
@@ -65,7 +44,7 @@
             messagetype : "ENTER",
             roomId : {{chatroom.id}},
             sender : "{{username}}",
-            msg : '가 채팅방을 들어왔습니다.'
+            msg : "{{username}}" +'가 채팅방을 들어왔습니다.'
         }
         webSocket.send(JSON.stringify(option));
     };
@@ -88,34 +67,17 @@
         var msg = data.data;
         var d = JSON.parse(msg);
         if (d.messagetype == "ENTER") {
-            var str = "<div class='col-6'>";
-            str += "<div class='alert alert-secondary'>";
-            str += "<b>" + d.sender + "가 채팅방을 들어왔습니다." + "</b>";
-            str += "</div></div>";
-            $("#msgArea").append(str);
+            messageTextArea.value += d.sender + "가 채팅방을 들어왔습니다.. \n";
         } else if (d.messagetype == "TALK") {
             if (d.sender == "{{username}}") {
-                var str = "<div class='col-6'>";
-                str += "<div class='alert alert-secondary'>";
-                str += "<b>나 :" +d.msg + "</b>";
-                str += "</div></div>";
-                $("#msgArea").append(str);
-
+                messageTextArea.value += "나 : " + d.msg + "\n";
             } else {
-                var str = "<div class='col-6'>";
-                str += "<div class='alert alert-warning'>";
-                str += "<b>" + d.sender + " :" +d.msg + "</b>";
-                str += "</div></div>";
-                $("#msgArea").append(str);            }
+                messageTextArea.value += d.sender + ": " + d.msg + "\n";
+            }
         } else if (d.messagetype == "EXIT") {
-            var str = "<div class='col-6'>";
-            str += "<div class='alert alert-secondary'>";
-            str += "<b>" + d.sender + "가 채팅방을 나갔습니다." + "</b>";
-            str += "</div></div>";
-            $("#msgArea").append(str);        }
+            messageTextArea.value += d.sender + "가 채팅방을 나갔습니다. \n";
+        }
     };
-
-
 
     //Send 버튼을 누르면 실행되는 함수
     function sendMessage(){
@@ -136,11 +98,10 @@
             messagetype : "EXIT",
             roomId : {{chatroom.id}},
             sender : "{{username}}",
-            msg :'가 채팅방을 나갔습니다.'
+            msg : "{{username}}" +'가 채팅방을 나갔습니다.'
         }
         webSocket.send(JSON.stringify(option));
         webSocket.close();
-        location.href = "/exitchatroom?id="+"{{chatroom.id}}";
     }
 
 </script>

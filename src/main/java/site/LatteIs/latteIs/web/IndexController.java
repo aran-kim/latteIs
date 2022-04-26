@@ -7,14 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import site.LatteIs.latteIs.auth.*;
-import site.LatteIs.latteIs.web.domain.entity.Board;
-import site.LatteIs.latteIs.web.domain.entity.Interest;
-import site.LatteIs.latteIs.web.domain.entity.Post;
-import site.LatteIs.latteIs.web.domain.entity.User;
-import site.LatteIs.latteIs.web.domain.repository.BoardRepository;
-import site.LatteIs.latteIs.web.domain.repository.InterestRepository;
-import site.LatteIs.latteIs.web.domain.repository.PostRepository;
-import site.LatteIs.latteIs.web.domain.repository.UserRepository;
+import site.LatteIs.latteIs.web.domain.entity.*;
+import site.LatteIs.latteIs.web.domain.repository.*;
 
 @Controller // View 반환
 public class IndexController {
@@ -25,18 +19,15 @@ public class IndexController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private InterestRepository interestRepository;
-    @Autowired
-    private BoardRepository boardRepository;
-    @Autowired
-    private PostRepository postRepository;
 
     @GetMapping("/") // "Localhost:8080"
     public String index(Model model, @LoginUser SessionUser user) {
 
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
-            model.addAttribute("init", user.getInit());
+            model.addAttribute("nickName", user.getNickName());
         }
         return "index"; //src/main/resources/templates/index.mustache
     }
@@ -82,7 +73,7 @@ public class IndexController {
     }
 
     @PostMapping("/joinProc")
-    public String joinProc(User user, Model model){
+    public String joinProc(User user){
         System.out.println("회원가입 진행 전 : " + user);
         String rawPassword = user.getPassword();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
@@ -94,98 +85,30 @@ public class IndexController {
         return "redirect:/loginForm";
     }
 
-    @GetMapping("/question")
-    public String question(Model model, @LoginUser SessionUser user){
+    @GetMapping("/search")
+    public String search(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
-            model.addAttribute("init", user.getInit());
+            System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
+            model.addAttribute("nickName", user.getNickName());
         }
-        return "question";
+        return "search";
     }
 
-    @PostMapping("/questionProc")
-    public String questionProc(Model model, @LoginUser SessionUser user, Interest interest){
-        User user1 = userRepository.findByUsername(user.getUsername());
-        interest.setUser(user1);
-        System.out.println("Interest save 전 정보 : " + interest);
-        interestRepository.save(interest);
-        System.out.println("Interest save 후 정보 : " + interest);
-        return "redirect:/";
-    }
-
-    @GetMapping("/createNickname")
-    public String createNickname(User user){
-        return "createNickname";
-    }
-
-    @PostMapping("/createNicknameProc")
-    public String createNicknameProc(User user){
-        return "createNickname";
-    }
-
-    @GetMapping("/board")
-    public String board(Model model, @LoginUser SessionUser user){
+    @GetMapping("/search/friend")
+    public String friend(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
-            model.addAttribute("board", boardRepository.findAll());
-        }
-        return "board";
-    }
+            model.addAttribute("nickName", user.getNickName());
 
-    @GetMapping("/post")
-    public String post(@RequestParam(value = "board_id") Long board_id, Model model, @LoginUser SessionUser user){
-        if(user != null){
-            System.out.println("접속 아이디 : " + user.getUsername());
-            System.out.println("받은 board_id : " + board_id);
-            model.addAttribute("username", user.getUsername());
-            model.addAttribute("board_id", board_id);
-            int check_id = board_id.intValue();
-            model.addAttribute("post", postRepository.findAllByBoardId(check_id));
-        }
-        return "post";
-    }
+            User userinfo = userRepository.findByUsername(user.getUsername());
+            Interest userInterest = interestRepository.findByUserId(userinfo.getId());
 
-    @GetMapping("/postSave")
-    public String postSave(@RequestParam(value = "board_id") Long board_id, Model model, @LoginUser SessionUser user){
-        if(user != null){
-            System.out.println("접속 아이디 : " + user.getUsername());
-            System.out.println("받은 board_id : " + board_id);
-            model.addAttribute("username", user.getUsername());
-            model.addAttribute("board_id", board_id);
-            int check_id = board_id.intValue();
-            model.addAttribute("post", postRepository.findAllByBoardId(check_id));
         }
-        return "postSave";
-    }
-
-    @PostMapping("/postSaveProc")
-    public String postSaveProc(@RequestParam(value = "board_id") Long board_id, Model model, @LoginUser SessionUser user, Post post){
-        User user1 = userRepository.findByUsername(user.getUsername());
-        Board board = boardRepository.findById(board_id.intValue());
-        post.setBoard(board);
-        post.setUser(user1);
-        System.out.println("Post save 전 정보 : " + post);
-        postRepository.save(post);
-        System.out.println("Post save 후 정보 : " + post);
-        return "redirect:/post?board_id=" + board_id;
-    }
-
-    @GetMapping("/postDetail")
-    public String postDetail(@RequestParam(value = "board_id") Long board_id, @RequestParam(value = "post_id") Long post_id, Model model, @LoginUser SessionUser user, Post post){
-        if(user != null){
-            System.out.println("접속 아이디 : " + user.getUsername());
-            System.out.println("받은 board_id : " + board_id);
-            System.out.println("받은 post_id : " + post_id);
-            model.addAttribute("username", user.getUsername());
-            model.addAttribute("board_id", board_id);
-            post = postRepository.findById(post_id.intValue());
-            model.addAttribute("post", post);
-            int writerId = post.getUser().getId();
-            model.addAttribute("writername", userRepository.findById(writerId).getUsername());
-        }
-        return "postDetail";
+        return "friend";
     }
 
 }

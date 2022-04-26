@@ -13,20 +13,25 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Interest implements Serializable {
-
+public class MBTI implements Serializable {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String sex;
-    private String birthday;
-    private String university;
-    private String religion;
-    private String amount_of_alcohol;
-    private String smoking;
-    private String characteristic;
-    private String hobby;
-    private String friend_style;
+
+    private int Q1; // I/E
+    private int Q2; // I/E
+    private int Q3; // I/E
+    private int Q4; // S/N
+    private int Q5; // S/N
+    private int Q6; // S/N
+    private int Q7; // T/F
+    private int Q8; // T/F
+    private int Q9; // T/F
+    private int Q10; // J/P
+    private int Q11; // J/P
+    private int Q12; // J/P
+
+    private String mbti;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

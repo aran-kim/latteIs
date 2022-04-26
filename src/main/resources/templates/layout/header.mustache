@@ -39,12 +39,6 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-
-    <!-- header font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
-
 </head>
 <body>
 
@@ -52,13 +46,13 @@
     <!-- Top Navigation -->
     <div class="codrops-top clearfix">
         <a class="codrops-icon codrops-icon-prev" href="/.."><span>이전</span></a>
-        {{#username}}
-            세션 확인용 : {{username}}
+        {{#nickName}}
+            세션 확인용 : {{nickName}}
             <span class="right"><a class="codrops-icon codrops-icon-drop" href="/logout"><span>Log Out</span></a></span>
-        {{/username}}
-        {{^username}}
+        {{/nickName}}
+        {{^nickName}}
             <span class="right"><a class="codrops-icon codrops-icon-drop" href="/loginForm"><span>Log In</span></a></span>
-        {{/username}}
+        {{/nickName}}
     </div>
     <header>
         <img src="images/icon.png" height="130px">
