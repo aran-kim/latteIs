@@ -106,7 +106,6 @@ public class IndexController {
 
             User userinfo = userRepository.findByUsername(user.getUsername());
             Interest userInterest = interestRepository.findByUserId(userinfo.getId());
-            String userMBTI = userInterest.getMbti();
 
         }
         return "friend";

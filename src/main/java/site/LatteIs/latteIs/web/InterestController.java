@@ -24,27 +24,6 @@ public class InterestController {
     @Autowired
     MBTIRepository mbtiRepository;
 
-    @GetMapping("/question")
-    public String question(Model model, @LoginUser SessionUser user){
-        if(user != null){
-            System.out.println("접속 아이디 : " + user.getUsername());
-            System.out.println("접속 닉네임 : " + user.getNickName());
-            model.addAttribute("username", user.getUsername());
-            model.addAttribute("nickName", user.getNickName());
-        }
-        return "question";
-    }
-
-    @PostMapping("/questionProc")
-    public String questionProc(Model model, @LoginUser SessionUser user, Interest interest){
-        User user1 = userRepository.findByUsername(user.getUsername());
-        interest.setUser(user1);
-        System.out.println("Interest save 전 정보 : " + interest);
-        interestRepository.save(interest);
-        System.out.println("Interest save 후 정보 : " + interest);
-        return "redirect:/";
-    }
-
     @GetMapping("/mbti")
     public String mbti(Model model, @LoginUser SessionUser user){
         if(user != null){
@@ -82,4 +61,28 @@ public class InterestController {
         System.out.println("MBTI save 후 정보 : " + mbti);
         return "redirect:/";
     }
+
+    @GetMapping("/question")
+    public String question(Model model, @LoginUser SessionUser user){
+        if(user != null){
+            System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("접속 닉네임 : " + user.getNickName());
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("nickName", user.getNickName());
+        }
+        return "question";
+    }
+
+    @PostMapping("/questionProc")
+    public String questionProc(Model model, @LoginUser SessionUser user, Interest interest){
+        User user1 = userRepository.findByUsername(user.getUsername());
+        interest.setUser(user1);
+
+        System.out.println("Interest save 전 정보 : " + interest);
+        interestRepository.save(interest);
+        System.out.println("Interest save 후 정보 : " + interest);
+        return "redirect:/";
+    }
+
+
 }

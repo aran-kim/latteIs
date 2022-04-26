@@ -27,7 +27,6 @@ public class Interest implements Serializable {
     private String characteristic;
     private String hobby;
     private String friend_style;
-    private String mbti;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
