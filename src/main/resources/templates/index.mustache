@@ -17,12 +17,12 @@
                 <figcaption>
                     <h3>대화</h3>
                     <span>친구들과 하던 대화를 이어가요!</span>
-                    {{#username}}
+                    {{#nickName}}
                         <a href="/mychatroom" id="btn-index">Chatting</a>
-                    {{/username}}
-                    {{^username}}
+                    {{/nickName}}
+                    {{^nickName}}
                         <a href="/loginForm" id="btn-index">Login</a>
-                    {{/username}}
+                    {{/nickName}}
                 </figcaption>
             </figure>
         </li>
@@ -32,12 +32,12 @@
                 <figcaption>
                     <h3>방 찾기</h3>
                     <span>대화를 할 친구를 찾아요!</span>
-                    {{#username}}
+                    {{#nickName}}
                         <a href="/search">Search</a>
-                    {{/username}}
-                    {{^username}}
+                    {{/nickName}}
+                    {{^nickName}}
                         <a href="/loginForm">Login</a>
-                    {{/username}}
+                    {{/nickName}}
                 </figcaption>
             </figure>
         </li>
@@ -47,12 +47,12 @@
                 <figcaption>
                     <h3>게시판</h3>
                     <span>정보를 함께 나눠요!</span>
-                    {{#username}}
+                    {{#nickName}}
                         <a href="/board">Board</a>
-                    {{/username}}
-                    {{^username}}
+                    {{/nickName}}
+                    {{^nickName}}
                         <a href="/loginForm">Login</a>
-                    {{/username}}
+                    {{/nickName}}
                 </figcaption>
             </figure>
         </li>
@@ -62,12 +62,12 @@
                 <figcaption>
                     <h3>내 정보</h3>
                     <span>나의 정보를 확인해요!</span>
-                    {{#username}}
+                    {{#nickName}}
                         <a href="/info">Info</a>
-                    {{/username}}
-                    {{^username}}
+                    {{/nickName}}
+                    {{^nickName}}
                         <a href="/loginForm">Login</a>
-                    {{/username}}
+                    {{/nickName}}
                 </figcaption>
             </figure>
         </li>
