@@ -1,13 +1,11 @@
 {{>layout/header}}
 
 <nav class="codrops-demos">
-    <a  href="#">Home</a>
-    <a class="current-demo" href="#">Chatting</a>
-    <a href="#">Search</a>
-    <a href="#">Board</a>
-    <a href="#">Info</a>
-    <a href="#">미사용</a>
-    <a href="">미사용</a>
+    <a href="/">Home</a>
+    <a class="current-demo" href="/mychatroom">Chatting</a>
+    <a href="/search">Search</a>
+    <a href="/board">Board</a>
+    <a href="/info">Info</a>
 </nav>
 </header>
 
@@ -31,8 +29,16 @@
                     <button type="button" class="btn_close">닫기</button>
                 </div>
             </div>
-
         </div>
+        <h3>입장된 채팅방</h3>
+        {{#mychatroom}}
+            <tr>
+                <td>{{chatRoom.roomname}}</td>
+                <button type="btn" onclick="location.href='chat?id='+{{chatRoom.id}}">입장</button>
+            </tr>
+            <br>
+        {{/mychatroom}}
+        <h3>내가 만든 채팅방</h3>
         {{#chatroom}}
             <tr>
                 <td>{{roomname}}</td>

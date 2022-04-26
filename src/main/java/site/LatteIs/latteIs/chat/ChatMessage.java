@@ -20,6 +20,7 @@ public class ChatMessage implements Serializable {
     private int id;
     private String type; // 메시지 타입
     private String message; // 메시지
+    private Boolean me;
 
     @CreationTimestamp
     private Timestamp createDate;

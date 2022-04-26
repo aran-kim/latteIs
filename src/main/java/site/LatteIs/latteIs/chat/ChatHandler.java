@@ -39,20 +39,30 @@ public class ChatHandler extends TextWebSocketHandler {
         for(String key : sessionMap.keySet()) {
             WebSocketSession wss = sessionMap.get(key);
             try {
-                wss.sendMessage(new TextMessage(obj.toJSONString()));
-
-                chatMessage.setType(obj.get("messagetype").toString());
-                chatMessage.setMessage(obj.get("msg").toString());
                 long room_id = Long.parseLong(obj.get("roomId").toString());
                 ChatRoom chatRoom = chatRoomRepository.findById(room_id);
-                chatMessage.setChatRoom(chatRoom);
                 String user_name = obj.get("sender").toString();
                 User user = userRepository.findByUsername(user_name);
-                chatMessage.setUser(user);
+                List<ChatMessage> list = chatMessageRepository.findAllMessageByRoomIdandUserId(chatRoom.getId(),user.getId());
 
-                System.out.println("save 전 chatMessage : " + chatMessage);
-                chatMessageRepository.save(chatMessage); // 대화저장
-                System.out.println("save 후 chatMessage : " + chatMessage);
+                System.out.println("list size: " + list.size());
+                System.out.println("type: " + obj.get("messagetype").toString());
+
+                if(!(obj.get("messagetype").toString().equals("ENTER")) || (list.size()==0)) {
+                    wss.sendMessage(new TextMessage(obj.toJSONString()));
+
+                    chatMessage.setType(obj.get("messagetype").toString());
+                    chatMessage.setMessage(obj.get("msg").toString());
+
+                    chatMessage.setChatRoom(chatRoom);
+
+                    chatMessage.setUser(user);
+
+                    System.out.println("save 전 chatMessage : " + chatMessage);
+                    chatMessageRepository.save(chatMessage); // 대화저장
+                    System.out.println("save 후 chatMessage : " + chatMessage);
+                }
+
             }catch(Exception e) {
                 e.printStackTrace();
             }
