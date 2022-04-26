@@ -31,29 +31,29 @@
                         <div class="form-bottom">
                             <form action="/questionProc" method="post" class="question-form">
                                 <div class="form-group">
-                                    <label class="sr-only" for="form-sex">성별</label>
+                                    <p>성별</p>
                                     <input type="radio" id="sex" name="sex" value="male">남자
                                     <input type="radio" id="sex" name="sex" value="female">여자
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="form-birthday">생년월일</label>
+                                    <p>생년월일</p>
                                     <input type="text" id="birthday" name="birthday" placeholder="생년월일">
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="form-university">학교</label>
+                                    <p>학교</p>
                                     <input type="radio" id="university" name="university" value="seoul">서울대학교
                                     <input type="radio" id="university" name="university" value="korea">고려대학교
                                     <input type="radio" id="university" name="university" value="kwangwoon">광운대학교
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="form-religion">종교</label>
+                                    <p>종교</p>
                                     <input type="radio" id="religion" name="religion" value="none">무교
                                     <input type="radio" id="religion" name="religion" value="catholic">천주교
                                     <input type="radio" id="religion" name="religion" value="christian">기독교
                                     <input type="radio" id="religion" name="religion" value="buddhism">불교
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="form-amount_of_alcohol">주량</label>
+                                    <p>주량</p>
                                     <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="none">전혀 안 함
                                     <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="half">반 병
                                     <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="one">한 병
@@ -61,12 +61,12 @@
                                     <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="many">많이
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="form-smoking">흡연</label>
+                                    <p>흡연</p>
                                     <input type="radio" id="smoking" name="smoking" value="none">비흡연자
                                     <input type="radio" id="smoking" name="smoking" value="smoking">흡연자
                                 </div>
                                 <div class="form-group"> <!-- 다중 선택 고려해야함 -->
-                                    <label class="sr-only" for="form-characteristic">특징</label>
+                                    <p>특징</p>
                                     <input type="radio" id="characteristic" name="characteristic" value="active">활발한
                                     <input type="radio" id="characteristic" name="characteristic" value="quite">조용한
                                     <input type="radio" id="characteristic" name="characteristic" value="cute">애교가 넘치는
@@ -78,7 +78,7 @@
                                     <input type="radio" id="characteristic" name="characteristic" value="humorous">유머러스한
                                 </div>
                                 <div class="form-group"> <!-- 다중 선택 고려해야함 -->
-                                    <label class="sr-only" for="form-hobby">취미</label>
+                                    <p>취미</p>
                                     <input type="radio" id="hobby" name="hobby" value="movie">영화
                                     <input type="radio" id="hobby" name="hobby" value="netflix">넷플릭스
                                     <input type="radio" id="hobby" name="hobby" value="cafe">카페
@@ -90,7 +90,7 @@
                                     <input type="radio" id="hobby" name="hobby" value="foodFighter">맛집 탐방
                                 </div>
                                 <div class="form-group"> <!-- 다중 선택 고려해야함 -->
-                                    <label class="sr-only" for="form-friend_style">취미</label>
+                                    <p>친구 스타일</p>
                                     <input type="radio" id="friend_style" name="friend_style" value="good">예쁘고 잘생긴
                                     <input type="radio" id="friend_style" name="friend_style" value="fashionable">옷 잘 입는
                                     <input type="radio" id="friend_style" name="friend_style" value="reliable">듬직한
@@ -100,10 +100,6 @@
                                     <input type="radio" id="friend_style" name="friend_style" value="sameAge">동갑
                                     <input type="radio" id="friend_style" name="friend_style" value="sameHobby">취미가 같은
                                     <input type="radio" id="friend_style" name="friend_style" value="laughReadily">잘 웃어주는
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="form-mbti">MBTI</label>
-                                    <input type="text" id="mbti" name="mbti" placeholder="MBTI">
                                 </div>
                                 <button type="submit" id="btn-question">끝! </button>
                             </form>
