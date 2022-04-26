@@ -8,6 +8,10 @@ var main = {
             _this.send(phoneNumber);
         });
 
+        #('#moreInfo').on('click', function(){
+            alert('무엇을 좋아하는 지 넣어주세요!');
+        });
+
         $('#btn-index').on('click', function(){
             var username = $("#username").val();
             var init = $("#init").val();

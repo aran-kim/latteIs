@@ -10,6 +10,8 @@ import site.LatteIs.latteIs.auth.*;
 import site.LatteIs.latteIs.web.domain.entity.*;
 import site.LatteIs.latteIs.web.domain.repository.*;
 
+import java.util.List;
+
 @Controller // View 반환
 public class IndexController {
 
@@ -92,11 +94,14 @@ public class IndexController {
             System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
+            int init = userRepository.findByUsername(user.getUsername()).getInit();
+            if(init == 0) // 관심사 없음
+                model.addAttribute("moreInfo", 0);
         }
         return "search";
     }
 
-    @GetMapping("/search/friend")
+    @GetMapping("/friend")
     public String friend(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
@@ -107,8 +112,85 @@ public class IndexController {
             User userinfo = userRepository.findByUsername(user.getUsername());
             Interest userInterest = interestRepository.findByUserId(userinfo.getId());
 
+            String userMBTI = userInterest.getMbti();
+            System.out.println("사용자의 MBTI : " + userMBTI);
+            String good;
+            if(userMBTI.equals("ENFJ") || userMBTI.equals("INTJ")){
+                if(userMBTI.equals("ENFJ"))
+                    good = "INTJ";
+                else
+                    good = "ENFJ";
+            }
+            else if(userMBTI.equals("ENTJ") || userMBTI.equals("INFJ")){
+                if(userMBTI.equals("ENTJ"))
+                    good = "INFJ";
+                else
+                    good = "ENTJ";
+            }
+            else if(userMBTI.equals("ESTJ") || userMBTI.equals("ISFJ")){
+                if(userMBTI.equals("ESTJ"))
+                    good = "ISFJ";
+                else
+                    good = "ESTJ";
+            }
+            else if(userMBTI.equals("ESFJ") || userMBTI.equals("ISTJ")){
+                if(userMBTI.equals("ESFJ"))
+                    good = "ISTJ";
+                else
+                    good = "ESFJ";
+            }
+            else if(userMBTI.equals("ENFP") || userMBTI.equals("ISFP")){
+                if(userMBTI.equals("ENFP"))
+                    good = "ISFP";
+                else
+                    good = "ENFP";
+            }
+            else if(userMBTI.equals("ENTP") || userMBTI.equals("ISTP")){
+                if(userMBTI.equals("ENTP"))
+                    good = "ISTP";
+                else
+                    good = "ENTP";
+            }
+            else if(userMBTI.equals("ESTP") || userMBTI.equals("INTP")){
+                if(userMBTI.equals("ESTP"))
+                    good = "INTP";
+                else
+                    good = "ESTP";
+            }
+            else if(userMBTI.equals("ESFP") || userMBTI.equals("INFP")){
+                if(userMBTI.equals("ESFP"))
+                    good = "INFP";
+                else
+                    good = "ESFP";
+            }
+            else
+                good = null;
+            System.out.println("good : " + good);
+            //good = "INTJ"; //테스트용
+
+            List<Interest> userList = interestRepository.findAllByMbti(good);
+            model.addAttribute("userList", userList);
+
+            System.out.println("userList : " + userList);
         }
         return "friend";
+    }
+
+    @GetMapping("/friendDetail")
+    public String friendDetail(@RequestParam(value = "user_id") Long user_id, Model model, @LoginUser SessionUser user, Interest interest){
+        if(user != null){
+            System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("접속 닉네임 : " + user.getNickName());
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("nickName", user.getNickName());
+
+            System.out.println("받은 user_id : " + user_id);
+            model.addAttribute("user_id", user_id);
+            interest = interestRepository.findByUserId(user_id.intValue());
+            model.addAttribute("interest", interest);
+
+        }
+        return "friendDetail";
     }
 
 }

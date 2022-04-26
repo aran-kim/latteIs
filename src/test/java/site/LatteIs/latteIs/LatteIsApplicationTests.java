@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import site.LatteIs.latteIs.web.domain.entity.*;
 import site.LatteIs.latteIs.web.domain.repository.*;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -94,28 +95,14 @@ class LatteIsApplicationTests {
 
 	@Test
 	public void postTest(){
-		User userinfo = userRepository.findByUsername("test11");
+		User userinfo = userRepository.findByUsername("test13");
 		MBTI mbti = mbtiRepository.findByUserId(userinfo.getId());
 		System.out.println(userinfo);
 		System.out.println(mbti);
 
-		int[] num = new int[4];
-		num[1] = mbti.getQ1() + mbti.getQ2() + mbti.getQ3();
-		num[2] = mbti.getQ4() + mbti.getQ5() + mbti.getQ6();
-		num[3] = mbti.getQ7() + mbti.getQ8() + mbti.getQ9();
-		num[4] = mbti.getQ10() + mbti.getQ11() + mbti.getQ12();
-		String[] str = new String[4];
-		//str[1] = "I_E", str[2] = "S_N", str[3] = "T_F", str[4] = "J_P";
-		for(int i = 1; i <= 4; i++){
-			if(num[i] > 1)
-				str[i].substring(2);
-			else
-				str[i].substring(0,0);
-		}
-
 		String userMBTI = mbti.getMbti();
 		System.out.println("사용자의 MBTI : " + userMBTI);
-		String good, good2;
+		String good;
 		if(userMBTI.equals("ENFJ") || userMBTI.equals("INTJ")){
 			if(userMBTI.equals("ENFJ"))
 				good = "INTJ";
@@ -167,5 +154,22 @@ class LatteIsApplicationTests {
 		else
 			good = null;
 		System.out.println("good : " + good);
+		good = "INTJ";
+		List<MBTI> userList = mbtiRepository.findAllBymbti(good);
+		System.out.println("userList : " + userList);
+	}
+
+	@Test
+	public void testage(){
+		Interest interest = interestRepository.findByUserId(6);
+		System.out.println(interest.getBirthday());
+
+		int year = Integer.parseInt(interest.getBirthday().substring(0, 4));
+		int month = Integer.parseInt(interest.getBirthday().substring(5, 7));
+		int day = Integer.parseInt(interest.getBirthday().substring(8, 10));
+		int cyear = Calendar.getInstance().get(Calendar.YEAR);
+
+		int age = cyear - year + 1;
+		System.out.println(age);
 	}
 }

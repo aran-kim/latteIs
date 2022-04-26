@@ -27,7 +27,14 @@
                             </div>
                         </div>
                         <div class="form-bottom">>
-                            <a href="/search/friend">친구 찾기</a>
+                            {{#moreInfo}}
+                                <button type="button" id="moreInfo" onclick="location.href = '/mbti'">아무 친구 찾기</button>
+                            {{/moreInfo}}
+                            {{^moreInfo}}
+                                <button onclick="location.href='/friend'">아무 친구 찾기</button>
+                            {{/moreInfo}}
+                            <a href="/universityFriend">학교 친구 찾기</a>
+                            <a href="/hobbyFriend">취미 맞는 친구 찾기</a>
                         </div>
                     </div>
 
