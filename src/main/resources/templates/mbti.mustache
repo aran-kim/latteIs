@@ -1,108 +1,69 @@
-{{>layout/header}}
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
 
-<nav class="codrops-demos">
-    <a href="/">Home</a>
-    <a href="/mychatroom">Chatting</a>
-    <a href="/search">Search</a>
-    <a href="/board">Board</a>
-    <a class="current-demo" href="/info">Info</a>
-</nav>
-</header>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<div>
-    <!-- Top content -->
-    <div class="top-content">
+    <title>MBTI 검사</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/mbti.css" />
+    <link rel="stylesheet" type="text/css" href="css/qna.css" />
+    <link rel="stylesheet" type="text/css" href="css/animation.css" />
+    <link rel="stylesheet" type="text/css" href="css/result.css" />
+</head>
 
-        <div class="inner-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="form-box">
-                        <div class="form-top">
-                            <div class="form-top-left">
-                                <h1><strong>MBTI</strong></h1>
-                                <p>Enter your characters</p>
-                            </div>
-                            <div class="form-top-right">
-                                <i class="fa fa-key"></i>
-                            </div>
-                        </div>
-                        <div class="form-bottom">
-                            <form action="/mbtiProc" method="post" class="mbti-form">
-                                <div class="form-group">
-                                    <p>취미 모임에 도착한 당신, 어떻게 대화를 시작하나요?</p>
-                                    <input type="radio" id="Q1" name="Q1" value="0">“…” 다른 사람이 말 걸기를 기다린다.
-                                    <input type="radio" id="Q1" name="Q1" value="1">“어제 그거 보셨어요?” 대화를 먼저 시작한다
-                                </div>
-                                <div class="form-group">
-                                    <p>주변 사람들은 나를 어떤 사람이라 생각할까요?</p>
-                                    <input type="radio" id="Q2" name="Q2" value="0">조용하고 내성적인 친구
-                                    <input type="radio" id="Q2" name="Q2" value="1">완전 인싸! 외향적인 친구
-                                </div>
-                                <div class="form-group">
-                                    <p>바쁜 하루가 지나고 밤이 깊었네요. 내가 좋아하는 상황은?</p>
-                                    <input type="radio" id="Q3" name="Q3" value="0">“드디어 나만의 시간인가…” 혼자서 조용히 하루를 정리한다
-                                    <input type="radio" id="Q3" name="Q3" value="1">“야 지금 나오실?” 친구들과 스트레스 풀게 놀러 간다
-                                </div>
-                                <div class="form-group">
-                                    <p>팀원들과 1시간째 회의 중… 이젠 이런 아이디어 좀 나와라!</p>
-                                    <input type="radio" id="Q4" name="Q4" value="0">당장 적용 가능한 실용적인 아이디어
-                                    <input type="radio" id="Q4" name="Q4" value="1">창의적이고 흥미로운 아이디어
-                                </div>
-                                <div class="form-group">
-                                    <p>2022년 목표를 세운 당신, 어떻게 달성해 나갈 거야?</p>
-                                    <input type="radio" id="Q5" name="Q5" value="0">작은 일로 시작하여 큰 그림을 그린다
-                                    <input type="radio" id="Q5" name="Q5" value="1">큰 그림을 생각하고 작은 일에 착수한다
-                                </div>
-                                <div class="form-group">
-                                    <p>읽기를 쓰려고 다이어리를 폈다. 기억을 떠올려볼 때…</p>
-                                    <input type="radio" id="Q6" name="Q6" value="0">오늘 일어난 일을 상세하게 기억한다
-                                    <input type="radio" id="Q6" name="Q6" value="1">일어난 사건의 맥락을 전반적으로 기억한다
-                                </div>
-                                <div class="form-group">
-                                    <p>평소 의사 결정을 할 때, 무엇을 더 따르는 편인가요?</p>
-                                    <input type="radio" id="Q7" name="Q7" value="0">머리로 분석하여 판단
-                                    <input type="radio" id="Q7" name="Q7" value="1">가슴이 시키는 대로…
-                                </div>
-                                <div class="form-group">
-                                    <p>친구가 어울리지 않는 옷을 사겠다 연락이 왔다면?</p>
-                                    <input type="radio" id="Q8" name="Q8" value="0">“음… 너와 어울리지 않아” 있는 그대로 팩트를 말한다
-                                    <input type="radio" id="Q8" name="Q8" value="1">“예쁜데 다른 디자인은 없어?” 갈등을 피하기 위해 돌려 말한다
-                                </div>
-                                <div class="form-group">
-                                    <p>스터디에서 만난 빌런 중 나는 이런 사람이 더 싫다!</p>
-                                    <input type="radio" id="Q9" name="Q9" value="0">모르면서 아는 척하는 사람
-                                    <input type="radio" id="Q9" name="Q9" value="1">무례하게 행동하며 분위기 흐리는 사람
-                                </div>
-                                <div class="form-group">
-                                    <p>갓생을 살기로 다짐한 당신. 앞으로의 목표를 세워보자!</p>
-                                    <input type="radio" id="Q10" name="Q10" value="0">1달 계획부터 1년 계획까지! 캘린더에 세심하게 정리한다
-                                    <input type="radio" id="Q10" name="Q10" value="1">인생은 모르는 것… 그때그때 흐름에 맡겨본다
-                                </div>
-                                <div class="form-group">
-                                    <p>친구가 갑자기 내 집에 놀러 온다네? 지금 내 방 상태는…</p>
-                                    <input type="radio" id="Q11" name="Q11" value="0">반짝반짝 넘어질 뻔… 깔끔하게 정리되어 있다
-                                    <input type="radio" id="Q11" name="Q11" value="1">음. 다음에 와 물건이 널브러져 있고 지저분하다
-                                </div>
-                                <div class="form-group">
-                                    <p>스터디 공부를 하고 있는데, 친구가 나오라고 연락이 왔다면?</p>
-                                    <input type="radio" id="Q12" name="Q12" value="0">하려던 공부가 우선! 다 끝내고 나중에 논다
-                                    <input type="radio" id="Q12" name="Q12" value="1">잠깐 놀고, 공부하지 뭐! 공부와 놀이를 함께 한다
-                                </div>
-                                <button type="submit" id="btn-MBTI">끝! </button>
-                            </form>
-                        </div>
-                    </div>
+<body>
+    <!-- MBTI main -->
+    <div class="container">
+        <section id="mbti" class="mx-auto my-5 py-5 px-3">
+            <h1>간단히 해보는 MBTI 검사</h1>
+            <div class="col-lg-6 col-md-8 col-sm-10 col-12 mx-auto py-3">
+                <img src="images/mbti.png" alt="mainImage" class="img-fluid">
+            </div>
+            <p>
+                나만의 MBTI 사이트입니다! <br>
+                아래 시작하기 버튼을 눌러 시작해 주십시오.
+            </p>
+            <button type="button" class="btn btn-outline-secondary mt-3" onclick="js:begin()">시작하기</button>
+        </section>
 
+    <!-- MBTI qna -->
+        <section id="qna">
+            <div class="status mx-auto mt-5">
+                <div class="statusBar">
                 </div>
             </div>
-        </div>
+            <div class="qBox my-5 py-3 mx-auto">
 
+            </div>
+            <div class="answerBox">
+
+            </div>
+        </section>
+
+    <!-- MBTI reault -->
+        <section id="result" class="mx-auto my-5 py-5 px-3">
+            <h1>당신의 결과는?!</h1>
+            <div class="resultname">
+
+            </div>
+            <div id="resultImg" class="my-3 col-lg-6 col-md-8 col-sm-10 col-12 mx-auto">
+
+            </div>
+            <div class="resultDesc">
+
+            </div>
+        </section>
+        <script src="/js/qna.js"></script>
+        <script src="/js/start.js"></script>
     </div>
-
     <!-- Footer -->
     <footer>
 
     </footer>
-</div>
+</body>
 
 {{>layout/footer}}
