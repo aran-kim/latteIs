@@ -13,8 +13,7 @@
                 <div class="form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h1><strong>Login</strong></h1>
-                            <p>Enter username and password to log on:</p>
+                            <h1><strong>로그인</strong></h1>
                         </div>
                     </div>
 
@@ -22,26 +21,26 @@
                         <form action="/login" method="post" class="login-form">
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Username</label>
-                                <input type="text" name="username" placeholder="id..."
+                                <input type="text" name="username" placeholder="아이디"
                                        class="form-username form-control" id="username">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Password</label>
-                                <input type="password" name="password" placeholder="Password..."
+                                <input type="password" name="password" placeholder="비밀번호"
                                        class="form-password form-control" id="password">
                             </div>
-                            <button type="submit" class="btn">Sign in!</button>
+                            <button type="submit" class="btn">로그인</button>
                         </form>
                     </div>
                 </div>
 
                 <div class="social-login">
                     <div class="social-login-buttons">
+                        <a class="btn btn-link-1 btn-link-1-sign-in" href="/check">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i> Join
+                        </a>
                         <a class="btn btn-link-1 btn-link-1-facebook" href="/oauth2/authorization/facebook">
                             <i class="fa fa-facebook"></i> Facebook
-                        </a>
-                        <a class="btn btn-link-1 btn-link-1-twitter" href="/check">
-                            <i class="fa fa-twitter"></i> Join
                         </a>
                         <a class="btn btn-link-1 btn-link-1-google-plus" href="/oauth2/authorization/google">
                             <i class="fa fa-google-plus"></i> Google Plus
