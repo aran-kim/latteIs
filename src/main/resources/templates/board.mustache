@@ -17,30 +17,26 @@
             <div class="container">
                 <div class="row">
                     <div class="form-box">
-
                         <section>
-                            <h3>자유게시판</h3>
+                            <a onclick="location.href='post?board_id=1'"><h3>자유 게시판</h3></a>
                                     {{#postList1}}
                                         <a onclick="location.href='postDetail?board_id='+{{board.id}}+'&post_id='+{{id}}">{{title}}</a>
                                     {{/postList1}}
                         </section>
-
                         <section>
-                            <h3>스터디게시판</h3>
+                            <a onclick="location.href='post?board_id=2'"><h3>스터디 게시판</h3></a>
                                     {{#postList2}}
                                         <a onclick="location.href='postDetail?board_id='+{{board.id}}+'&post_id='+{{id}}">{{title}}</a>
                                     {{/postList2}}
                         </section>
-
                         <section>
-                            <h3>정보게시판</h3>
+                            <a onclick="location.href='post?board_id=3'"><h3>정보 게시판</h3></a>
                                     {{#postList3}}
                                         <a onclick="location.href='postDetail?board_id='+{{board.id}}+'&post_id='+{{id}}">{{title}}</a>
                                     {{/postList3}}
                         </section>
-
                         <section>
-                            <h3>홍보게시판</h3>
+                            <a onclick="location.href='post?board_id=4'"><h3>홍보 게시판</h3></a>
                                     {{#postList4}}
                                         <a onclick="location.href='postDetail?board_id='+{{board.id}}+'&post_id='+{{id}}">{{title}}</a>
                                     {{/postList4}}
