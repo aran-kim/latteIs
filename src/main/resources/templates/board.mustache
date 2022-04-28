@@ -7,6 +7,9 @@
     <a class="current-demo" href="/board">Board</a>
     <a href="/info">Info</a>
 </nav>
+
+<link rel="stylesheet" type="text/css" href="css/mychatroom.css" />
+
 </header>
 
 <div>
@@ -16,16 +19,50 @@
             <div class="container">
                 <div class="row">
                     <div class="form-box">
+                        <section class="chatlist">
                             <div class="card">
-                                <div class="board">
-                                    <h3>게시판 주제</h3>
-                                    {{#board}}
-                                        <a onclick="location.href='post?board_id='+{{id}}">{{subject}}</a>
-                                    {{/board}}
+                                <div class="board1">
+                                    자유게시판
+                                    {{#postList1}}
+                                        <br>
+                                        <a onclick="location.href='postDetail?board_id='+{{board.id}}+'&post_id='+{{id}}">{{title}}</a>
+                                    {{/postList1}}
                                 </div>
-
                             </div>
-
+                        </section>
+                        <section class="chatlist">
+                            <div class="card">
+                                <div class="board1">
+                                    스터디게시판
+                                    {{#postList2}}
+                                        <br>
+                                        <a onclick="location.href='postDetail?board_id='+{{board.id}}+'&post_id='+{{id}}">{{title}}</a>
+                                    {{/postList2}}
+                                </div>
+                            </div>
+                        </section>
+                        <section class="chatlist">
+                            <div class="card">
+                                <div class="board1">
+                                    정보게시판
+                                    {{#postList3}}
+                                        <br>
+                                        <a onclick="location.href='postDetail?board_id='+{{board.id}}+'&post_id='+{{id}}">{{title}}</a>
+                                    {{/postList3}}
+                                </div>
+                            </div>
+                        </section>
+                        <section class="chatlist">
+                            <div class="card">
+                                <div class="board1">
+                                    홍보게시판
+                                    {{#postList4}}
+                                        <br>
+                                        <a onclick="location.href='postDetail?board_id='+{{board.id}}+'&post_id='+{{id}}">{{title}}</a>
+                                    {{/postList4}}
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
