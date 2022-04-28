@@ -14,7 +14,7 @@
     <div class="top-content">
         <div class="inner-bg">
             <div class="container">
-
+                <div class="row">
                     <div class="form-box">
                         <div class="form-top">
                             <div class="form-top-left">
@@ -22,24 +22,19 @@
                                 <p>Select Board Category</p>
                             </div>
                         </div>
-                        <div class="form-bottom">
-                            <table class="table-board">
-                                <thead class="thead-strong">
-                                <tr>
-                                    <th>게시판 주제</th>
-                                </tr>
-                                </thead>
-                                <tbody id="tbody">
-                                {{#board}}
-                                    <tr>
-                                        <td><a onclick="location.href='post?board_id='+{{id}}">{{subject}}</a></td>
-                                    </tr>
-                                {{/board}}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
 
+                            <div class="card">
+                                <div class="board">
+                                    <h3>게시판 주제</h3>
+                                    {{#board}}
+                                        <a onclick="location.href='post?board_id='+{{id}}">{{subject}}</a>
+                                    {{/board}}
+                                </div>
+
+                            </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
