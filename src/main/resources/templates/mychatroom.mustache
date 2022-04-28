@@ -19,8 +19,10 @@
                     <p class="dsc">채팅창 만들기</p>
                     <form action="/createChatRoom" method="post" class="room-form">
                         <div class="form-group">
-                            <label class="sr-only" for="form-roomname">Room Name</label>
-                            <input type="text" name="roomname" placeholder="room..."
+                            <input type="text" name="roomname" placeholder="방 이름"
+                                   class="form-username form-control" id="form-username">
+                            <br>
+                            <input type="int" name="maxnumber" placeholder="최대 인원"
                                    class="form-username form-control" id="form-username">
                         </div>
                         <button type="submit" class="btn">방 만들기</button>
@@ -47,9 +49,27 @@
             <br>
         {{/chatroom}}
 
+        <h3>채팅방 검색</h3>
+        <input id="textMessage" class="textMessage" type="text">
+        <input onclick="searchKey()" value="Send" type="button">
+        {{#searchedRoom}}
+            <br>
+            <tr>
+                <td>{{roomname}}</td>
+                <button type="btn" onclick="location.href='chat?id='+{{id}}">입장</button>
+            </tr>
+        {{/searchedRoom}}
+
     </div>
 </div>
 <script>
+    function searchKey() {
+        var key = document.getElementById("textMessage");
+        location.href = "/mychatroom?searchkey=" + $("#textMessage").val()
+        message.value = "";
+    }
+
+
     var target = document.querySelectorAll('.btn-open');
     var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
     var targetID;
