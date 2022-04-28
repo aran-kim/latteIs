@@ -35,7 +35,7 @@ public class ChatController {
             List<ChatRoom> searchedRoom = chatRoomRepository.findBySearchkey(searchKey);
             System.out.println("search : "+searchedRoom);
 
-            List list = chatRoomRepository.findByMasterusername(user.getUsername());
+            List list = chatRoomRepository.findByMasterusername(user.getNickName());
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
 
