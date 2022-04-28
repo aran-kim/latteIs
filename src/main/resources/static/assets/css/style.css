@@ -240,8 +240,6 @@ div.container section a{
 }
 
 
-
-
  /*post 영역-----------------------------------------------*/
 
 .post-list {
@@ -296,9 +294,7 @@ table {
 /*board 영역------------------------------*/
 
 div.card {
-    float: left;
     margin: 0 5px 5px 0;
-    width: 295px;
     border: 1px solid #e3e3e3;
     overflow: hidden;
     background-color: #fff;
@@ -307,5 +303,6 @@ div.card {
 div.card > div.board > a {
     display: block;
     padding: 10px;
-    border-top: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
 }
+
