@@ -30,6 +30,8 @@ class LatteIsApplicationTests {
 	InterestRepository interestRepository;
 	@Autowired
 	MBTIRepository mbtiRepository;
+	@Autowired
+	BoardRepository boardRepository;
 
 	@Test
 	void contextLoads() throws CoolsmsException {
@@ -171,5 +173,24 @@ class LatteIsApplicationTests {
 
 		int age = cyear - year + 1;
 		System.out.println(age);
+	}
+
+	@Test
+	public void boardTest(){
+		List<Board> boardList = boardRepository.findAll();
+		List<Post> postList0 = postRepository.findThreeByBoardId(boardList.get(0).getId());
+		List<Post> postList1 = postRepository.findThreeByBoardId(boardList.get(1).getId());
+		List<Post> postList2 = postRepository.findThreeByBoardId(boardList.get(2).getId());
+		System.out.println(postList1);
+
+		List<Post> postList = postRepository.findAllThreePost();
+		int cnt = 1;
+		for(int i = 1; i <= 4; i++){
+			for(cnt = cnt-1; cnt < postList.size(); cnt++){
+				if(postList.get(cnt).getBoard().getId() == i){
+					System.out.println("post : " + postList.get(cnt).getBoard());
+				}
+			}
+		}
 	}
 }

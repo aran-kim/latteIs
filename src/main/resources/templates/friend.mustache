@@ -17,31 +17,11 @@
             <div class="container">
                 <div class="row">
                     <div class="form-box">
-                        <div class="form-top">
-                            <div class="form-top-left">
-                                <h1><strong>Friend</strong></h1>
-                                <p>Select one of the person</p>
-                            </div>
-                            <div class="form-top-right">
-                                <i class="fa fa-key"></i>
-                            </div>
-                        </div>
                         <div class="form-bottom">
-                            <table class="table-user-list">
-                                <thead class="thead-strong">
-                                <tr>
-                                    <th>닉네임</th>
-                                </tr>
-                                </thead>
-                                <tbody id="tbody">
-                                {{#userList}}
-                                    <tr>
-                                        <td>{{user.nickName}}  </td>
-                                        <td><a onclick="location.href='friendDetail?user_id='+{{user.id}}">어떨까?</a></td>
-                                    </tr>
-                                {{/userList}}
-                                </tbody>
-                            </table>
+                            {{#userList}}
+                                    {{user.nickName}}
+                                    <a onclick="location.href='friendDetail?user_id='+{{user.id}}">어떨까?</a>
+                            {{/userList}}
                         </div>
                     </div>
 
