@@ -7,12 +7,15 @@
     <a href="/board">Board</a>
     <a href="/info">Info</a>
 </nav>
+
+<link rel="stylesheet" type="text/css" href="css/mychatroom.css" />
+
 </header>
 
-<div class="container" id="app" v-cloak>
-    <div class="row">
-        <div class="col-md-12">
-            <h3>채팅방 리스트</h3>
+    <main>
+    <section id="chatlist">
+        <h3>채팅방 리스트</h3>
+        <article>
             <a href="#pop_info_1" class="btn-open">채팅방 만들기</a>
             <div id="pop_info_1" class="pop_wrap" style="display:none;">
                 <div class="pop_inner">
@@ -31,23 +34,7 @@
                     <button type="button" class="btn_close">닫기</button>
                 </div>
             </div>
-        </div>
-        <h3>입장된 채팅방</h3>
-        {{#mychatroom}}
-            <tr>
-                <td>{{chatRoom.roomname}}</td>
-                <button type="btn" onclick="location.href='chat?id='+{{chatRoom.id}}">입장</button>
-            </tr>
-            <br>
-        {{/mychatroom}}
-        <h3>내가 만든 채팅방</h3>
-        {{#chatroom}}
-            <tr>
-                <td>{{roomname}}</td>
-                <button type="btn" onclick="location.href='chat?id='+{{id}}">입장</button>
-            </tr>
-            <br>
-        {{/chatroom}}
+        </article>
 
         <h3>채팅방 검색</h3>
         <input id="textMessage" class="textMessage" type="text">
@@ -60,8 +47,38 @@
             </tr>
         {{/searchedRoom}}
 
-    </div>
-</div>
+    </section>
+
+    <section>
+        <h3>입장된 채팅방</h3>
+        <article>
+            {{#mychatroom}}
+                <tr>
+                    <td>{{chatRoom.roomname}}</td>
+                    <button type="button" onclick="location.href='chat?id='+{{chatRoom.id}}">입장</button>
+                </tr>
+                <br>
+            {{/mychatroom}}
+        </article>
+
+
+        <h3>내가 만든 채팅방</h3>
+        <article>
+        {{#chatroom}}
+            <tr>
+                <td>{{roomname}}</td>
+                <button type="button" onclick="location.href='chat?id='+{{id}}">입장</button>
+            </tr>
+            <br>
+        {{/chatroom}}
+        </article>
+    </section>
+
+
+    </main>
+
+
+
 <script>
     function searchKey() {
         var key = document.getElementById("textMessage");
