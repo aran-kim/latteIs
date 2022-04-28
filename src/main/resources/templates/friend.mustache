@@ -16,28 +16,17 @@
         <div class="inner-bg">
             <div class="container">
                 <div class="row">
-                    <h3>검색하는 MBTI : {{searchMbti}}</h3>
+                    <h3>{{searchMbti}} 친구들</h3>
                     <div class="card">
                         <div class="board">
                             <td class="td_name">
                                 {{#userList}}
-                                    <img src="images/no_profile.png" alt="no_profile" style="width: 55px;height: 55px;margin:10px;">
-                                    <a onclick="location.href='friendDetail?user_id='+{{user.id}}">{{user.nickName}} 어떨까?</a>
+                                    <img src="images/no_profile.png" alt="no_profile" style="width: 55px;height: 55px;margin:10px;">{{user.nickName}}
+                                    <a onclick="location.href='friendDetail?user_id='+{{user.id}}">정보 보기</a>
                                 {{/userList}}
                             </td>
                         </div>
                     </div>
-
-                    <!--
-                        <div class="form-bottom">
-                            검색하는 MBTI : {{searchMbti}}
-                            {{#userList}}
-                                {{user.nickName}}
-                                <a onclick="location.href='friendDetail?user_id='+{{user.id}}">어떨까?</a>
-                            {{/userList}}
-                        </div>
-                    -->
-
                 </div>
 
             </div>

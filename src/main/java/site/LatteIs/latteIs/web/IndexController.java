@@ -112,7 +112,8 @@ public class IndexController {
             User userinfo = userRepository.findByUsername(user.getUsername());
             Interest userInterest = interestRepository.findByUserId(userinfo.getId());
 
-            String userMBTI = userInterest.getMbti();
+            //String userMBTI = userInterest.getMbti();
+            String userMBTI = "ENTJ";
             System.out.println("사용자의 MBTI : " + userMBTI);
             String good;
             if(userMBTI.equals("ENFJ") || userMBTI.equals("INTJ")){
