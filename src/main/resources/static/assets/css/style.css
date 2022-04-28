@@ -88,7 +88,7 @@ img { max-width: 100%; }
 }
 
 .inner-bg {
-    padding: 60px 0 80px 0;
+    padding: 0px 0 80px 0;
 }
 
 .top-content .text {
@@ -124,7 +124,6 @@ img { max-width: 100%; }
 .form-top-left {
 	float: left;
 	width: 75%;
-	padding-top: 25px;
 }
 
 .form-top-left h3 { margin-top: 0; }
