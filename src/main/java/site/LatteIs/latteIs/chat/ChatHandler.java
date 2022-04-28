@@ -14,6 +14,9 @@ import site.LatteIs.latteIs.web.domain.entity.User;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +35,7 @@ public class ChatHandler extends TextWebSocketHandler {
     ChatRoomRepository chatRoomRepository;
 
     @Override // 메시지 전송 핸들러
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception{
         ChatMessage chatMessage = new ChatMessage();
         String msg = message.getPayload();
         JSONObject obj = jsonToObjectParser(msg);
@@ -42,21 +45,43 @@ public class ChatHandler extends TextWebSocketHandler {
                 long room_id = Long.parseLong(obj.get("roomId").toString());
                 ChatRoom chatRoom = chatRoomRepository.findById(room_id);
                 String user_name = obj.get("sender").toString();
-                User user = userRepository.findByUsername(user_name);
+                User user = userRepository.findByNickName(user_name);
+
                 List<ChatMessage> list = chatMessageRepository.findAllMessageByRoomIdandUserId(chatRoom.getId(),user.getId());
 
                 System.out.println("list size: " + list.size());
                 System.out.println("type: " + obj.get("messagetype").toString());
 
                 if(!(obj.get("messagetype").toString().equals("ENTER")) || (list.size()==0)) {
-                    wss.sendMessage(new TextMessage(obj.toJSONString()));
+                    /*int currentNumber = chatRoom.getCurrentnumber();
+                    currentNumber++;
+                    if(obj.get("messagetype").toString().equals("ENTER")) {
+                        System.out.println("romm memeber: " + currentNumber);
+                       *//* if(currentNumber > chatRoom.getMaxnumber()){
+*//**//*                          MyHttpServletResponse response = new MyHttpServletResponse();
+                            response.setContentType("text/html; charset=UTF-8");
+                            PrintWriter out = response.getWriter();
+                            out.println("<script>alert('채팅방 입장 인원을 초과하였습니다.');</script>");
+                            out.flush();*//**//*
+                            break;
+                        }else{
+                            chatRoom.setCurrentnumber(currentNumber);
+                        }*//*
+                    } // 아직 미완성 - 경고창이 안뜸*/
 
                     chatMessage.setType(obj.get("messagetype").toString());
-                    chatMessage.setMessage(obj.get("msg").toString());
 
+                    String str = obj.get("msg").toString();
+                    if(str.contains("씨발")){
+                        str = str.replace("씨발","**");
+                        obj.replace("msg",str);
+                    }
+                    chatMessage.setMessage(str);
                     chatMessage.setChatRoom(chatRoom);
 
                     chatMessage.setUser(user);
+
+                    wss.sendMessage(new TextMessage(obj.toJSONString()));
 
                     System.out.println("save 전 chatMessage : " + chatMessage);
                     chatMessageRepository.save(chatMessage); // 대화저장

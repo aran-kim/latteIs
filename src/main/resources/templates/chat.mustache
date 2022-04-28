@@ -1,5 +1,6 @@
 {{>layout/header}}
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 <nav class="codrops-demos">
     <a href="/">Home</a>
     <a class="current-demo" href="/mychatroom">Chatting</a>
@@ -9,139 +10,227 @@
 </nav>
 </header>
 
-<form>
-    <h2>{{chatroom.roomname}}</h2>
-    <!-- 송신 메시지 작성하는 창 -->
-    <input id="textMessage" class="textMessage" type="text">
+<h2>{{chatroom.roomname}}</h2>
 
-    <!-- 송신 버튼 -->
-    <input onclick="sendMessage()" value="Send" type="button">
+<div class="container" id="app" v-cloak>
+    <div class="row">
 
-    <!-- 종료 버튼 -->
-    <input onclick="disconnect()" value="Disconnect" type="button">
+        <div class="col-md-12">
+            <a href="#setting" class="btn-open" style="color: darkgray; float: right;" >설정</a>
+            <div id="setting" class="pop_wrap" style="display:none;">
+                <div class="pop_inner">
+                    <p class="dsc">방 설정</p>
+                    방 인원 : {{roomsize}}
+                    <br>
+                    {{#room}}
+                        <tr>
+                            <td>
+                                {{User.nickName}}
+                            </td>
+                            <td>
+                                {{#me}}
+                                    <input onclick="disconnect()" value="방나가기" type="button">
+                                {{/me}}
+                                {{^me}}
+                                    <input onclick="forceExit({{User.id}},'{{&User.nickName}}')" value="강제퇴장" type="button">
+                                {{/me}}
+                            </td>
+                        </tr>
+                        <br>
+                    {{/room}}
+                    <br>
 
-</form>
+                    <br>
+                    <td>
+                        <button type="button" id="button_copy">초대 링크</button>
+                        <button type="button" class="btn_close">닫기</button></td><br>
+                </div>
+            </div>
+        </div>
 
-<!-- 결과 메시지 보여주는 창 -->
-
-<div id="msgArea" class="col">
-
-    {{#saveMessage}}
-        <br>
-        {{^me}}
-            <div class='col-6'>
-                <div class='alert alert-warning'>
-                    <b><tr>
-                        <td>나</td>
-                        <td>:</td>
-                        <td>{{message}}</td>
-                    </tr></b>
-                </div></div>
-        {{/me}}
-        <div class='col-6'>
-            <div class='alert alert-secondary'>
-                <b><tr>
-                    <td>{{User.username}}</td>
-                    <td>:</td>
-                    <td>{{message}}</td>
-                </tr></b>
-            </div></div>
-
-    {{/saveMessage}}
+        <div class="col-12" id="msgArea" style="float: none; margin: auto">
+            {{#saveMessage}}
+                <br>
+                {{#me}}
+                    <div class='col-12'>
+                        <div class='message-me'>
+                            <b>
+                                <tr>
+                                    <td>나</td>
+                                    <td>:</td>
+                                    <td>{{message}}</td>
+                                </tr>
+                            </b>
+                        </div>
+                    </div>
+                {{/me}}
+                {{^me}}
+                    <div class='col-12'>
+                        <div class='message'>
+                            <b>
+                                <tr>
+                                    <td>{{User.nickName}}</td>
+                                    <td>:</td>
+                                    <td>{{message}}</td>
+                                </tr>
+                            </b>
+                        </div>
+                    </div>
+                {{/me}}
+            {{/saveMessage}}
+        </div>
+    </div>
+    <br>
+    <from>
+        <input id="textMessage" class="textMessage" type="text">
+        <!-- 송신 버튼 -->
+        <input onclick="sendMessage()" value="Send" type="button">
+    </from>
+    <br><br><br>
 </div>
 <script type="text/javascript">
 
-    const webSocket = new WebSocket("ws://"+location.host+"/ws/chat?id="+{{chatroom.id}});
-
-    var messageTextArea = document.getElementById("messageTextArea");
-
-    //웹 소켓이 연결되었을 때 호출되는 이벤트
-
-    webSocket.onopen = function(message){
-
-        var option = {
-            messagetype : "ENTER",
-            roomId : {{chatroom.id}},
-            sender : "{{username}}",
-            msg : '가 채팅방을 들어왔습니다.'
+        function copyToClipboard(val) {
+            const str = "http://localhost:8080/chat?id=" +{{chatroom.id}};
+            navigator.clipboard.writeText(str);
+            alert("URL이 클립보드에 복사되었습니다");
         }
-        webSocket.send(JSON.stringify(option));
-    };
 
-    //웹 소켓이 닫혔을 때 호출되는 이벤트
+        const button = document.getElementById('button_copy');
+        button.addEventListener('click', copyToClipboard);
 
-    webSocket.onclose = function(message){
-    };
 
-    //웹 소켓이 에러가 났을 때 호출되는 이벤트
+        const webSocket = new WebSocket("ws://" + location.host + "/ws/chat?id=" +{{chatroom.id}});
 
-    webSocket.onerror = function(ev,message){
-        alert(ev.data);
-        messageTextArea.value += ev.data+"error...\n";
-    };
+        var messageTextArea = document.getElementById("messageTextArea");
 
-    //웹 소켓에서 메시지가 날라왔을 때 호출되는 이벤트
+        //웹 소켓이 연결되었을 때 호출되는 이벤트
 
-    webSocket.onmessage = function(data) {
-        var msg = data.data;
-        var d = JSON.parse(msg);
-        if (d.messagetype == "ENTER") {
-            var str = "<div class='col-6'>";
-            str += "<div class='alert alert-secondary'>";
-            str += "<b>" + d.sender + "가 채팅방을 들어왔습니다." + "</b>";
-            str += "</div></div>";
-            $("#msgArea").append(str);
-        } else if (d.messagetype == "TALK") {
-            if (d.sender == "{{username}}") {
-                var str = "<div class='col-6'>";
-                str += "<div class='alert alert-secondary'>";
-                str += "<b>나 :" +d.msg + "</b>";
+        webSocket.onopen = function (message) {
+
+            var option = {
+                messagetype: "ENTER",
+                roomId: {{chatroom.id}},
+                sender: "{{nickName}}",
+                msg: '가 채팅방을 들어왔습니다.'
+            }
+            webSocket.send(JSON.stringify(option));
+        };
+
+        //웹 소켓이 닫혔을 때 호출되는 이벤트
+
+        webSocket.onclose = function (message) {
+        };
+
+        //웹 소켓이 에러가 났을 때 호출되는 이벤트
+
+        webSocket.onerror = function (ev, message) {
+            alert(ev.data);
+            messageTextArea.value += ev.data + "error...\n";
+        };
+
+        //웹 소켓에서 메시지가 날라왔을 때 호출되는 이벤트
+
+        webSocket.onmessage = function (data) {
+            var msg = data.data;
+            var d = JSON.parse(msg);
+            if (d.messagetype == "ENTER") {
+                var str = "<div class='col-12'>";
+                str += "<div class='message'>";
+                str += "<b>" + d.sender + "가 채팅방을 들어왔습니다." + "</b>";
                 str += "</div></div>";
-                $("#msgArea").append(str);
+                $("#msgArea").prepend(str);
+            } else if (d.messagetype == "TALK") {
+                if (d.sender == "{{nickName}}") {
+                    var str = "<div class='col-12'>";
+                    str += "<div class='message-me'>";
+                    str += "<b>나 :" + d.msg + "</b>";
+                    str += "</div></div>";
+                    $("#msgArea").prepend(str);
 
-            } else {
+                } else {
+                    var str = "<div class='col-6'>";
+                    str += "<div class='message'>";
+                    str += "<b>" + d.sender + " :" + d.msg + "</b>";
+                    str += "</div></div>";
+                    $("#msgArea").prepend(str);
+                }
+            } else if (d.messagetype == "EXIT") {
                 var str = "<div class='col-6'>";
-                str += "<div class='alert alert-warning'>";
-                str += "<b>" + d.sender + " :" +d.msg + "</b>";
+                str += "<div class='message-me'>";
+                str += "<b>" + d.sender + "가 채팅방을 나갔습니다." + "</b>";
                 str += "</div></div>";
-                $("#msgArea").append(str);            }
-        } else if (d.messagetype == "EXIT") {
-            var str = "<div class='col-6'>";
-            str += "<div class='alert alert-secondary'>";
-            str += "<b>" + d.sender + "가 채팅방을 나갔습니다." + "</b>";
-            str += "</div></div>";
-            $("#msgArea").append(str);        }
-    };
+                $("#msgArea").prepend(str);
+            }
+        };
 
 
-
-    //Send 버튼을 누르면 실행되는 함수
-    function sendMessage(){
-        var message = document.getElementById("textMessage");
-        var option = {
-            messagetype : "TALK",
-            roomId : {{chatroom.id}},
-            sender : "{{username}}",
-            msg : $("#textMessage").val()
+        //Send 버튼을 누르면 실행되는 함수
+        function sendMessage() {
+            var message = document.getElementById("textMessage");
+            var option = {
+                messagetype: "TALK",
+                roomId: {{chatroom.id}},
+                sender: "{{nickName}}",
+                msg: $("#textMessage").val()
+            }
+            webSocket.send(JSON.stringify(option));
+            message.value = "";
         }
-        webSocket.send(JSON.stringify(option));
-        message.value = "";
-    }
 
-    //웹소켓 종료
-    function disconnect(){
-        var option = {
-            messagetype : "EXIT",
-            roomId : {{chatroom.id}},
-            sender : "{{username}}",
-            msg :'가 채팅방을 나갔습니다.'
+        //웹소켓 종료
+        function disconnect() {
+            var option = {
+                messagetype: "EXIT",
+                roomId: {{chatroom.id}},
+                sender: "{{nickName}}",
+                msg: '가 채팅방을 나갔습니다.'
+            }
+            webSocket.send(JSON.stringify(option));
+            webSocket.close();
+            location.href = "/exitchatroom?id=" + "{{chatroom.id}}";
         }
-        webSocket.send(JSON.stringify(option));
-        webSocket.close();
-        location.href = "/exitchatroom?id="+"{{chatroom.id}}";
-    }
 
-</script>
+        function forceExit(user_id,username) {
+            if('{{&chatroom.masterusername}}'!= '{{&nickName}}'){
+                alert(username);
+                alert("방장만 강제퇴장 시킬 수 있습니다.");
+            }else{
+                if(confirm(username+"를 강제 퇴장 시키겠습니까?")){
+                    var option = {
+                        messagetype: "EXIT",
+                        roomId: {{chatroom.id}},
+                        sender: username,
+                        msg: '가 채팅방을 퇴장당했습니다.'
+                    }
+                    webSocket.send(JSON.stringify(option));
+                    location.href = "/forceexitchatroom?room_id=" + "{{chatroom.id}}" + "&user_id="+ user_id;
+                }
+            }
 
+        }
 
+    </script>
+
+<script>
+        var target = document.querySelectorAll('.btn-open');
+        var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
+        var targetID;
+
+        // 팝업 열기
+        for (var i = 0; i < target.length; i++) {
+            target[i].addEventListener('click', function () {
+                targetID = this.getAttribute('href');
+                document.querySelector(targetID).style.display = 'block';
+            });
+        }
+
+        // 팝업 닫기
+        for (var j = 0; j < target.length; j++) {
+            btnPopClose[j].addEventListener('click', function () {
+                this.parentNode.parentNode.style.display = 'none';
+            });
+        }
+
+    </script>
 {{>layout/footer}}

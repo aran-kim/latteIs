@@ -14,6 +14,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // SELECT * FROM user WHERE username = ?1
     User findByUsername(String username);
 
+    User findByNickName(String nick_name);
+
     // select * from user where id = ?
     User findById(int id);
 
