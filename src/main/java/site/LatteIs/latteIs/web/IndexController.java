@@ -166,7 +166,8 @@ public class IndexController {
             else
                 good = null;
             System.out.println("good : " + good);
-            //good = "INTJ"; //테스트용
+            good = "ENFP"; //테스트용
+            model.addAttribute("searchMbti", good);
 
             List<Interest> userList = interestRepository.findAllByMbti(good);
             model.addAttribute("userList", userList);
