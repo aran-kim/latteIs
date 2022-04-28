@@ -22,20 +22,22 @@
                                 <h1><strong>Search</strong></h1>
                                 <p>Select a kind of rooms</p>
                             </div>
-                            <div class="form-top-right">
-                                <i class="fa fa-key"></i>
+                        </div>
+
+                            <div class="card">
+                                <div class="board">
+                                    {{#moreInfo}}
+                                        <button type="button" class="btn" onclick="location.href = '/mbti'">아무 친구 찾기</button>
+                                    {{/moreInfo}}
+                                    {{^moreInfo}}
+                                        <button onclick="location.href='/friend'">아무 친구 찾기</button>
+                                    {{/moreInfo}}
+                                    <a href="/universityFriend">학교 친구 찾기</a>
+                                    <a href="/hobbyFriend">취미 맞는 친구 찾기</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-bottom">>
-                            {{#moreInfo}}
-                                <button type="button" id="moreInfo" onclick="location.href = '/mbti'">아무 친구 찾기</button>
-                            {{/moreInfo}}
-                            {{^moreInfo}}
-                                <button onclick="location.href='/friend'">아무 친구 찾기</button>
-                            {{/moreInfo}}
-                            <a href="/universityFriend">학교 친구 찾기</a>
-                            <a href="/hobbyFriend">취미 맞는 친구 찾기</a>
-                        </div>
+
+
                     </div>
 
                 </div>
