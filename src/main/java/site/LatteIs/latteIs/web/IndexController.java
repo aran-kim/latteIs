@@ -10,6 +10,7 @@ import site.LatteIs.latteIs.auth.*;
 import site.LatteIs.latteIs.web.domain.entity.*;
 import site.LatteIs.latteIs.web.domain.repository.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller // View 반환
@@ -194,5 +195,6 @@ public class IndexController {
         }
         return "friendDetail";
     }
+
 
 }

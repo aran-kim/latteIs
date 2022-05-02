@@ -1,4 +1,4 @@
-package site.LatteIs.latteIs.config;
+package site.LatteIs.latteIs.web.domain.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -17,18 +17,20 @@
             <div class="container">
                 <div class="row">
                     <div class="form-box">
-                            <div class="card">
-                                <div class="board">
-                                    {{#moreInfo}}
-                                        <button type="button" class="btn" onclick="location.href = '/mbti'">아무 친구 찾기</button>
-                                    {{/moreInfo}}
-                                    {{^moreInfo}}
-                                        <button onclick="location.href='/friend'">아무 친구 찾기</button>
-                                    {{/moreInfo}}
+                        <div class="card">
+                            <div class="board">
+                                {{#moreInfo}} <!-- 경고창 띄우고 mbti로 보내기 추가해야함 -->
+                                    <a href="/mbti">아무 친구 찾기</a>
+                                    <a href="/mbti">학교 친구 찾기</a>
+                                    <a href="/mbti">취미 맞는 친구 찾기</a>
+                                {{/moreInfo}}
+                                {{^moreInfo}}
+                                    <a href="/friend">아무 친구 찾기</a>
                                     <a href="/universityFriend">학교 친구 찾기</a>
                                     <a href="/hobbyFriend">취미 맞는 친구 찾기</a>
-                                </div>
+                                {{/moreInfo}}
                             </div>
+                        </div>
                     </div>
 
                 </div>
