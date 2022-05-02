@@ -78,7 +78,7 @@ public class ChatHandler extends TextWebSocketHandler {
                     }
                     chatMessage.setMessage(str);
                     chatMessage.setChatRoom(chatRoom);
-
+                    chatMessage.setMe(false);
                     chatMessage.setUser(user);
 
                     wss.sendMessage(new TextMessage(obj.toJSONString()));

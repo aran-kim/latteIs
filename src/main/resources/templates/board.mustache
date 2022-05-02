@@ -16,42 +16,16 @@
             <div class="container">
                 <div class="row">
                     <div class="form-box">
-                        <div class="card">
-                            <div class="board1">
-                                자유게시판
-                                {{#postList1}}
-                                    <br>
-                                    <a onclick="location.href='postDetail?board_id='+{{board.id}}+'&post_id='+{{id}}">{{title}}</a>
-                                {{/postList1}}
+                            <div class="card">
+                                <div class="board">
+                                    <h3>게시판 주제</h3>
+                                    {{#board}}
+                                        <a onclick="location.href='post?board_id='+{{id}}">{{subject}}</a>
+                                    {{/board}}
+                                </div>
+
                             </div>
-                        </div>
-                        <div class="card">
-                            <div class="board1">
-                                스터디게시판
-                                {{#postList2}}
-                                    <br>
-                                    <a onclick="location.href='postDetail?board_id='+{{board.id}}+'&post_id='+{{id}}">{{title}}</a>
-                                {{/postList2}}
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="board1">
-                                정보게시판
-                                {{#postList3}}
-                                    <br>
-                                    <a onclick="location.href='postDetail?board_id='+{{board.id}}+'&post_id='+{{id}}">{{title}}</a>
-                                {{/postList3}}
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="board1">
-                                홍보게시판
-                                {{#postList4}}
-                                    <br>
-                                    <a onclick="location.href='postDetail?board_id='+{{board.id}}+'&post_id='+{{id}}">{{title}}</a>
-                                {{/postList4}}
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
