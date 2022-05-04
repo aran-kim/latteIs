@@ -1,0 +1,80 @@
+{{>layout/header}}
+
+<nav class="codrops-demos">
+    <a href="/">Home</a>
+    <a href="/mychatroom">Chatting</a>
+    <a class="current-demo" href="/search">Search</a>
+    <a href="/board">Board</a>
+    <a href="/info">Info</a>
+</nav>
+</header>
+
+<div>
+    <!-- Top content -->
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h1><strong>Friend</strong></h1>
+                                <p>Read friend's interest</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <table class="table-post">
+                                <thead class="thead-strong">
+                                <tr>
+                                    <th>닉네임</th>
+                                    <th>MBTI</th>
+                                    <th>성별</th>
+                                    <th>나이</th>
+                                    <th>학교</th>
+                                    <th>종교</th>
+                                    <th>주량</th>
+                                    <th>흡연</th>
+                                    <th>특징</th>
+                                    <th>취미</th>
+                                    <th>친구 스타일</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tbody">
+                                {{#interest}}
+                                    <tr>
+                                        <td>{{user.nickName}}</td>
+                                        <td>{{mbti}}</td>
+                                        <td>{{sex}}</td>
+                                        <td>{{age}}</td>
+                                        <td>{{university}}</td>
+                                        <td>{{religion}}</td>
+                                        <td>{{amount_of_alcohol}}</td>
+                                        <td>{{smoking}}</td>
+                                        <td>{{characteristic}}</td>
+                                        <td>{{hobby}}</td>
+                                        <td>{{friend_style}}</td>
+                                    </tr>
+                                {{/interest}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+
+    </footer>
+</div>
+
+{{>layout/footer}}

@@ -1,0 +1,120 @@
+{{>layout/header}}
+
+<nav class="codrops-demos">
+    <a href="/">Home</a>
+    <a href="/mychatroom">Chatting</a>
+    <a href="/search">Search</a>
+    <a href="/board">Board</a>
+    <a class="current-demo" href="/info">Info</a>
+</nav>
+</header>
+
+<div>
+    <!-- Top content -->
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h1><strong>Question</strong></h1>
+                                <p>Enter your Infomation</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <form action="/questionProc" method="post" class="question-form">
+                                <div class="form-group">
+                                    <p>성별</p>
+                                    <input type="radio" id="sex" name="sex" value="male">남자
+                                    <input type="radio" id="sex" name="sex" value="female">여자
+                                </div>
+                                <div class="form-group">
+                                    <p>생년월일</p>
+                                    <input type="date" id="birthday" name="birthday">
+                                </div>
+                                <div class="form-group">
+                                    <p>학교</p>
+                                    <input type="radio" id="university" name="university" value="seoul">서울대학교
+                                    <input type="radio" id="university" name="university" value="korea">고려대학교
+                                    <input type="radio" id="university" name="university" value="kwangwoon">광운대학교
+                                </div>
+                                <div class="form-group">
+                                    <p>종교</p>
+                                    <input type="radio" id="religion" name="religion" value="none">무교
+                                    <input type="radio" id="religion" name="religion" value="catholic">천주교
+                                    <input type="radio" id="religion" name="religion" value="christian">기독교
+                                    <input type="radio" id="religion" name="religion" value="buddhism">불교
+                                </div>
+                                <div class="form-group">
+                                    <p>주량</p>
+                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="none">전혀 안 함
+                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="half">반 병
+                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="one">한 병
+                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="two">두 병
+                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="many">많이
+                                </div>
+                                <div class="form-group">
+                                    <p>흡연</p>
+                                    <input type="radio" id="smoking" name="smoking" value="none">비흡연자
+                                    <input type="radio" id="smoking" name="smoking" value="smoking">흡연자
+                                </div>
+                                <div class="form-group"> <!-- 다중 선택 고려해야함 -->
+                                    <p>특징</p>
+                                    <input type="checkbox" name="characteristic" value="active">활발한
+                                    <input type="checkbox" name="characteristic" value="quite">조용한
+                                    <input type="checkbox" name="characteristic" value="cute">애교가 넘치는
+                                    <input type="checkbox" name="characteristic" value="mature">어른스러운
+                                    <input type="checkbox" name="characteristic" value="passive">열정적인
+                                    <input type="checkbox" name="characteristic" value="calm">침착한
+                                    <input type="checkbox" name="characteristic" value="crazy">또라이 같은
+                                    <input type="checkbox" name="characteristic" value="kind">예의 바른
+                                    <input type="checkbox" name="characteristic" value="humorous">유머러스한
+                                </div>
+                                <div class="form-group"> <!-- 다중 선택 고려해야함 -->
+                                    <p>취미</p>
+                                    <input type="checkbox" name="hobby" value="movie">영화
+                                    <input type="checkbox" name="hobby" value="netflix">넷플릭스
+                                    <input type="checkbox" name="hobby" value="cafe">카페
+                                    <input type="checkbox" name="hobby" value="sing">노래방
+                                    <input type="checkbox" name="hobby" value="alcohol">맥주
+                                    <input type="checkbox" name="hobby" value="shopping">쇼핑
+                                    <input type="checkbox" name="hobby" value="reading">독서
+                                    <input type="checkbox" name="hobby" value="tracking">등산
+                                    <input type="checkbox" name="hobby" value="foodFighter">맛집 탐방
+                                </div>
+                                <div class="form-group">
+                                    <p>친구 스타일</p>
+                                    <input type="checkbox" name="friend_style" value="good">예쁘고 잘생긴
+                                    <input type="checkbox" name="friend_style" value="fashionable">옷 잘 입는
+                                    <input type="checkbox" name="friend_style" value="reliable">듬직한
+                                    <input type="checkbox" name="friend_style" value="petite">아담한
+                                    <input type="checkbox" name="friend_style" value="highAge">연상
+                                    <input type="checkbox" name="friend_style" value="lowAge">연하
+                                    <input type="checkbox" name="friend_style" value="sameAge">동갑
+                                    <input type="checkbox" name="friend_style" value="sameHobby">취미가 같은
+                                    <input type="checkbox" name="friend_style" value="laughReadily">잘 웃어주는
+                                </div>
+                                <button type="submit" id="btn-question">끝! </button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+
+    </footer>
+</div>
+
+{{>layout/footer}}

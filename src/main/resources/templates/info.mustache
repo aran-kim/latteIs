@@ -1,0 +1,64 @@
+{{>layout/header}}
+
+<nav class="codrops-demos">
+    <a href="/">Home</a>
+    <a href="/mychatroom">Chatting</a>
+    <a href="/search">Search</a>
+    <a href="/board">Board</a>
+    <a class="current-demo" href="/info">Info</a>
+</nav>
+</header>
+
+<div>
+    <!-- Top content -->
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                <div class="form-box">
+                    {{#userinfo}}
+                        <section>
+                            <h3>내 정보</h3>
+                            <p>유저 아이디: {{username}}</p>
+                            <p>닉네임: {{nickName}}</p>
+                        </section>
+                        <section>
+                            <h3>계정</h3>
+                            <a href="/changePwd">비밀번호 변경</a>
+                            <a href="/changeEmail">이메일 변경</a>
+                        </section>
+                        <section>
+                            <h3>커뮤니티</h3>
+                            <a href="/changeNickName">닉네임 설정</a>
+                            <a href="/changeInterest">관심사 확인/변경</a>
+                            <p>신고 내역 확인(블랙리스트 확인)</p>
+                            <p>팔로워, 팔로잉 확인</p>
+                            <p>커뮤니티 이용규칙</p>
+                        </section>
+                        <section>
+                            <h3>이용 안내</h3>
+                            <p>문의하기</p>
+                            <p>공지사항</p>
+                        </section>
+                        <section>
+                            <h3>기타</h3>
+                            <p>정보 동의 설정</p>
+                            <p>회원 탈퇴</p>
+                        </section>
+                    {{/userinfo}}
+
+                </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+
+    </footer>
+</div>
+
+{{>layout/footer}}
