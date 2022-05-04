@@ -17,17 +17,17 @@
             <div class="container">
                 <div class="row">
                     <div class="form-box">
-                        <div class="form-top">
-                            <div class="form-top-left">
-                                <h1><strong>Search</strong></h1>
-                                <p>Select a kind of rooms</p>
+                        <div class="card">
+                            <div class="board">
+                                {{#moreInfo}}
+                                    <a href="/mbti">아무 친구 찾기</a>
+                                {{/moreInfo}}
+                                {{^moreInfo}}
+                                    <a href="/friend">아무 친구 찾기</a>
+                                {{/moreInfo}}
+                                <a href="/universityFriend">학교 친구 찾기</a>
+                                <a href="/hobbyFriend">취미 맞는 친구 찾기</a>
                             </div>
-                            <div class="form-top-right">
-                                <i class="fa fa-key"></i>
-                            </div>
-                        </div>
-                        <div class="form-bottom">>
-                            <a href="/search/friend">친구 찾기</a>
                         </div>
                     </div>
 

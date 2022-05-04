@@ -1,8 +1,48 @@
-{{>layout/header}}
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Codrops" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <link rel="stylesheet" type="text/css" href="css/component.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="js/modernizr.custom.js"></script>
 
-</header>
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/form-elements.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
-<div>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    </div>
+    <!-- JavaScript -->
+    <script src="/webjars/vue/2.5.16/dist/vue.min.js"></script>
+    <script src="/webjars/axios/0.17.1/dist/axios.min.js"></script>
+    <script src="/webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="images/icon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+</head>
+
+<body>
     <!-- Top content -->
     <div class="top-content">
 
@@ -12,36 +52,36 @@
                     <div class="form-box">
                         <div class="form-top">
                             <div class="form-top-left">
-                                <h1><strong>Join</strong></h1>
-                                <p>Enter username and password to join</p>
+                                <h1><strong>회원 가입</strong></h1>
                             </div>
+                            <!--
                             <div class="form-top-right">
                                 <i class="fa fa-key"></i>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="form-bottom">
                             <form action="/joinProc" method="post" class="join-form">
                                 <div class="form-group">
                                     <label class="sr-only" for="form-username">Username</label>
-                                    <input type="text" name="username" placeholder="id..."
+                                    <input type="text" name="username" placeholder="아이디"
                                            class="form-username form-control" id="form-username">
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-password">Password</label>
-                                    <input type="password" name="password" placeholder="Password..."
+                                    <input type="password" name="password" placeholder="비밀번호"
                                            class="form-password form-control" id="form-password">
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-email">Email</label>
-                                    <input type="email" name="email" placeholder="email..."
+                                    <input type="email" name="email" placeholder="이메일"
                                            class="form-email form-control" id="form-email">
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-nickName">Nickname</label>
-                                    <input type="text" name="nickName" placeholder="nickName..."
+                                    <input type="text" name="nickName" placeholder="활동명"
                                            class="form-Nickname form-control" id="form-nickName">
                                 </div>
-                                <button type="submit" id="btn-join">Sign up!</button>
+                                <button type="submit" class="btn btn-outline-dark">회원 가입</button>
                             </form>
                         </div>
                     </div>
@@ -57,6 +97,6 @@
     <footer>
 
     </footer>
-</div>
+</body>
 
 {{>layout/footer}}

@@ -7,6 +7,7 @@
     <a class="current-demo" href="/board">Board</a>
     <a href="/info">Info</a>
 </nav>
+
 </header>
 
 <div>
@@ -15,28 +16,34 @@
 
         <div class="inner-bg">
             <div class="container">
-                <div class="row">
+
                     <div class="form-box">
                         <div class="form-top">
                             <div class="form-top-left">
                                 <h1><strong>PostList</strong></h1>
                                 <p>Select Post for PostList</p>
                             </div>
-                            <div class="form-top-right">
-                                <i class="fa fa-key"></i>
-                            </div>
+
                         </div>
-                        <div class="form-bottom">
-                            <a onclick="location.href='postSave?board_id='+{{board_id}}">글 등록</a>
-                            <table class="table-post-list">
-                                <thead class="thead-strong">
+
+
+                            <table class="post-list mgT20">
+
+                                <colgroup>
+                                    <col style="width: 30%;">
+                                    <col style="width: 35%;">
+                                    <col style="width: 35%;">
+                                </colgroup>
+
+                                <thead>
                                 <tr>
-                                    <th>게시글 번호</th>
-                                    <th>제목</th>
-                                    <th>작성자</th>
+                                    <th scope="col">번호</th>
+                                    <th scope="col">제목</th>
+                                    <th scope="col">작성자</th>
                                 </tr>
                                 </thead>
-                                <tbody id="tbody">
+
+                                <tbody>
                                 {{#post}}
                                     <tr>
                                         <td>{{id}}</td>
@@ -46,9 +53,11 @@
                                 {{/post}}
                                 </tbody>
                             </table>
-                        </div>
+
+                        <button type="button" class="btn" style="float:right" onclick="location.href='postSave?board_id='+{{board_id}}">글 등록</button>
+
                     </div>
-                </div>
+
             </div>
         </div>
 

@@ -35,7 +35,15 @@ public class BoardController {
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
 
-            model.addAttribute("board", boardRepository.findAll());
+            List<Post> postList1 = postRepository.findThreeByBoardId(1);
+            List<Post> postList2 = postRepository.findThreeByBoardId(2);
+            List<Post> postList3 = postRepository.findThreeByBoardId(3);
+            List<Post> postList4 = postRepository.findThreeByBoardId(4);
+
+            model.addAttribute("postList1", postList1);
+            model.addAttribute("postList2", postList2);
+            model.addAttribute("postList3", postList3);
+            model.addAttribute("postList4", postList4);
         }
         return "board";
     }

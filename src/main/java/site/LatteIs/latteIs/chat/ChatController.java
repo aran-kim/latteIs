@@ -30,12 +30,12 @@ public class ChatController {
             // 쿼리 조인 후 입장 중인 대화방 찾기
             User finduser = userRepository.findByUsername(user.getUsername());
             List<ChatMessage> chatMessage = chatMessageRepository.findMessageByUserId(finduser.getId());
-            if(searchKey == null) searchKey = "%%";
+            if(searchKey == null) searchKey = "% %";
             else searchKey = "%" + searchKey + "%";
             List<ChatRoom> searchedRoom = chatRoomRepository.findBySearchkey(searchKey);
             System.out.println("search : "+searchedRoom);
 
-            List list = chatRoomRepository.findByMasterusername(user.getUsername());
+            List list = chatRoomRepository.findByMasterusername(user.getNickName());
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
 

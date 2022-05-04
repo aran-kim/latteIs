@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caption Hover Effects - Demo 3</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="Codrops" />
@@ -19,6 +18,7 @@
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/form-elements.css">
     <link rel="stylesheet" href="assets/css/style.css">
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,6 +39,12 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
@@ -47,7 +53,7 @@
     <div class="codrops-top clearfix">
         <a class="codrops-icon codrops-icon-prev" href="/.."><span>이전</span></a>
         {{#nickName}}
-            세션 확인용 : {{nickName}}
+            {{nickName}}님
             <span class="right"><a class="codrops-icon codrops-icon-drop" href="/logout"><span>Log Out</span></a></span>
         {{/nickName}}
         {{^nickName}}
@@ -55,5 +61,5 @@
         {{/nickName}}
     </div>
     <header>
-        <img src="images/icon.png" height="130px">
-        <h1><strong>라때는...</strong></h1>
+        <a href="/"><img src="images/icon.png" height="130px"></a>
+        <a href="/"><h1><strong>라때는...</strong></h1></a>

@@ -1,0 +1,14 @@
+#mbti{
+  background-color: whitesmoke;
+  width: 60%;
+  text-align: center;
+  border-radius: 20px;
+}
+
+p{
+  font-size: 20px;
+}
+
+*{
+  font-family: 'Nanum Pen Script', cursive;
+}

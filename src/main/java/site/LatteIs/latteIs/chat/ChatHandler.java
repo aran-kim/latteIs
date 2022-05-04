@@ -45,28 +45,29 @@ public class ChatHandler extends TextWebSocketHandler {
                 long room_id = Long.parseLong(obj.get("roomId").toString());
                 ChatRoom chatRoom = chatRoomRepository.findById(room_id);
                 String user_name = obj.get("sender").toString();
-                User user = userRepository.findByUsername(user_name);
+                User user = userRepository.findByNickName(user_name);
+
                 List<ChatMessage> list = chatMessageRepository.findAllMessageByRoomIdandUserId(chatRoom.getId(),user.getId());
 
                 System.out.println("list size: " + list.size());
                 System.out.println("type: " + obj.get("messagetype").toString());
 
                 if(!(obj.get("messagetype").toString().equals("ENTER")) || (list.size()==0)) {
-                    int currentNumber = chatRoom.getCurrentnumber();
+                    /*int currentNumber = chatRoom.getCurrentnumber();
                     currentNumber++;
                     if(obj.get("messagetype").toString().equals("ENTER")) {
                         System.out.println("romm memeber: " + currentNumber);
-                        if(currentNumber > chatRoom.getMaxnumber()){
-/*                          MyHttpServletResponse response = new MyHttpServletResponse();
+                       *//* if(currentNumber > chatRoom.getMaxnumber()){
+*//**//*                          MyHttpServletResponse response = new MyHttpServletResponse();
                             response.setContentType("text/html; charset=UTF-8");
                             PrintWriter out = response.getWriter();
                             out.println("<script>alert('채팅방 입장 인원을 초과하였습니다.');</script>");
-                            out.flush();*/
+                            out.flush();*//**//*
                             break;
                         }else{
                             chatRoom.setCurrentnumber(currentNumber);
-                        }
-                    } // 아직 미완성 - 경고창이 안뜸
+                        }*//*
+                    } // 아직 미완성 - 경고창이 안뜸*/
 
                     chatMessage.setType(obj.get("messagetype").toString());
 
@@ -77,7 +78,7 @@ public class ChatHandler extends TextWebSocketHandler {
                     }
                     chatMessage.setMessage(str);
                     chatMessage.setChatRoom(chatRoom);
-
+                    chatMessage.setMe(false);
                     chatMessage.setUser(user);
 
                     wss.sendMessage(new TextMessage(obj.toJSONString()));

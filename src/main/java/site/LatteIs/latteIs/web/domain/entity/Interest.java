@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Builder
 @Data
@@ -20,6 +21,7 @@ public class Interest implements Serializable {
     private int id;
     private String sex;
     private String birthday;
+    private int age;
     private String university;
     private String religion;
     private String amount_of_alcohol;
@@ -27,6 +29,7 @@ public class Interest implements Serializable {
     private String characteristic;
     private String hobby;
     private String friend_style;
+    private String mbti;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

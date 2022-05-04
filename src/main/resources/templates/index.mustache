@@ -1,11 +1,19 @@
 {{>layout/header}}
-
     <nav class="codrops-demos">
-        <a class="current-demo" href="/">Home</a>
-        <a href="/mychatroom">Chatting</a>
-        <a href="/search">Search</a>
-        <a href="/board">Board</a>
-        <a href="/info">Info</a>
+        {{#nickName}}
+            <a class="current-demo" href="/">Home</a>
+            <a href="/mychatroom">Chatting</a>
+            <a href="/search">Search</a>
+            <a href="/board">Board</a>
+            <a href="/info">Info</a>
+        {{/nickName}}
+        {{^nickName}}
+            <a class="current-demo" href="/">Home</a>
+            <a href="/loginForm">Chatting</a>
+            <a href="/loginForm">Search</a>
+            <a href="/loginForm">Board</a>
+            <a href="/loginForm">Info</a>
+        {{/nickName}}
     </nav>
     </header>
     <ul class="grid cs-style-3">
@@ -66,26 +74,6 @@
                     {{^nickName}}
                         <a href="/loginForm">Login</a>
                     {{/nickName}}
-                </figcaption>
-            </figure>
-        </li>
-        <li>
-            <figure>
-                <img src="images/3.png" alt="img03">
-                <figcaption>
-                    <h3>Phone</h3>
-                    <span>Jacob Cummings</span>
-                    <a href="/">Take a look</a>
-                </figcaption>
-            </figure>
-        </li>
-        <li>
-            <figure>
-                <img src="images/6.png" alt="img06">
-                <figcaption>
-                    <h3>Game Center</h3>
-                    <span>Jacob Cummings</span>
-                    <a href="/">Take a look</a>
                 </figcaption>
             </figure>
         </li>
