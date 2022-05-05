@@ -19,4 +19,19 @@ public class SessionUser implements Serializable {
         this.init = user.getInit();
     }
 
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setInit(int init) {
+        this.init = init;
+    }
 }

@@ -12,6 +12,8 @@ import site.LatteIs.latteIs.auth.SessionUser;
 import site.LatteIs.latteIs.web.domain.entity.User;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class InfoController {
 
@@ -19,6 +21,9 @@ public class InfoController {
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private HttpSession httpSession;
+
 
     @GetMapping("/info")
     public String info(Model model, @LoginUser SessionUser user){
@@ -52,6 +57,7 @@ public class InfoController {
             String encPassword = bCryptPasswordEncoder.encode(NewPassword);
             userinfo.setPassword(encPassword);
             System.out.println("변경 후 user 정보 : " + userinfo);
+
             return "redirect:/info";
         }
         else{
@@ -76,8 +82,12 @@ public class InfoController {
         User userinfo = userRepository.findByUsername(user.getUsername());
         if(password.equals(userinfo.getPassword())){
             System.out.println("변경 전 user 정보 : " + userinfo);
+            System.out.println("변경 전 Session email : " + user.getEmail());
             userinfo.setEmail(email);
+            user.setEmail(email);
+            httpSession.setAttribute("user", user);
             System.out.println("변경 후 user 정보 : " + userinfo);
+            System.out.println("변경 후 Session email : " + user.getEmail());
             return "redirect:/info";
         }
         else{
@@ -100,8 +110,12 @@ public class InfoController {
     public String changeNickNameProc(Model model, @LoginUser SessionUser user, @RequestParam ("nickname") String nickname){
         User userinfo = userRepository.findByUsername(user.getUsername());
         System.out.println("변경 전 user 정보 : " + userinfo);
+        System.out.println("변경 전 Seesion nickname : " + user.getNickName());
         userinfo.setNickName(nickname);
+        user.setNickName(nickname);
+        httpSession.setAttribute("user", user);
         System.out.println("변경 후 user 정보 : " + userinfo);
+        System.out.println("변경 후 Seesion nickname : " + user.getNickName());
         return "redirect:/info";
     }
 }

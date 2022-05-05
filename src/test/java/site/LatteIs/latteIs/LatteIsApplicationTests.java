@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import site.LatteIs.latteIs.web.domain.entity.*;
 import site.LatteIs.latteIs.web.domain.repository.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -97,12 +98,12 @@ class LatteIsApplicationTests {
 
 	@Test
 	public void postTest(){
-		User userinfo = userRepository.findByUsername("test13");
-		MBTI mbti = mbtiRepository.findByUserId(userinfo.getId());
-		System.out.println(userinfo);
-		System.out.println(mbti);
 
-		String userMBTI = mbti.getMbti();
+		User userinfo = userRepository.findByUsername("test13");
+		Interest userInterest = interestRepository.findByUserId(userinfo.getId());
+
+		//String userMBTI = userInterest.getMbti();
+		String userMBTI = "ENTJ";
 		System.out.println("사용자의 MBTI : " + userMBTI);
 		String good;
 		if(userMBTI.equals("ENFJ") || userMBTI.equals("INTJ")){
@@ -156,8 +157,50 @@ class LatteIsApplicationTests {
 		else
 			good = null;
 		System.out.println("good : " + good);
-		good = "INTJ";
-		List<MBTI> userList = mbtiRepository.findAllBymbti(good);
+		good = "ESTJ"; //테스트용
+
+		List<Interest> userList = interestRepository.findAllByMbtiandUniversity(good, userInterest.getUniversity(), userInterest.getUser().getId());
+
+		String userinfoFrinedStyle = userInterest.getFriend_style();
+		String[] arr = {"", "", ""};
+		System.out.println(userinfoFrinedStyle.length());
+		if(userinfoFrinedStyle.contains(",")){
+			System.out.println(userinfoFrinedStyle.split(",").length + "개");
+			int start = 0, end = 0;
+			for(int k = 0; k < userinfoFrinedStyle.split(",").length; k++){
+				end = userinfoFrinedStyle.indexOf(",", start);
+				if(end == -1)
+					end = userinfoFrinedStyle.length();
+				arr[k] = userinfoFrinedStyle.substring(start, end);
+				arr[k] = arr[k].replaceAll("[^a-z]", "");
+				start = end + 1;
+				System.out.println("arr[" + k + "]: " + arr[k]);
+			}
+		}
+		else{
+			System.out.println("1개");
+			arr[0] = userinfoFrinedStyle.replaceAll("[^a-z]", "");
+			for(int i = 0; i < arr.length; i++)
+				System.out.println(arr[i]);
+		}
+		String userFriendStyle = "";
+		int cnt = 0;
+		for(int i = 0; i < userList.size(); i++){
+			userFriendStyle = userList.get(i).getFriend_style();
+			System.out.println(userFriendStyle);
+			cnt = 0;
+			for(int j = 0; j < arr.length; j++){
+				if(userFriendStyle.contains(arr[j]) && !arr[j].equals("")){
+					//model.addattributes("number" + i, i);
+					System.out.println(arr[j] + " 겹침");
+					cnt++;
+				}
+			}
+			if (cnt == 0)
+				System.out.println(userList.get(i).getUser().getUsername() + "과는 좋아하는 스타일이 같지 않습니다.");
+			else
+				System.out.println(userList.get(i).getUser().getUsername() + "과는 좋아하는 스타일이 같습니다.");
+		}
 		System.out.println("userList : " + userList);
 	}
 
@@ -192,5 +235,67 @@ class LatteIsApplicationTests {
 				}
 			}
 		}
+	}
+
+	@Test
+	public void interestTest(){
+		Interest interest = interestRepository.findByUserId(33);
+		System.out.println(interest.getHobby());
+		String[] arr = {"", "", ""};
+		if(interest.getHobby().split(",").length == 1){
+			arr[0] =
+			arr[1] = "";
+			arr[2] = "";
+		}
+		arr = interest.getHobby().split(",");
+		System.out.println(arr[1]);
+		System.out.println(arr[2]);
+
+		for(int i = 0; i < arr.length; i++){
+
+			arr[i] = arr[i].replaceAll("[^a-z]","");
+			if(!arr[i].equals(""))
+				arr[i] = "%" + arr[i] + "%";
+			System.out.println(arr[i]);
+		}
+		List<Interest> userList = interestRepository.findAllByEqualInterest(arr[0], arr[1], arr[2], interest.getUniversity(), interest.getUser().getId());
+		System.out.println(userList);
+
+	}
+
+	@Test
+	public void splitTest(){
+
+		String name = "안녕하세요,]";
+		System.out.println(name.replaceAll("^[ㄱ-ㅎ가-힣]*$", "*"));
+		System.out.println(name.replaceAll("[^\\uAC00-\\uD7A30-9a-zA-Z]", "*"));
+
+
+		Interest interest = interestRepository.findByUserId(6);
+		String hobby = interest.getHobby();
+		System.out.println(hobby);
+		String[] arr = {"", "", ""};
+		if(hobby.contains(",")){
+			System.out.println(hobby.split(",").length + "개");
+			int start = 0, end = 0;
+			for(int i = 0; i < hobby.split(",").length; i++){
+				end = hobby.indexOf(",", start);
+				if(end == -1)
+					end = hobby.length();
+				arr[i] = hobby.substring(start, end);
+				arr[i] = arr[i].replaceAll("[^a-z]","");
+				start = end + 1;
+				System.out.println("arr["+ i + "]: " + arr[i]);
+			}
+		}
+		else{
+			System.out.println("1개");
+			arr[0] = hobby.replaceAll("[^a-z]","");
+			for(int i = 0; i < arr.length; i ++)
+				System.out.println(arr[i]);
+		}
+		List<Interest> userList = interestRepository.findAllByEqualInterest(arr[0], arr[1], arr[2], interest.getUniversity(), interest.getUser().getId());
+		System.out.println(userList);
+
 	}
 }
