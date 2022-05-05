@@ -1,14 +1,21 @@
 package site.LatteIs.latteIs.web;
 
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import site.LatteIs.latteIs.auth.LoginUser;
+import site.LatteIs.latteIs.auth.PhoneAuthenticationService;
 import site.LatteIs.latteIs.auth.SessionUser;
+import site.LatteIs.latteIs.web.domain.entity.Blacklist;
+import site.LatteIs.latteIs.web.domain.entity.Follower;
 import site.LatteIs.latteIs.web.domain.entity.Interest;
 import site.LatteIs.latteIs.web.domain.entity.User;
+import site.LatteIs.latteIs.web.domain.repository.BlacklistRepository;
+import site.LatteIs.latteIs.web.domain.repository.FollowerRepository;
 import site.LatteIs.latteIs.web.domain.repository.InterestRepository;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
@@ -21,6 +28,10 @@ public class SearchController {
     private UserRepository userRepository;
     @Autowired
     private InterestRepository interestRepository;
+    @Autowired
+    private FollowerRepository followerRepository;
+    @Autowired
+    private BlacklistRepository blacklistRepository;
 
     @GetMapping("/search")
     public String search(Model model, @LoginUser SessionUser user){
@@ -101,7 +112,7 @@ public class SearchController {
             else
                 good = null;
             System.out.println("good : " + good);
-            good = "ESTJ"; //테스트용
+            good = "ENFP"; //테스트용
             model.addAttribute("searchMbti", good);
 
             List<Interest> userList = interestRepository.findAllByMbtiandUniversity(good, userInterest.getUniversity(), userInterest.getUser().getId());
@@ -126,6 +137,7 @@ public class SearchController {
             String hobby = userInterest.getHobby();
             System.out.println(hobby);
             String[] arr = {"", "", ""};
+            String[] regdx = {",", "\\[", "\\]"};
             if(hobby.contains(",")){
                 System.out.println(hobby.split(",").length + "개");
                 int start = 0, end = 0;
@@ -134,14 +146,16 @@ public class SearchController {
                     if(end == -1)
                         end = hobby.length();
                     arr[i] = hobby.substring(start, end);
-                    arr[i] = arr[i].replaceAll("[^\\uAC00-\\uD7A30-9a-zA-Z]","");
+                    for(int j = 0; j < regdx.length; j++)
+                        arr[i] = arr[i].replaceAll(regdx[j], "");
                     start = end + 1;
                     System.out.println("arr["+ i + "]: " + arr[i]);
                 }
             }
             else{
                 System.out.println("1개");
-                arr[0] = hobby.replaceAll("[^\\uAC00-\\uD7A30-9a-zA-Z]","");
+                for(int j = 0; j < regdx.length; j++)
+                    arr[0] = arr[0].replaceAll(regdx[j], "");
                 for(int i = 0; i < arr.length; i ++)
                     System.out.println(arr[i]);
             }
@@ -167,9 +181,57 @@ public class SearchController {
             System.out.println("받은 user_id : " + user_id);
             model.addAttribute("user_id", user_id);
             friendInterest = interestRepository.findByUserId(user_id.intValue());
-            model.addAttribute("interest", friendInterest);
+            model.addAttribute("friendInterest", friendInterest);
+
+            Follower follower = followerRepository.findByUserId(userinfo.getId());
+            Blacklist blacklist = blacklistRepository.findByUserId(userinfo.getId());
+            System.out.println("follower : " + follower);
+            System.out.println("blacklist : " + blacklist);
+
+            if(follower.getFollowerUserIdList().contains(Long.toString(user_id)))
+                model.addAttribute("alreadyFollower", 1);
+            else if(blacklist.getBlackUserIdList().contains(Long.toString(user_id)))
+                model.addAttribute("alreadyBlacklist", 1);
+
 
         }
         return "friendDetail";
+    }
+
+    @ResponseBody
+    @GetMapping("/friendDetail/follower")
+    public void follower(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Follower follower) {
+        User userinfo = userRepository.findByUsername(user.getUsername());
+        System.out.println("로그인 유저 : " + userinfo);
+        User followerUser = userRepository.findById(Integer.parseInt(user_id));
+        System.out.println(followerUser.getNickName() + "님 팔로우 신청");
+
+        follower.setUser(userinfo);
+        System.out.println("follwerList : " + follower.getFollowerUserIdList());
+        if(follower.getFollowerUserIdList() == null)
+            follower.setFollowerUserIdList(user_id);
+        else
+            follower.setFollowerUserIdList(follower.getFollowerUserIdList() + "," + user_id);
+        followerRepository.save(follower);
+        System.out.println("follwer 정보 : " + follower);
+
+    }
+
+    @ResponseBody
+    @GetMapping("/friendDetail/black")
+    public void black(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Blacklist blacklist) {
+        User userinfo = userRepository.findByUsername(user.getUsername());
+        System.out.println("로그인 유저 : " + userinfo);
+        User blacklistUser = userRepository.findById(Integer.parseInt(user_id));
+        System.out.println(blacklistUser.getNickName() + "님 팔로우 신청");
+        blacklist.setUser(blacklistUser);
+
+        System.out.println("follwerList : " + blacklist.getBlackUserIdList());
+        if(blacklist.getBlackUserIdList() == null)
+            blacklist.setBlackUserIdList(user_id);
+        else
+            blacklist.setBlackUserIdList(blacklist.getBlackUserIdList() + "," + user_id);
+        blacklistRepository.save(blacklist);
+        System.out.println("blacklist 정보 : " + blacklist);
     }
 }

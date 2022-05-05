@@ -266,9 +266,11 @@ class LatteIsApplicationTests {
 	@Test
 	public void splitTest(){
 
-		String name = "안녕하세요,]";
-		System.out.println(name.replaceAll("^[ㄱ-ㅎ가-힣]*$", "*"));
-		System.out.println(name.replaceAll("[^\\uAC00-\\uD7A30-9a-zA-Z]", "*"));
+		String name = "안녕 하세요,]";
+		String[] regdx = {",", "\\[", "\\]"};
+		for(int i = 0; i < regdx.length; i++)
+			name = name.replaceAll(regdx[i], "*");
+		System.out.println(name);
 
 
 		Interest interest = interestRepository.findByUserId(6);

@@ -8,7 +8,7 @@ var main = {
             _this.send(phoneNumber);
         });
 
-        #('#moreInfo').on('click', function(){
+        $('#moreInfo').on('click', function(){
             alert('무엇을 좋아하는 지 넣어주세요!');
         });
 
@@ -22,7 +22,16 @@ var main = {
                         document.location = "/question";
                 }
             }
+        });
 
+        $('#btn-follower').on('click', function(){
+            var user_id = $('#user_id').val();
+            _this.follower(user_id);
+        });
+
+        $('#btn-black').on('click', function(){
+            var user_id = $('#user_id').val();
+            _this.black(user_id);
         });
 
     },
@@ -45,8 +54,29 @@ var main = {
                 })
             }
         })
+    },
+    follower : function(user_id){
+            $.ajax({
+                url : "/friendDetail/follower",
+                type : "GET",
+                cache : false,
+                data : {user_id : user_id},
+                success: function(data){
+                    alert("팔로우를 했습니다.");
+                }
+            })
+    },
+    black : function(user_id){
+            $.ajax({
+                url : "/friendDetail/black",
+                type : "GET",
+                cache : false,
+                data : {user_id : user_id},
+                success: function(data){
+                    alert("차단을 했습니다.");
+                }
+            })
     }
-
 };
 
 main.init();

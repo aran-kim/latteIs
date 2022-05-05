@@ -17,50 +17,57 @@
             <div class="container">
                 <div class="row">
                     <div class="form-box">
-                        <div class="form-top">
-                            <div class="form-top-left">
-                                <h1><strong>Friend</strong></h1>
-                                <p>Read friend's interest</p>
-                            </div>
-                            <div class="form-top-right">
-                                <i class="fa fa-key"></i>
-                            </div>
-                        </div>
                         <div class="form-bottom">
-                            <table class="table-post">
-                                <thead class="thead-strong">
-                                <tr>
-                                    <th>닉네임</th>
-                                    <th>MBTI</th>
-                                    <th>성별</th>
-                                    <th>나이</th>
-                                    <th>학교</th>
-                                    <th>종교</th>
-                                    <th>주량</th>
-                                    <th>흡연</th>
-                                    <th>특징</th>
-                                    <th>취미</th>
-                                    <th>친구 스타일</th>
-                                </tr>
-                                </thead>
-                                <tbody id="tbody">
-                                {{#friendInterest}}
+                            {{#friendInterest}}
+                                <table class="table-post">
+                                    <thead class="thead-strong">
                                     <tr>
-                                        <td>{{user.nickName}}</td>
-                                        <td>{{mbti}}</td>
-                                        <td>{{sex}}</td>
-                                        <td>{{age}}</td>
-                                        <td>{{university}}</td>
-                                        <td>{{religion}}</td>
-                                        <td>{{amount_of_alcohol}}</td>
-                                        <td>{{smoking}}</td>
-                                        <td>{{characteristic}}</td>
-                                        <td>{{hobby}}</td>
-                                        <td>{{friend_style}}</td>
+                                        <th>닉네임</th>
+                                        <th>MBTI</th>
+                                        <th>성별</th>
+                                        <th>나이</th>
+                                        <th>학교</th>
+                                        <th>종교</th>
+                                        <th>주량</th>
+                                        <th>흡연</th>
+                                        <th>특징</th>
+                                        <th>취미</th>
+                                        <th>친구 스타일</th>
                                     </tr>
-                                {{/friendInterest}}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody id="tbody">
+                                        <tr>
+                                            <td>{{user.nickName}}</td>
+                                            <td>{{mbti}}</td>
+                                            <td>{{sex}}</td>
+                                            <td>{{age}}</td>
+                                            <td>{{university}}</td>
+                                            <td>{{religion}}</td>
+                                            <td>{{amount_of_alcohol}}</td>
+                                            <td>{{smoking}}</td>
+                                            <td>{{characteristic}}</td>
+                                            <td>{{hobby}}</td>
+                                            <td>{{friend_style}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                {{#alreadyFollower}}
+                                    <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
+                                    <button type="button" id="btn-follower" class="btn-follower" value="{{user.id}}" style="float:right">팔로우 취소</button><br>
+                                {{/alreadyFollower}}
+                                {{^alreadyFollower}}
+                                    <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
+                                    <button type="button" id="btn-follower" class="btn-follower" value="{{user.id}}" style="float:right">팔로우</button><br>
+                                {{/alreadyFollower}}
+                                {{#alreadyBlacklist}}
+                                    <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
+                                    <button type="button" id="btn-black" class="btn-black" value="{{user.id}}" style="float:right">차단 풀기</button><br>
+                                {{/alreadyBlacklist}}
+                                {{^alreadyBlacklist}}
+                                    <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
+                                    <button type="button" id="btn-black" class="btn-black" value="{{user.id}}" style="float:right">차단</button><br>
+                                {{/alreadyBlacklist}}
+                            {{/friendInterest}}
                         </div>
                     </div>
 

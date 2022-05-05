@@ -9,10 +9,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import site.LatteIs.latteIs.auth.LoginUser;
 import site.LatteIs.latteIs.auth.SessionUser;
+import site.LatteIs.latteIs.web.domain.entity.Blacklist;
+import site.LatteIs.latteIs.web.domain.entity.Follower;
 import site.LatteIs.latteIs.web.domain.entity.User;
+import site.LatteIs.latteIs.web.domain.repository.BlacklistRepository;
+import site.LatteIs.latteIs.web.domain.repository.FollowerRepository;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class InfoController {
@@ -23,6 +28,10 @@ public class InfoController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private HttpSession httpSession;
+    @Autowired
+    private FollowerRepository followerRepository;
+    @Autowired
+    private BlacklistRepository blacklistRepository;
 
 
     @GetMapping("/info")
@@ -117,5 +126,33 @@ public class InfoController {
         System.out.println("변경 후 user 정보 : " + userinfo);
         System.out.println("변경 후 Seesion nickname : " + user.getNickName());
         return "redirect:/info";
+    }
+
+    @GetMapping("/followerList")
+    public String followerList(Model model, @LoginUser SessionUser user){
+        if(user != null){
+            System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("접속 닉네임 : " + user.getNickName());
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("nickName", user.getNickName());
+            List<Follower> followerList =  followerRepository.findAllByUserId(userRepository.findByUsername(user.getUsername()).getId());
+            System.out.println(followerList);
+            model.addAttribute("followerList", followerList);
+        }
+        return "followerList";
+    }
+
+    @GetMapping("/blackList")
+    public String blackList(Model model, @LoginUser SessionUser user){
+        if(user != null){
+            System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("접속 닉네임 : " + user.getNickName());
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("nickName", user.getNickName());
+            List<Blacklist> blackList = blacklistRepository.findAllByUserId(userRepository.findByUsername(user.getUsername()).getId());
+            System.out.println(blackList);
+            model.addAttribute("blackList", blackList);
+        }
+        return "blackList";
     }
 }

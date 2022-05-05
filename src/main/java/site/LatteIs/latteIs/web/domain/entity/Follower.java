@@ -22,4 +22,6 @@ public class Follower implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    private String followerUserIdList;
 }
