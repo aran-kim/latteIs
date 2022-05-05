@@ -23,7 +23,8 @@
                                 {{#blackList}}
                                     <img src="images/no_profile.png" alt="no_profile" style="width: 55px;height: 55px;margin:10px;">{{user.nickName}}
                                     <a onclick="location.href='friendDetail?user_id='+{{user.id}}">정보 보기</a>
-<!-- 차단 취소 버튼 만들기 -->
+                                    <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
+                                    <button type="button" id="btn-blackCencel" class="btn-blackCencel" value="{{user.id}}" style="float:right">차단 풀기</button><br>
                                 {{/blackList}}
                             </td>
                         </div>

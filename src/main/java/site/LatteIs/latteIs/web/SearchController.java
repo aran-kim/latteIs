@@ -218,6 +218,25 @@ public class SearchController {
     }
 
     @ResponseBody
+    @GetMapping("/friendDetail/followerCancel")
+    public void followerCancel(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Follower follower) {
+        User userinfo = userRepository.findByUsername(user.getUsername());
+        System.out.println("로그인 유저 : " + userinfo);
+        User followerUser = userRepository.findById(Integer.parseInt(user_id));
+        System.out.println(followerUser.getNickName() + "님 팔로우 취소");
+
+        follower = followerRepository.findByUserId(userinfo.getId());
+        System.out.println("follwerList : " + follower.getFollowerUserIdList());
+        if(follower.getFollowerUserIdList().contains(",")){
+            follower.setFollowerUserIdList(follower.getFollowerUserIdList().replaceAll(","+user_id, ""));
+        }
+        else
+            follower.setFollowerUserIdList(null);
+        followerRepository.save(follower);
+        System.out.println("follwer 정보 : " + follower);
+    }
+
+    @ResponseBody
     @GetMapping("/friendDetail/black")
     public void black(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Blacklist blacklist) {
         User userinfo = userRepository.findByUsername(user.getUsername());
@@ -231,6 +250,25 @@ public class SearchController {
             blacklist.setBlackUserIdList(user_id);
         else
             blacklist.setBlackUserIdList(blacklist.getBlackUserIdList() + "," + user_id);
+        blacklistRepository.save(blacklist);
+        System.out.println("blacklist 정보 : " + blacklist);
+    }
+
+    @ResponseBody
+    @GetMapping("/friendDetail/blackCancel")
+    public void blackCancel(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Blacklist blacklist) {
+        User userinfo = userRepository.findByUsername(user.getUsername());
+        System.out.println("로그인 유저 : " + userinfo);
+        User followerUser = userRepository.findById(Integer.parseInt(user_id));
+        System.out.println(followerUser.getNickName() + "님 팔로우 취소");
+
+        blacklist = blacklistRepository.findByUserId(userinfo.getId());
+        System.out.println("BlackList : " + blacklist.getBlackUserIdList());
+        if(blacklist.getBlackUserIdList().contains(",")){
+            blacklist.setBlackUserIdList(blacklist.getBlackUserIdList().replaceAll(","+user_id, ""));
+        }
+        else
+            blacklist.setBlackUserIdList(null);
         blacklistRepository.save(blacklist);
         System.out.println("blacklist 정보 : " + blacklist);
     }

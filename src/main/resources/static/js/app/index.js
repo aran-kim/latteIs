@@ -34,6 +34,17 @@ var main = {
             _this.black(user_id);
         });
 
+        $('#btn-followerCencel').on('click', function(){
+            var user_id = $('#user_id').val();
+            _this.followerCencel(user_id);
+        });
+
+        $('#btn-blackCencel').on('click', function(){
+                    var user_id = $('#user_id').val();
+                    _this.blackCencel(user_id);
+                });
+
+
     },
     send : function(phoneNumber){
         $.ajax({
@@ -76,7 +87,30 @@ var main = {
                     alert("차단을 했습니다.");
                 }
             })
-    }
+    },
+    followerCencel : function(user_id){
+                $.ajax({
+                    url : "/friendDetail/followerCencel",
+                    type : "GET",
+                    cache : false,
+                    data : {user_id : user_id},
+                    success: function(data){
+                        alert("팔로우를 취소 했습니다.");
+                    }
+                })
+    },
+    blackCencel : function(user_id){
+                    $.ajax({
+                        url : "/friendDetail/blackCencel",
+                        type : "GET",
+                        cache : false,
+                        data : {user_id : user_id},
+                        success: function(data){
+                            alert("차단을 해제 했습니다.");
+                        }
+                    })
+        }
+
 };
 
 main.init();

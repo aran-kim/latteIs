@@ -53,7 +53,7 @@
                                 </table>
                                 {{#alreadyFollower}}
                                     <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
-                                    <button type="button" id="btn-follower" class="btn-follower" value="{{user.id}}" style="float:right">팔로우 취소</button><br>
+                                    <button type="button" id="btn-followerCencel" class="btn-followerCencel" value="{{user.id}}" style="float:right">팔로우 취소</button><br>
                                 {{/alreadyFollower}}
                                 {{^alreadyFollower}}
                                     <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
@@ -61,7 +61,7 @@
                                 {{/alreadyFollower}}
                                 {{#alreadyBlacklist}}
                                     <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
-                                    <button type="button" id="btn-black" class="btn-black" value="{{user.id}}" style="float:right">차단 풀기</button><br>
+                                    <button type="button" id="btn-blackCencel" class="btn-blackCencel" value="{{user.id}}" style="float:right">차단 풀기</button><br>
                                 {{/alreadyBlacklist}}
                                 {{^alreadyBlacklist}}
                                     <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
