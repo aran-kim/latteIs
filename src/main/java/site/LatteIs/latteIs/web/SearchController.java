@@ -188,10 +188,15 @@ public class SearchController {
             System.out.println("follower : " + follower);
             System.out.println("blacklist : " + blacklist);
 
-            if(follower.getFollowerUserIdList().contains(Long.toString(user_id)))
-                model.addAttribute("alreadyFollower", 1);
-            else if(blacklist.getBlackUserIdList().contains(Long.toString(user_id)))
-                model.addAttribute("alreadyBlacklist", 1);
+            if(follower != null){
+                if(follower.getFollowerUserIdList().contains(Long.toString(user_id)))
+                    model.addAttribute("alreadyFollower", 1);
+            }
+            if(blacklist != null){
+                if(blacklist.getBlackUserIdList().contains(Long.toString(user_id)))
+                    model.addAttribute("alreadyBlacklist", 1);
+            }
+
 
 
         }
@@ -202,16 +207,19 @@ public class SearchController {
     @GetMapping("/friendDetail/follower")
     public void follower(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Follower follower) {
         User userinfo = userRepository.findByUsername(user.getUsername());
+        follower = followerRepository.findByUserId(userinfo.getId());
         System.out.println("로그인 유저 : " + userinfo);
+        System.out.println("로그인 유저 팔로워 상태 : " + follower);
         User followerUser = userRepository.findById(Integer.parseInt(user_id));
-        System.out.println(followerUser.getNickName() + "님 팔로우 신청");
+        System.out.println(followerUser.getNickName() + "님에게 팔로우 신청");
 
-        follower.setUser(userinfo);
+        if(follower == null)
+            follower.setUser(userinfo);
         System.out.println("follwerList : " + follower.getFollowerUserIdList());
         if(follower.getFollowerUserIdList() == null)
             follower.setFollowerUserIdList(user_id);
         else
-            follower.setFollowerUserIdList(follower.getFollowerUserIdList() + "," + user_id);
+            follower.setFollowerUserIdList(follower.getFollowerUserIdList() + ", " + user_id);
         followerRepository.save(follower);
         System.out.println("follwer 정보 : " + follower);
 
@@ -223,12 +231,14 @@ public class SearchController {
         User userinfo = userRepository.findByUsername(user.getUsername());
         System.out.println("로그인 유저 : " + userinfo);
         User followerUser = userRepository.findById(Integer.parseInt(user_id));
-        System.out.println(followerUser.getNickName() + "님 팔로우 취소");
+        System.out.println(followerUser.getNickName() + "님 팔로우 취소, user_id : " + user_id);
 
         follower = followerRepository.findByUserId(userinfo.getId());
         System.out.println("follwerList : " + follower.getFollowerUserIdList());
-        if(follower.getFollowerUserIdList().contains(",")){
-            follower.setFollowerUserIdList(follower.getFollowerUserIdList().replaceAll(","+user_id, ""));
+        if(follower.getFollowerUserIdList().substring(0, user_id.length()).equals(user_id))
+            follower.setFollowerUserIdList(follower.getFollowerUserIdList().replace(user_id + ", ", ""));
+        else if(follower.getFollowerUserIdList().contains(",")){
+            follower.setFollowerUserIdList(follower.getFollowerUserIdList().replace(", " + user_id, ""));
         }
         else
             follower.setFollowerUserIdList(null);
@@ -249,7 +259,7 @@ public class SearchController {
         if(blacklist.getBlackUserIdList() == null)
             blacklist.setBlackUserIdList(user_id);
         else
-            blacklist.setBlackUserIdList(blacklist.getBlackUserIdList() + "," + user_id);
+            blacklist.setBlackUserIdList(blacklist.getBlackUserIdList() + ", " + user_id);
         blacklistRepository.save(blacklist);
         System.out.println("blacklist 정보 : " + blacklist);
     }
@@ -265,7 +275,7 @@ public class SearchController {
         blacklist = blacklistRepository.findByUserId(userinfo.getId());
         System.out.println("BlackList : " + blacklist.getBlackUserIdList());
         if(blacklist.getBlackUserIdList().contains(",")){
-            blacklist.setBlackUserIdList(blacklist.getBlackUserIdList().replaceAll(","+user_id, ""));
+            blacklist.setBlackUserIdList(blacklist.getBlackUserIdList().replace(", "+user_id, ""));
         }
         else
             blacklist.setBlackUserIdList(null);

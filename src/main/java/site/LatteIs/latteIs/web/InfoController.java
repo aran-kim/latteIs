@@ -11,9 +11,11 @@ import site.LatteIs.latteIs.auth.LoginUser;
 import site.LatteIs.latteIs.auth.SessionUser;
 import site.LatteIs.latteIs.web.domain.entity.Blacklist;
 import site.LatteIs.latteIs.web.domain.entity.Follower;
+import site.LatteIs.latteIs.web.domain.entity.Interest;
 import site.LatteIs.latteIs.web.domain.entity.User;
 import site.LatteIs.latteIs.web.domain.repository.BlacklistRepository;
 import site.LatteIs.latteIs.web.domain.repository.FollowerRepository;
+import site.LatteIs.latteIs.web.domain.repository.InterestRepository;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
@@ -26,6 +28,8 @@ public class InfoController {
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    InterestRepository interestRepository;
     @Autowired
     private HttpSession httpSession;
     @Autowired
@@ -135,9 +139,22 @@ public class InfoController {
             System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
-            List<Follower> followerList =  followerRepository.findAllByUserId(userRepository.findByUsername(user.getUsername()).getId());
-            System.out.println(followerList);
-            model.addAttribute("followerList", followerList);
+            User userinfo = userRepository.findByUsername(user.getUsername());
+            Follower follower =  followerRepository.findByUserId(userinfo.getId());
+            System.out.println("로그인 유저 팔로워 상태 : " + follower);
+            follower = followerRepository.findByUserId(userinfo.getId());
+            System.out.println("follwerList : " + follower.getFollowerUserIdList());
+            System.out.println(follower.getFollowerUserIdList().split(",").length);
+            String[] arr = new String[follower.getFollowerUserIdList().split(", ").length];
+            arr = follower.getFollowerUserIdList().split(",");
+            Interest[] interestList = new Interest[arr.length];
+            for (int i = 0; i < arr.length; i++){
+                System.out.println(arr[i]);
+                interestList[i] = interestRepository.findByUserId(Integer.parseInt(arr[i]));
+                System.out.println(arr[i] + "의 정보 : " + interestList[i]);
+            }
+            model.addAttribute("followerList", interestList);
+
         }
         return "followerList";
     }

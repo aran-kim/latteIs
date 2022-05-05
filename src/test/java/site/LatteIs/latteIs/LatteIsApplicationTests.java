@@ -300,4 +300,49 @@ class LatteIsApplicationTests {
 		System.out.println(userList);
 
 	}
+
+	@Test
+	public void fobatest(){
+		User userinfo = userRepository.findById(30);
+		Follower follower = followerRepository.findByUserId(30);
+		System.out.println("로그인 유저 팔로워 상태 : " + follower);
+
+
+		follower = followerRepository.findByUserId(userinfo.getId());
+		System.out.println("follwerList : " + follower.getFollowerUserIdList());
+		System.out.println(follower.getFollowerUserIdList().split(",").length);
+		String[] arr = new String[follower.getFollowerUserIdList().split(",").length];
+		arr = follower.getFollowerUserIdList().split(",");
+
+		Interest[] interestList = new Interest[arr.length];
+		for (int i = 0; i < arr.length; i++){
+			System.out.println(arr[i]);
+			interestList[i] = interestRepository.findByUserId(Integer.parseInt(arr[i]));
+			System.out.println(arr[i] + "의 정보 : " + interestList[i]);
+		}
+		System.out.println(interestList);
+
+
+
+	}
+
+	@Test
+	public void ffTest(){
+		User userinfo = userRepository.findById(30);
+		Follower follower = followerRepository.findByUserId(30);
+		System.out.println("로그인 유저 팔로워 상태 : " + follower);
+		User followerUser = userRepository.findById(33);
+		System.out.println(followerUser.getNickName() + "님에게 팔로우 신청");
+
+		if(follower == null)
+			follower.setUser(userinfo);
+		System.out.println("follwerList : " + follower.getFollowerUserIdList());
+		if(follower.getFollowerUserIdList() == null)
+			follower.setFollowerUserIdList("33");
+		else
+			follower.setFollowerUserIdList(follower.getFollowerUserIdList() + "," + 33);
+		followerRepository.save(follower);
+		System.out.println("follwer 정보 : " + follower);
+
+	}
 }
