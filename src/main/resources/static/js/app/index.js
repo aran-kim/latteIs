@@ -47,7 +47,7 @@ var main = {
     },
     send : function(phoneNumber){
         $.ajax({
-            url: "/check/sendSMS",
+            url: "/join/sendSMS",
             type : "GET",
             cache : false,
             data : { phoneNumber : phoneNumber},
@@ -56,7 +56,7 @@ var main = {
                     var numStr = $("#numStr").val();
                     if(data == numStr){
                         alert("성공이용!");
-                        window.location.href = "/join";
+                        window.location.href = "/joinID";
                     }
                     else{
                         alert("아닌데용;");

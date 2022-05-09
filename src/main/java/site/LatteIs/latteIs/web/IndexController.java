@@ -65,22 +65,22 @@ public class IndexController {
         return "logout";
     }
 
-    @GetMapping("/check")
+    @GetMapping("/join")
     public String check(){
         System.out.println("checkControl 통과");
-        return "sendSMS";
+        return "join";
     }
 
     @ResponseBody
-    @GetMapping("/check/sendSMS")
+    @GetMapping("/join/sendSMS")
     public String sendSMS(@RequestParam ("phoneNumber") String phoneNumber) throws CoolsmsException {
         System.out.println("sendSMS 통과");
         return PhoneAuthenticationService.phoneAuthentication(phoneNumber);
     }
 
-    @GetMapping("/join")
+    @GetMapping("/joinID")
     public String join(){
-        return "join";
+        return "joinID";
     }
 
     @PostMapping("/joinProc")

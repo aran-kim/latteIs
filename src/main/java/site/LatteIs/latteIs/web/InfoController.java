@@ -135,7 +135,6 @@ public class InfoController {
     }
 
     @GetMapping("/followerList")
-    @ResponseBody
     public String followerList(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
@@ -146,7 +145,7 @@ public class InfoController {
             Follower follower =  followerRepository.findByUserId(userinfo.getId());
             System.out.println("로그인 유저 팔로워 상태 : " + follower);
             if(follower == null)
-                return "<script>alert('팔로워 사용자가 없어용!');location.href='/info'</script>";
+                return "followerList";
 
             System.out.println("follwerList : " + follower.getFollowerUserIdList());
 
@@ -156,14 +155,14 @@ public class InfoController {
             boolean loop = true;
             while (loop){
                 end = follower.getFollowerUserIdList().indexOf(", ", end);
-                System.out.println("end : " + end + ", _e : " + start);
+                System.out.println("end : " + end + ", start : " + start);
                 if(end < 0){
                     uId = Integer.parseInt(follower.getFollowerUserIdList().substring(start, follower.getFollowerUserIdList().length()));
                     loop = false;
                 }
                 else
                     uId = Integer.parseInt(follower.getFollowerUserIdList().substring(start, end));
-                System.out.println("u : " + uId);
+                System.out.println("user_id : " + uId);
                 interest = interestRepository.findByUserId(uId);
                 System.out.println(interest);
                 interestList.add(interest);
@@ -172,13 +171,11 @@ public class InfoController {
             }
             System.out.println(interestList);
             model.addAttribute("followerList", interestList);
-
         }
         return "followerList";
     }
 
     @GetMapping("/blackList")
-    @ResponseBody
     public String blackList(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
@@ -189,7 +186,7 @@ public class InfoController {
             Blacklist blacklist =  blacklistRepository.findByUserId(userinfo.getId());
             System.out.println("로그인 유저 블랙 리스트 상태 : " + blacklist);
             if(blacklist == null)
-                return "<script>alert('차단한 사용자가 없어용!');location.href='/info'</script>";
+                return "blackList";
 
             System.out.println("blackList : " + blacklist.getBlackUserIdList());
 
