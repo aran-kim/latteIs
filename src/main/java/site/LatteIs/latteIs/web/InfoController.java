@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import site.LatteIs.latteIs.auth.LoginUser;
 import site.LatteIs.latteIs.auth.SessionUser;
 import site.LatteIs.latteIs.web.domain.entity.Blacklist;
@@ -134,6 +135,7 @@ public class InfoController {
     }
 
     @GetMapping("/followerList")
+    @ResponseBody
     public String followerList(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
@@ -143,6 +145,9 @@ public class InfoController {
             User userinfo = userRepository.findByUsername(user.getUsername());
             Follower follower =  followerRepository.findByUserId(userinfo.getId());
             System.out.println("로그인 유저 팔로워 상태 : " + follower);
+            if(follower == null)
+                return "<script>alert('팔로워 사용자가 없어용!');location.href='/info'</script>";
+
             System.out.println("follwerList : " + follower.getFollowerUserIdList());
 
             List<Interest> interestList = new ArrayList<Interest>();
@@ -173,6 +178,7 @@ public class InfoController {
     }
 
     @GetMapping("/blackList")
+    @ResponseBody
     public String blackList(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
@@ -182,6 +188,9 @@ public class InfoController {
             User userinfo = userRepository.findByUsername(user.getUsername());
             Blacklist blacklist =  blacklistRepository.findByUserId(userinfo.getId());
             System.out.println("로그인 유저 블랙 리스트 상태 : " + blacklist);
+            if(blacklist == null)
+                return "<script>alert('차단한 사용자가 없어용!');location.href='/info'</script>";
+
             System.out.println("blackList : " + blacklist.getBlackUserIdList());
 
             List<Interest> interestList = new ArrayList<Interest>();
