@@ -9,10 +9,7 @@ import site.LatteIs.latteIs.web.domain.entity.*;
 import site.LatteIs.latteIs.web.domain.repository.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @SpringBootTest
 class LatteIsApplicationTests {
@@ -303,46 +300,63 @@ class LatteIsApplicationTests {
 
 	@Test
 	public void fobatest(){
-		User userinfo = userRepository.findById(30);
-		Follower follower = followerRepository.findByUserId(30);
-		System.out.println("로그인 유저 팔로워 상태 : " + follower);
+		User userinfo = userRepository.findById(31);
+		Optional<Follower> followerOptional = followerRepository.findByUserIdOptional(userinfo.getId());
+		Follower follower;
+		System.out.println("로그인 유저 : " + userinfo);
+		System.out.println("로그인 유저 팔로워 상태 : " + followerOptional);
+		User followerUser = userRepository.findById(6);
+		System.out.println(followerUser.getNickName() + "님에게 팔로우 신청");
 
-
-		follower = followerRepository.findByUserId(userinfo.getId());
-		System.out.println("follwerList : " + follower.getFollowerUserIdList());
-		System.out.println(follower.getFollowerUserIdList().split(",").length);
-		String[] arr = new String[follower.getFollowerUserIdList().split(",").length];
-		arr = follower.getFollowerUserIdList().split(",");
-
-		Interest[] interestList = new Interest[arr.length];
-		for (int i = 0; i < arr.length; i++){
-			System.out.println(arr[i]);
-			interestList[i] = interestRepository.findByUserId(Integer.parseInt(arr[i]));
-			System.out.println(arr[i] + "의 정보 : " + interestList[i]);
+		if(!followerOptional.isPresent()){
+			System.out.println("Follower 객체 생성");
+			follower = new Follower();
+			follower.setUser(userinfo);
+			follower.setFollowerUserIdList("6");
 		}
+		else{
+			follower = followerRepository.findByUserId(userinfo.getId());
+			System.out.println("follwerList : " + follower.getFollowerUserIdList());
+			follower.setFollowerUserIdList(follower.getFollowerUserIdList() + ", " + "6");
+		}
+
+		followerRepository.save(follower);
+		System.out.println("follwer 정보 : " + follower);
+
+	}
+
+	@Test
+	public void followerList(){
+		User userinfo = userRepository.findById(30);
+		Follower follower =  followerRepository.findByUserId(userinfo.getId());
+		System.out.println("로그인 유저 팔로워 상태 : " + follower);
+		System.out.println("follwerList : " + follower.getFollowerUserIdList());
+
+		List<Interest> interestList = new ArrayList<Interest>();
+		Interest interest = new Interest();
+		int end = 0, uId = 0, start = 0;
+		boolean loop = true;
+		while (loop){
+			end = follower.getFollowerUserIdList().indexOf(", ", end);
+			System.out.println("end : " + end + ", _e : " + start);
+			if(end < 0){
+				uId = Integer.parseInt(follower.getFollowerUserIdList().substring(start, follower.getFollowerUserIdList().length()));
+				loop = false;
+			}
+			else
+				uId = Integer.parseInt(follower.getFollowerUserIdList().substring(start, end));
+			System.out.println("u : " + uId);
+			interest = interestRepository.findByUserId(uId);
+			System.out.println(interest);
+			interestList.add(interest);
+			end += 2;
+			start = end;
+		}
+
 		System.out.println(interestList);
 
 
 
 	}
 
-	@Test
-	public void ffTest(){
-		User userinfo = userRepository.findById(30);
-		Follower follower = followerRepository.findByUserId(30);
-		System.out.println("로그인 유저 팔로워 상태 : " + follower);
-		User followerUser = userRepository.findById(33);
-		System.out.println(followerUser.getNickName() + "님에게 팔로우 신청");
-
-		if(follower == null)
-			follower.setUser(userinfo);
-		System.out.println("follwerList : " + follower.getFollowerUserIdList());
-		if(follower.getFollowerUserIdList() == null)
-			follower.setFollowerUserIdList("33");
-		else
-			follower.setFollowerUserIdList(follower.getFollowerUserIdList() + "," + 33);
-		followerRepository.save(follower);
-		System.out.println("follwer 정보 : " + follower);
-
-	}
 }

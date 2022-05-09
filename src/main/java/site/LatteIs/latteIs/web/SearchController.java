@@ -20,6 +20,7 @@ import site.LatteIs.latteIs.web.domain.repository.InterestRepository;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class SearchController {
@@ -197,8 +198,6 @@ public class SearchController {
                     model.addAttribute("alreadyBlacklist", 1);
             }
 
-
-
         }
         return "friendDetail";
     }
@@ -207,19 +206,24 @@ public class SearchController {
     @GetMapping("/friendDetail/follower")
     public void follower(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Follower follower) {
         User userinfo = userRepository.findByUsername(user.getUsername());
-        follower = followerRepository.findByUserId(userinfo.getId());
+        Optional<Follower> followerOptional = followerRepository.findByUserIdOptional(userinfo.getId());
         System.out.println("로그인 유저 : " + userinfo);
         System.out.println("로그인 유저 팔로워 상태 : " + follower);
         User followerUser = userRepository.findById(Integer.parseInt(user_id));
         System.out.println(followerUser.getNickName() + "님에게 팔로우 신청");
 
-        if(follower == null)
+        if(!followerOptional.isPresent()){
+            System.out.println("Follower 객체 생성");
+            follower = new Follower();
             follower.setUser(userinfo);
-        System.out.println("follwerList : " + follower.getFollowerUserIdList());
-        if(follower.getFollowerUserIdList() == null)
             follower.setFollowerUserIdList(user_id);
-        else
+        }
+        else{
+            follower = followerRepository.findByUserId(userinfo.getId());
+            System.out.println("follwerList : " + follower.getFollowerUserIdList());
             follower.setFollowerUserIdList(follower.getFollowerUserIdList() + ", " + user_id);
+        }
+
         followerRepository.save(follower);
         System.out.println("follwer 정보 : " + follower);
 
@@ -230,19 +234,21 @@ public class SearchController {
     public void followerCancel(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Follower follower) {
         User userinfo = userRepository.findByUsername(user.getUsername());
         System.out.println("로그인 유저 : " + userinfo);
-        User followerUser = userRepository.findById(Integer.parseInt(user_id));
-        System.out.println(followerUser.getNickName() + "님 팔로우 취소, user_id : " + user_id);
-
         follower = followerRepository.findByUserId(userinfo.getId());
+        User cancelUser = userRepository.findById(Integer.parseInt(user_id));
+        System.out.println(cancelUser.getNickName() + "님 팔로우 해제");
+
         System.out.println("follwerList : " + follower.getFollowerUserIdList());
-        if(follower.getFollowerUserIdList().substring(0, user_id.length()).equals(user_id))
-            follower.setFollowerUserIdList(follower.getFollowerUserIdList().replace(user_id + ", ", ""));
-        else if(follower.getFollowerUserIdList().contains(",")){
-            follower.setFollowerUserIdList(follower.getFollowerUserIdList().replace(", " + user_id, ""));
+        if(follower.getFollowerUserIdList().contains(",")){
+            if(follower.getFollowerUserIdList().substring(0, user_id.length()).equals(user_id))
+                follower.setFollowerUserIdList(follower.getFollowerUserIdList().replace(user_id + ", ", ""));
+            else
+                follower.setFollowerUserIdList(follower.getFollowerUserIdList().replace(", " + user_id, ""));
+            followerRepository.save(follower);
         }
         else
-            follower.setFollowerUserIdList(null);
-        followerRepository.save(follower);
+            followerRepository.delete(follower);
+
         System.out.println("follwer 정보 : " + follower);
     }
 
@@ -250,16 +256,24 @@ public class SearchController {
     @GetMapping("/friendDetail/black")
     public void black(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Blacklist blacklist) {
         User userinfo = userRepository.findByUsername(user.getUsername());
+        Optional<Blacklist> blacklistOptional = blacklistRepository.findByUserIdOptional(userinfo.getId());
         System.out.println("로그인 유저 : " + userinfo);
+        System.out.println("로그인 유저 블랙리스트 상태 : " + blacklist);
         User blacklistUser = userRepository.findById(Integer.parseInt(user_id));
-        System.out.println(blacklistUser.getNickName() + "님 팔로우 신청");
-        blacklist.setUser(blacklistUser);
+        System.out.println(blacklistUser.getNickName() + "님을 차단");
 
-        System.out.println("follwerList : " + blacklist.getBlackUserIdList());
-        if(blacklist.getBlackUserIdList() == null)
+        if(!blacklistOptional.isPresent()){
+            System.out.println("Blacklist 객체 생성");
+            blacklist = new Blacklist();
+            blacklist.setUser(userinfo);
             blacklist.setBlackUserIdList(user_id);
-        else
+        }
+        else {
+            blacklist = blacklistRepository.findByUserId(userinfo.getId());
+            System.out.println("blacklist : " + blacklist.getBlackUserIdList());
             blacklist.setBlackUserIdList(blacklist.getBlackUserIdList() + ", " + user_id);
+        }
+
         blacklistRepository.save(blacklist);
         System.out.println("blacklist 정보 : " + blacklist);
     }
@@ -269,17 +283,21 @@ public class SearchController {
     public void blackCancel(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Blacklist blacklist) {
         User userinfo = userRepository.findByUsername(user.getUsername());
         System.out.println("로그인 유저 : " + userinfo);
-        User followerUser = userRepository.findById(Integer.parseInt(user_id));
-        System.out.println(followerUser.getNickName() + "님 팔로우 취소");
-
         blacklist = blacklistRepository.findByUserId(userinfo.getId());
+        User cancelUser = userRepository.findById(Integer.parseInt(user_id));
+        System.out.println(cancelUser.getNickName() + "님 차단 해제");
+
         System.out.println("BlackList : " + blacklist.getBlackUserIdList());
         if(blacklist.getBlackUserIdList().contains(",")){
-            blacklist.setBlackUserIdList(blacklist.getBlackUserIdList().replace(", "+user_id, ""));
+            if(blacklist.getBlackUserIdList().substring(0, user_id.length()).equals(user_id))
+                blacklist.setBlackUserIdList(blacklist.getBlackUserIdList().replace(user_id + ", ", ""));
+            else
+                blacklist.setBlackUserIdList(blacklist.getBlackUserIdList().replace(", " + user_id, ""));
+            blacklistRepository.save(blacklist);
         }
         else
-            blacklist.setBlackUserIdList(null);
-        blacklistRepository.save(blacklist);
+            blacklistRepository.delete(blacklist);
+
         System.out.println("blacklist 정보 : " + blacklist);
     }
 }

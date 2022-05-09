@@ -7,7 +7,7 @@ import site.LatteIs.latteIs.web.domain.entity.MBTI;
 import java.util.List;
 
 public interface MBTIRepository extends JpaRepository<MBTI, Long> {
-    MBTI findByUserId(int id);
+    MBTI findByUserId(int user_id);
 
     List<MBTI> findAllBymbti(String mbti);
 

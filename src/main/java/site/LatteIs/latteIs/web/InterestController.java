@@ -83,9 +83,9 @@ public class InterestController {
     public String questionProc(Model model, @LoginUser SessionUser user, Interest interest,
                                @RequestParam List<String> characteristic, @RequestParam List<String> hobby, @RequestParam List<String> friend_style){
 
-        User user1 = userRepository.findByUsername(user.getUsername());
-        interest.setUser(user1);
-        MBTI mbti = mbtiRepository.findByUserId(user1.getId());
+        User userinfo = userRepository.findByUsername(user.getUsername());
+        interest.setUser(userinfo);
+        MBTI mbti = mbtiRepository.findByUserId(userinfo.getId());
         interest.setMbti(mbti.getMbti());
 
         System.out.println("Interest save 전 정보 : " + interest);
@@ -103,7 +103,7 @@ public class InterestController {
         interest.setHobby(hobby.toString());
         interest.setFriend_style(friend_style.toString());
 
-        user1.setInit(1);
+        userinfo.setInit(1);
 
         return "redirect:/";
     }

@@ -19,6 +19,7 @@ import site.LatteIs.latteIs.web.domain.repository.InterestRepository;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -142,17 +143,29 @@ public class InfoController {
             User userinfo = userRepository.findByUsername(user.getUsername());
             Follower follower =  followerRepository.findByUserId(userinfo.getId());
             System.out.println("로그인 유저 팔로워 상태 : " + follower);
-            follower = followerRepository.findByUserId(userinfo.getId());
             System.out.println("follwerList : " + follower.getFollowerUserIdList());
-            System.out.println(follower.getFollowerUserIdList().split(",").length);
-            String[] arr = new String[follower.getFollowerUserIdList().split(", ").length];
-            arr = follower.getFollowerUserIdList().split(",");
-            Interest[] interestList = new Interest[arr.length];
-            for (int i = 0; i < arr.length; i++){
-                System.out.println(arr[i]);
-                interestList[i] = interestRepository.findByUserId(Integer.parseInt(arr[i]));
-                System.out.println(arr[i] + "의 정보 : " + interestList[i]);
+
+            List<Interest> interestList = new ArrayList<Interest>();
+            Interest interest = new Interest();
+            int end = 0, uId = 0, start = 0;
+            boolean loop = true;
+            while (loop){
+                end = follower.getFollowerUserIdList().indexOf(", ", end);
+                System.out.println("end : " + end + ", _e : " + start);
+                if(end < 0){
+                    uId = Integer.parseInt(follower.getFollowerUserIdList().substring(start, follower.getFollowerUserIdList().length()));
+                    loop = false;
+                }
+                else
+                    uId = Integer.parseInt(follower.getFollowerUserIdList().substring(start, end));
+                System.out.println("u : " + uId);
+                interest = interestRepository.findByUserId(uId);
+                System.out.println(interest);
+                interestList.add(interest);
+                end += 2;
+                start = end;
             }
+            System.out.println(interestList);
             model.addAttribute("followerList", interestList);
 
         }
@@ -166,9 +179,33 @@ public class InfoController {
             System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
-            List<Blacklist> blackList = blacklistRepository.findAllByUserId(userRepository.findByUsername(user.getUsername()).getId());
-            System.out.println(blackList);
-            model.addAttribute("blackList", blackList);
+            User userinfo = userRepository.findByUsername(user.getUsername());
+            Blacklist blacklist =  blacklistRepository.findByUserId(userinfo.getId());
+            System.out.println("로그인 유저 블랙 리스트 상태 : " + blacklist);
+            System.out.println("blackList : " + blacklist.getBlackUserIdList());
+
+            List<Interest> interestList = new ArrayList<Interest>();
+            Interest interest = new Interest();
+            int end = 0, uId = 0, start = 0;
+            boolean loop = true;
+            while (loop){
+                end = blacklist.getBlackUserIdList().indexOf(", ", end);
+                System.out.println("end : " + end + ", _e : " + start);
+                if(end < 0){
+                    uId = Integer.parseInt(blacklist.getBlackUserIdList().substring(start, blacklist.getBlackUserIdList().length()));
+                    loop = false;
+                }
+                else
+                    uId = Integer.parseInt(blacklist.getBlackUserIdList().substring(start, end));
+                System.out.println("u : " + uId);
+                interest = interestRepository.findByUserId(uId);
+                System.out.println(interest);
+                interestList.add(interest);
+                end += 2;
+                start = end;
+            }
+            System.out.println(interestList);
+            model.addAttribute("blackList", interestList);
         }
         return "blackList";
     }

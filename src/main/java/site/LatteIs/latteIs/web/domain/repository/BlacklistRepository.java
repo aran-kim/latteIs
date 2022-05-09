@@ -6,10 +6,14 @@ import site.LatteIs.latteIs.web.domain.entity.Blacklist;
 import site.LatteIs.latteIs.web.domain.entity.Follower;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BlacklistRepository extends JpaRepository<Blacklist, Long> {
 
     List<Blacklist> findAllByUserId(int user_id);
+
+    @Query(value = "select * from blacklist where user_id = ?1", nativeQuery = true)
+    Optional<Blacklist> findByUserIdOptional(int user_id);
 
     Blacklist findByUserId(int user_id);
 

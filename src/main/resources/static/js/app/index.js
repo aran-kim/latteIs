@@ -34,6 +34,11 @@ var main = {
             _this.black(user_id);
         });
 
+        $('#btn-blackCancel').on('click', function(){
+            var user_id = $('#user_id').val();
+            _this.blackCancel(user_id);
+        });
+
         $('#btn-followerCancel').on('click', function(){
             var user_id = $('#user_id').val();
             _this.followerCancel(user_id);
@@ -71,6 +76,17 @@ var main = {
                 }
             })
     },
+    followerCancel : function(user_id){
+        $.ajax({
+            url : "/friendDetail/followerCancel",
+            type : "GET",
+            cache : false,
+            data : {user_id : user_id},
+            success: function(data){
+                alert("팔로워를 해제 했습니다.");
+            }
+        })
+    },
     black : function(user_id){
             $.ajax({
                 url : "/friendDetail/black",
@@ -82,14 +98,14 @@ var main = {
                 }
             })
     },
-    followerCancel : function(user_id){
+    blackCancel : function(user_id){
             $.ajax({
-                url : "/friendDetail/followerCancel",
+                url : "/friendDetail/blackCancel",
                 type : "GET",
                 cache : false,
                 data : {user_id : user_id},
                 success: function(data){
-                    alert("팔로우를 취소 했습니다.");
+                    alert("차단을 해제 했습니다.");
                 }
             })
     }
