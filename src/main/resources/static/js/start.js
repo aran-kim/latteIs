@@ -23,7 +23,6 @@ function setResult(){
       str[i] = str[i].substring(0,1);
   }
   mbti = str[0]+str[1]+str[2]+str[3];
-  console.log(mbti);
 
   resultName.innerHTML = mbti;
   $.ajax({

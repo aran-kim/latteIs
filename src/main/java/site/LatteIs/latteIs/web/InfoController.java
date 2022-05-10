@@ -53,7 +53,7 @@ public class InfoController {
         return "info";
     }
 
-    @GetMapping("/changePwd")
+    @GetMapping("/info/changePwd")
     public String changePwd(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
@@ -64,7 +64,7 @@ public class InfoController {
         return "changePwd";
     }
 
-    @PostMapping("/changePwdProc")
+    @PostMapping("/info/changePwdProc")
     public String changePwdProc(Model model, @LoginUser SessionUser user, @RequestParam("NewPassword") String NewPassword, @RequestParam ("NewPasswordCheck") String NewPasswordCheck){
         if(NewPassword.equals(NewPasswordCheck)){
             User userinfo = userRepository.findByUsername(user.getUsername());
@@ -76,11 +76,11 @@ public class InfoController {
             return "redirect:/info";
         }
         else{
-            return "redirect:/changePwd";
+            return "redirect:/info/changePwd";
         }
     }
 
-    @GetMapping("/changeEmail")
+    @GetMapping("/info/changeEmail")
     public String changeEmail(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
@@ -89,7 +89,7 @@ public class InfoController {
             model.addAttribute("nickName", user.getNickName());
             model.addAttribute("email", user.getEmail());
         }
-        return "changeEmail";
+        return "/infochangeEmail";
     }
 
     @PostMapping("/changeEmailProc")
@@ -106,11 +106,11 @@ public class InfoController {
             return "redirect:/info";
         }
         else{
-            return "redirect:/changeEmail";
+            return "redirect:/info/changeEmail";
         }
     }
 
-    @GetMapping("/changeNickName")
+    @GetMapping("/info/changeNickName")
     public String changeNickName(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
@@ -121,7 +121,7 @@ public class InfoController {
         return "changeNickName";
     }
 
-    @PostMapping("/changeNickNameProc")
+    @PostMapping("/info/changeNickNameProc")
     public String changeNickNameProc(Model model, @LoginUser SessionUser user, @RequestParam ("nickname") String nickname){
         User userinfo = userRepository.findByUsername(user.getUsername());
         System.out.println("변경 전 user 정보 : " + userinfo);
@@ -134,7 +134,7 @@ public class InfoController {
         return "redirect:/info";
     }
 
-    @GetMapping("/followerList")
+    @GetMapping("/info/followerList")
     public String followerList(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
@@ -175,7 +175,7 @@ public class InfoController {
         return "followerList";
     }
 
-    @GetMapping("/blackList")
+    @GetMapping("/info/blackList")
     public String blackList(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());

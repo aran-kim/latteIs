@@ -10,9 +10,7 @@ import site.LatteIs.latteIs.auth.*;
 import site.LatteIs.latteIs.web.domain.entity.*;
 import site.LatteIs.latteIs.web.domain.repository.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller // View 반환
 public class IndexController {
@@ -23,7 +21,6 @@ public class IndexController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private HttpSession httpSession;
-
 
     @GetMapping("/") // "Localhost:8080"
     public String index(Model model, @LoginUser SessionUser user) {

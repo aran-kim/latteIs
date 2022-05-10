@@ -23,8 +23,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable(); // CSRF(Cross Site Request Forgery): 사이트간 위조 요청 (정상적인 사용자가 의도치 않은 위조요청을 보내는 것)
         http.authorizeRequests()
-                    .antMatchers("/user/**").authenticated() //user 주소에 대해서 인증을 요구
-                    .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')") //admin 주소는 ROLE_ADMIN 권한이 있어야 접근 가능
+                    .antMatchers("/info/**").authenticated()
+                    .antMatchers("/search/**").authenticated()
+                    .antMatchers("/chat/**").authenticated()
+                    .antMatchers("/board/**").authenticated()
                     .anyRequest().permitAll() //나머지 주소는 인증없이 접근 가능
                 .and()
                     .formLogin() // form 기반의 로그인인 경우

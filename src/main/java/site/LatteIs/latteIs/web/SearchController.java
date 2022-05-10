@@ -140,28 +140,31 @@ public class SearchController {
             String[] arr = {"", "", ""};
             String[] regdx = {",", "\\[", "\\]"};
             if(hobby.contains(",")){
-                System.out.println(hobby.split(",").length + "개");
+                System.out.println(hobby.split(", ").length + "개");
                 int start = 0, end = 0;
-                for(int i = 0; i < hobby.split(",").length; i++){
+                for(int i = 0; i < hobby.split(", ").length; i++){
                     end = hobby.indexOf(",", start);
                     if(end == -1)
                         end = hobby.length();
                     arr[i] = hobby.substring(start, end);
                     for(int j = 0; j < regdx.length; j++)
                         arr[i] = arr[i].replaceAll(regdx[j], "");
-                    start = end + 1;
+                    arr[i] = "%" + arr[i] + "%";
+                    start = end + 2;
+                    System.out.println("처리 후");
                     System.out.println("arr["+ i + "]: " + arr[i]);
                 }
             }
             else{
                 System.out.println("1개");
+                arr[0] = hobby;
                 for(int j = 0; j < regdx.length; j++)
                     arr[0] = arr[0].replaceAll(regdx[j], "");
-                for(int i = 0; i < arr.length; i ++)
-                    System.out.println(arr[i]);
+                arr[0] = "%" + arr[0] + "%";
+                System.out.println("arr[0]: " + arr[0]);
             }
 
-            List<Interest> userList = interestRepository.findAllByEqualInterest(arr[0], arr[1], arr[2], userInterest.getUniversity(), userInterest.getUser().getId());
+            List<Interest> userList = interestRepository.findAllByEqualInterest(arr[0], arr[1], arr[2], userInterest.getUniversity(), userinfo.getId());
             System.out.println("userList : " + userList);
 
             model.addAttribute("userList", userList);

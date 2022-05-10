@@ -30,25 +30,25 @@
                             <table class="post-list mgT20">
 
                                 <colgroup>
-                                    <col style="width: 30%;">
-                                    <col style="width: 35%;">
-                                    <col style="width: 35%;">
+                                    <col style="width: 70%;">
+                                    <col style="width: 15%;">
+                                    <col style="width: 15%;">
                                 </colgroup>
 
                                 <thead>
                                 <tr>
-                                    <th scope="col">번호</th>
                                     <th scope="col">제목</th>
                                     <th scope="col">작성자</th>
+                                    <th scope="col">작성 시간</th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
                                 {{#post}}
                                     <tr>
-                                        <td>{{id}}</td>
                                         <td><a onclick="location.href='postDetail?board_id='+{{board_id}}+'&post_id='+{{id}}">{{title}}</a></td>
                                         <td>{{user.nickName}}</td>
+                                        <td>{{createDate}}</td>
                                     </tr>
                                 {{/post}}
                                 </tbody>

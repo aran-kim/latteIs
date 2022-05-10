@@ -10,6 +10,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Post findById(int id);
     Post findByBoardId(int board_id);
+    @Query(value = "select * from post where board_id = ?1 order by create_date desc", nativeQuery = true)
     List<Post> findAllByBoardId(int board_id);
 
     @Query(value = "select * from post where board_id = ?1 order by create_date desc limit 3", nativeQuery = true)
