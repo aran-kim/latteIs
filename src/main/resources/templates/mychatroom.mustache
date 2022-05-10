@@ -12,7 +12,7 @@
 
 </header>
 
-    <main>
+<main>
     <section id="chatlist">
         <h3>채팅방 리스트</h3>
         <article>
@@ -43,6 +43,7 @@
             <br>
             <tr>
                 <td>{{roomname}}</td>
+                <td>({{currentnumber}}/{{maxnumber}})</td>
                 <button type="btn" onclick="location.href='chat?id='+{{id}}">입장</button>
             </tr>
         {{/searchedRoom}}
@@ -55,6 +56,7 @@
             {{#mychatroom}}
                 <tr>
                     <td>{{chatRoom.roomname}}</td>
+                    <td>({{chatRoom.currentnumber}}/{{chatRoom.maxnumber}})</td>
                     <button type="button" onclick="location.href='chat?id='+{{chatRoom.id}}">입장</button>
                 </tr>
                 <br>
@@ -64,18 +66,19 @@
 
         <h3>내가 만든 채팅방</h3>
         <article>
-        {{#chatroom}}
-            <tr>
-                <td>{{roomname}}</td>
-                <button type="button" onclick="location.href='chat?id='+{{id}}">입장</button>
-            </tr>
-            <br>
-        {{/chatroom}}
+            {{#chatroom}}
+                <tr>
+                    <td>{{roomname}}</td>
+                    <td>({{currentnumber}}/{{maxnumber}})</td>
+                    <button type="button" onclick="location.href='chat?id='+{{id}}">입장</button>
+                </tr>
+                <br>
+            {{/chatroom}}
         </article>
     </section>
 
 
-    </main>
+</main>
 
 
 
@@ -83,9 +86,7 @@
     function searchKey() {
         var key = document.getElementById("textMessage");
         location.href = "/mychatroom?searchkey=" + $("#textMessage").val()
-
     }
-
 
     var target = document.querySelectorAll('.btn-open');
     var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
