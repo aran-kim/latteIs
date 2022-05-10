@@ -73,7 +73,7 @@ var main = {
                 data : {user_id : user_id},
                 success: function(data){
                     alert("팔로우를 했습니다.");
-                    $('#container').load(location.href+' #container');
+                    location.reload();
                 }
             })
     },
@@ -85,7 +85,7 @@ var main = {
             data : {user_id : user_id},
             success: function(data){
                 alert("팔로워를 해제 했습니다.");
-                $('#container').load(location.href+' #container');
+                location.reload();
             }
         })
     },
@@ -97,7 +97,7 @@ var main = {
                 data : {user_id : user_id},
                 success: function(data){
                     alert("차단을 했습니다.");
-                    $('#container').load(location.href+' #container');
+                    location.reload();
                 }
             })
     },
@@ -109,7 +109,7 @@ var main = {
                 data : {user_id : user_id},
                 success: function(data){
                     alert("차단을 해제 했습니다.");
-                    $('#container').load(location.href+' #container');
+                    location.reload();
                 }
             })
     }
