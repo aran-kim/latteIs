@@ -8,18 +8,14 @@ var main = {
             _this.send(phoneNumber);
         });
 
-        $('#moreInfo').on('click', function(){
-            alert('무엇을 좋아하는 지 넣어주세요!');
-        });
-
-        $('#btn-index').on('click', function(){
+        $('#btn-index').on('click', function(){ /*이거 안됨*/
             var username = $("#username").val();
             var init = $("#init").val();
 
             if(username != undefined){
                 if(init == 0){
                     if(confirm("첫 로그인입니다!"))
-                        document.location = "/question";
+                        document.location = "/mbti";
                 }
             }
         });

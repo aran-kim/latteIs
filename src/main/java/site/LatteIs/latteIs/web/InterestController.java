@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import site.LatteIs.latteIs.auth.LoginUser;
 import site.LatteIs.latteIs.auth.SessionUser;
 import site.LatteIs.latteIs.web.domain.entity.Interest;
@@ -39,33 +40,18 @@ public class InterestController {
         return "mbti";
     }
 
+    @ResponseBody
     @PostMapping("/mbtiProc")
-    public String mbtiProc(Model model, @LoginUser SessionUser user, MBTI mbti){
+    public void mbtiProc(Model model, @LoginUser SessionUser user, MBTI _mbti, @RequestParam (value = "mbti", required = false) String mbti){
         User userinfo = userRepository.findByUsername(user.getUsername());
         Interest interest = interestRepository.findByUserId(userinfo.getId());
-        mbti.setUser(userinfo);
-        System.out.println("MBTI save 전 정보 : " + mbti);
+        System.out.println("mbti : " + mbti);
 
-        int[] num = new int[4];
-        num[0] = mbti.getQ1() + mbti.getQ2() + mbti.getQ3();
-        num[1] = mbti.getQ4() + mbti.getQ5() + mbti.getQ6();
-        num[2] = mbti.getQ7() + mbti.getQ8() + mbti.getQ9();
-        num[3] = mbti.getQ10() + mbti.getQ11() + mbti.getQ12();
-        String[] str = {"I_E", "S_N", "T_F", "J_P"};
-        for(int i = 0; i < 4; i++){
-            if(num[i] > 1)
-                str[i] = str[i].substring(str[i].lastIndexOf("_") + 1);
-            else
-                str[i] = str[i].substring(0,1);
-        }
-        String _mbti = String.join("", str);
-        System.out.println("mbti : " + _mbti);
-        mbti.setMbti(_mbti);
+        _mbti.setMbti(mbti);
+        _mbti.setUser(userinfo);
+        mbtiRepository.save(_mbti);
+        System.out.println("MBTI save 후 정보 : " + _mbti);
 
-        mbtiRepository.save(mbti);
-        System.out.println("MBTI save 후 정보 : " + mbti);
-
-        return "redirect:/question";
     }
 
     @GetMapping("/question")
