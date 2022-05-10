@@ -53,22 +53,16 @@ public class ChatHandler extends TextWebSocketHandler {
                 System.out.println("type: " + obj.get("messagetype").toString());
 
                 if(!(obj.get("messagetype").toString().equals("ENTER")) || (list.size()==0)) {
-                    /*int currentNumber = chatRoom.getCurrentnumber();
+                    int currentNumber = chatRoom.getCurrentnumber();
                     currentNumber++;
                     if(obj.get("messagetype").toString().equals("ENTER")) {
-                        System.out.println("romm memeber: " + currentNumber);
-                       *//* if(currentNumber > chatRoom.getMaxnumber()){
-*//**//*                          MyHttpServletResponse response = new MyHttpServletResponse();
-                            response.setContentType("text/html; charset=UTF-8");
-                            PrintWriter out = response.getWriter();
-                            out.println("<script>alert('채팅방 입장 인원을 초과하였습니다.');</script>");
-                            out.flush();*//**//*
+                        if (currentNumber > chatRoom.getMaxnumber()) {
                             break;
-                        }else{
+                        } else {
                             chatRoom.setCurrentnumber(currentNumber);
-                        }*//*
-                    } // 아직 미완성 - 경고창이 안뜸*/
-
+                            chatRoomRepository.save(chatRoom);
+                        }
+                    }
                     chatMessage.setType(obj.get("messagetype").toString());
 
                     String str = obj.get("msg").toString();
@@ -80,12 +74,8 @@ public class ChatHandler extends TextWebSocketHandler {
                     chatMessage.setChatRoom(chatRoom);
                     chatMessage.setMe(false);
                     chatMessage.setUser(user);
-
                     wss.sendMessage(new TextMessage(obj.toJSONString()));
-
-                    System.out.println("save 전 chatMessage : " + chatMessage);
                     chatMessageRepository.save(chatMessage); // 대화저장
-                    System.out.println("save 후 chatMessage : " + chatMessage);
                 }
 
             }catch(Exception e) {

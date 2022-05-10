@@ -20,5 +20,8 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> 
     List<ChatMessage> findMessageByUserId(int user_id);
 
     @Query(value = "select * from chat_message where type = \"ENTER\" and room_id = ?1", nativeQuery = true)
-    List<ChatMessage> findMessageByRoomId(long user_id);
+    List<ChatMessage> findMessageByRoomId(long room_id);
+
+    @Query(value = "select * from chat_message where type = \"OUT\" and user_id = ?1 and room_id = ?2", nativeQuery = true)
+    ChatMessage findTypeOutByUserId(int user_id,long room_id);
 }

@@ -43,6 +43,7 @@
             <br>
             <tr>
                 <td>{{roomname}}</td>
+                <td>({{currentnumber}}/{{maxnumber}})</td>
                 <button type="btn" onclick="location.href='chat?id='+{{id}}">입장</button>
             </tr>
         {{/searchedRoom}}
@@ -55,6 +56,7 @@
             {{#mychatroom}}
                 <tr>
                     <td>{{chatRoom.roomname}}</td>
+                    <td>({{chatRoom.currentnumber}}/{{chatRoom.maxnumber}})</td>
                     <button type="button" onclick="location.href='chat?id='+{{chatRoom.id}}">입장</button>
                 </tr>
                 <br>
@@ -67,6 +69,7 @@
         {{#chatroom}}
             <tr>
                 <td>{{roomname}}</td>
+                <td>({{currentnumber}}/{{maxnumber}})</td>
                 <button type="button" onclick="location.href='chat?id='+{{id}}">입장</button>
             </tr>
             <br>
@@ -83,9 +86,7 @@
     function searchKey() {
         var key = document.getElementById("textMessage");
         location.href = "/mychatroom?searchkey=" + $("#textMessage").val()
-
     }
-
 
     var target = document.querySelectorAll('.btn-open');
     var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
