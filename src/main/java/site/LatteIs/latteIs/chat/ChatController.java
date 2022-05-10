@@ -50,8 +50,6 @@ public class ChatController {
         return "mychatroom";
     }
 
-
-
     @PostMapping("/createChatRoom")
     public String createChatRoom(ChatRoom chatroom, @LoginUser SessionUser user){
         chatroom.setRoomname(chatroom.getRoomname());

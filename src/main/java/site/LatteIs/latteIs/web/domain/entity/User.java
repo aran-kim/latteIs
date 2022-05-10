@@ -28,5 +28,6 @@ public class User implements Serializable {
     @CreationTimestamp
     private Timestamp createDate;
     private String nickName;
+    private String mbti;
     private int init;
 }

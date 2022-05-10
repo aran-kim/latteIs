@@ -47,9 +47,13 @@ public class InterestController {
         Interest interest = interestRepository.findByUserId(userinfo.getId());
         System.out.println("mbti : " + mbti);
 
+        userinfo.setMbti(mbti);
+        userRepository.save(userinfo);
+
         _mbti.setMbti(mbti);
         _mbti.setUser(userinfo);
         mbtiRepository.save(_mbti);
+
         System.out.println("MBTI save 후 정보 : " + _mbti);
 
     }
