@@ -8,16 +8,18 @@ var main = {
             _this.send(phoneNumber);
         });
 
-        $('#btn-index').on('click', function(){ /*이거 안됨*/
-            var username = $("#username").val();
+        $('#btn-index').on('click', function(){ /* 친구 찾기 전에 질문했는 지 검사 */
             var init = $("#init").val();
-
-            if(username != undefined){
-                if(init == 0){
-                    if(confirm("첫 로그인입니다!"))
-                        document.location = "/mbti";
-                }
+            if(init == 0){
+                alert("당신 MBTI 질문을 안했네요?");
+                location.href="/mbti";
             }
+            else if(init == 1){
+                alert("당신 관심사 질문을 안했네요?");
+                location.href="/question";
+            }
+            else
+                location.href="/search";
         });
 
         $('#btn-follower').on('click', function(){
@@ -62,16 +64,16 @@ var main = {
         })
     },
     follower : function(user_id){
-            $.ajax({
-                url : "/friendDetail/follower",
-                type : "GET",
-                cache : false,
-                data : {user_id : user_id},
-                success: function(data){
-                    alert("팔로우를 했습니다.");
-                    location.reload();
-                }
-            })
+        $.ajax({
+            url : "/friendDetail/follower",
+            type : "GET",
+            cache : false,
+            data : {user_id : user_id},
+            success: function(data){
+                alert("팔로우를 했습니다.");
+                location.reload();
+            }
+        })
     },
     followerCancel : function(user_id){
         $.ajax({
@@ -86,28 +88,28 @@ var main = {
         })
     },
     black : function(user_id){
-            $.ajax({
-                url : "/friendDetail/black",
-                type : "GET",
-                cache : false,
-                data : {user_id : user_id},
-                success: function(data){
-                    alert("차단을 했습니다.");
-                    location.reload();
-                }
-            })
+        $.ajax({
+            url : "/friendDetail/black",
+            type : "GET",
+            cache : false,
+            data : {user_id : user_id},
+            success: function(data){
+                alert("차단을 했습니다.");
+                location.reload();
+            }
+        })
     },
     blackCancel : function(user_id){
-            $.ajax({
-                url : "/friendDetail/blackCancel",
-                type : "GET",
-                cache : false,
-                data : {user_id : user_id},
-                success: function(data){
-                    alert("차단을 해제 했습니다.");
-                    location.reload();
-                }
-            })
+        $.ajax({
+            url : "/friendDetail/blackCancel",
+            type : "GET",
+            cache : false,
+            data : {user_id : user_id},
+            success: function(data){
+                alert("차단을 해제 했습니다.");
+                location.reload();
+            }
+        })
     }
 
 };

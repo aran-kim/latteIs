@@ -24,10 +24,10 @@
                     <h3>대화</h3>
                     <span>친구들과 하던 대화를 이어가요!</span>
                     {{#nickName}}
-                        <a href="/mychatroom" id="btn-index">Chatting</a>
+                        <a href="/mychatroom">Chatting</a>
                     {{/nickName}}
                     {{^nickName}}
-                        <a href="/loginForm" id="btn-index">Login</a>
+                        <a href="/loginForm">Login</a>
                     {{/nickName}}
                 </figcaption>
             </figure>
@@ -39,7 +39,8 @@
                     <h3>방 찾기</h3>
                     <span>대화를 할 친구를 찾아요!</span>
                     {{#nickName}}
-                        <a href="/search">Search</a>
+                        <input type="hidden" id="init" class="init" value={{init}}>
+                        <a id="btn-index" class="btn-index">Search</a>
                     {{/nickName}}
                     {{^nickName}}
                         <a href="/loginForm">Login</a>

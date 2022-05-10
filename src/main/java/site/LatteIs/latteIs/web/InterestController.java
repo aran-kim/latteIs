@@ -48,6 +48,7 @@ public class InterestController {
         System.out.println("mbti : " + mbti);
 
         userinfo.setMbti(mbti);
+        userinfo.setInit(1);
         userRepository.save(userinfo);
 
         _mbti.setMbti(mbti);
@@ -93,7 +94,7 @@ public class InterestController {
         interest.setHobby(hobby.toString());
         interest.setFriend_style(friend_style.toString());
 
-        userinfo.setInit(1);
+        userinfo.setInit(2);
 
         return "redirect:/";
     }

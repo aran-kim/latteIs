@@ -31,8 +31,10 @@ public class IndexController {
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
             System.out.println("접속 닉네임 : " + user.getNickName());
+            System.out.println("Init : " + user.getInit());
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
+            model.addAttribute("init", user.getInit());
         }
         return "index"; //src/main/resources/templates/index.mustache
     }
