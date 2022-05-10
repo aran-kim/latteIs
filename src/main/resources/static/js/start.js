@@ -26,6 +26,16 @@ function setResult(){
   console.log(mbti);
 
   resultName.innerHTML = mbti;
+  $.ajax({
+    url : "/mbtiProc",
+    type : "POST",
+    cache : false,
+    data : { mbti : mbti},
+    success : function(data){
+        alter("질문에 답해주세요!");
+        window.location.href = "/question";
+    }
+  })
 
 }
 

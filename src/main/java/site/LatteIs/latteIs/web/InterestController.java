@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import site.LatteIs.latteIs.auth.LoginUser;
 import site.LatteIs.latteIs.auth.SessionUser;
 import site.LatteIs.latteIs.web.domain.entity.Interest;
@@ -39,17 +40,18 @@ public class InterestController {
         return "mbti";
     }
 
+    @ResponseBody
     @PostMapping("/mbtiProc")
-    public String mbtiProc(Model model, @LoginUser SessionUser user, MBTI mbti){
+    public void mbtiProc(Model model, @LoginUser SessionUser user, MBTI _mbti, @RequestParam (value = "mbti", required = false) String mbti){
         User userinfo = userRepository.findByUsername(user.getUsername());
         Interest interest = interestRepository.findByUserId(userinfo.getId());
-        mbti.setUser(userinfo);
-        System.out.println("MBTI save 전 정보 : " + mbti);
+        System.out.println("mbti : " + mbti);
 
-        mbtiRepository.save(mbti);
-        System.out.println("MBTI save 후 정보 : " + mbti);
+        _mbti.setMbti(mbti);
+        _mbti.setUser(userinfo);
+        mbtiRepository.save(_mbti);
+        System.out.println("MBTI save 후 정보 : " + _mbti);
 
-        return "redirect:/question";
     }
 
     @GetMapping("/question")
