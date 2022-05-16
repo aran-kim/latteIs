@@ -50,7 +50,7 @@ public class InfoController {
             User userinfo = userRepository.findByUsername(user.getUsername());
             model.addAttribute("userinfo", userinfo);
         }
-        return "info";
+        return "information/info";
     }
 
     @GetMapping("/info/changePwd")
@@ -61,7 +61,7 @@ public class InfoController {
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
         }
-        return "changePwd";
+        return "information/changePwd";
     }
 
     @PostMapping("/info/changePwdProc")
@@ -89,7 +89,7 @@ public class InfoController {
             model.addAttribute("nickName", user.getNickName());
             model.addAttribute("email", user.getEmail());
         }
-        return "/infochangeEmail";
+        return "information/changeEmail";
     }
 
     @PostMapping("/changeEmailProc")
@@ -118,7 +118,7 @@ public class InfoController {
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
         }
-        return "changeNickName";
+        return "information/changeNickName";
     }
 
     @PostMapping("/info/changeNickNameProc")
@@ -145,7 +145,7 @@ public class InfoController {
             Follower follower =  followerRepository.findByUserId(userinfo.getId());
             System.out.println("로그인 유저 팔로워 상태 : " + follower);
             if(follower == null)
-                return "followerList";
+                return "information/followerList";
 
             System.out.println("follwerList : " + follower.getFollowerUserIdList());
 
@@ -172,7 +172,7 @@ public class InfoController {
             System.out.println(interestList);
             model.addAttribute("followerList", interestList);
         }
-        return "followerList";
+        return "information/followerList";
     }
 
     @GetMapping("/info/blackList")
@@ -186,7 +186,7 @@ public class InfoController {
             Blacklist blacklist =  blacklistRepository.findByUserId(userinfo.getId());
             System.out.println("로그인 유저 블랙 리스트 상태 : " + blacklist);
             if(blacklist == null)
-                return "blackList";
+                return "information/blackList";
 
             System.out.println("blackList : " + blacklist.getBlackUserIdList());
 
@@ -213,6 +213,6 @@ public class InfoController {
             System.out.println(interestList);
             model.addAttribute("blackList", interestList);
         }
-        return "blackList";
+        return "information/blackList";
     }
 }

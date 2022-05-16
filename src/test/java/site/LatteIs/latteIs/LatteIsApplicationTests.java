@@ -355,8 +355,7 @@ class LatteIsApplicationTests {
 
 		System.out.println(interestList);
 
-
-
 	}
+
 
 }

@@ -37,7 +37,7 @@ public class InterestController {
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
         }
-        return "mbti";
+        return "join/mbti";
     }
 
     @ResponseBody
@@ -67,7 +67,7 @@ public class InterestController {
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
         }
-        return "question";
+        return "join/question";
     }
 
     @PostMapping("/questionProc")

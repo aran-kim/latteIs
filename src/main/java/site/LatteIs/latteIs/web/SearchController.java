@@ -45,10 +45,10 @@ public class SearchController {
             if(init == 0) // 관심사 없음
                 model.addAttribute("moreInfo", 0);
         }
-        return "search";
+        return "search/search";
     }
 
-    @GetMapping("/mbtiFriend")
+    @GetMapping("/search/mbtiFriend")
     public String mbtiFriend(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
@@ -121,10 +121,10 @@ public class SearchController {
 
             System.out.println("userList : " + userList);
         }
-        return "mbtiFriend";
+        return "search/mbtiFriend";
     }
 
-    @GetMapping("/hobbyFriend")
+    @GetMapping("/search/hobbyFriend")
     public String hobbyFriend(Model model, @LoginUser SessionUser user){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
@@ -170,10 +170,10 @@ public class SearchController {
             model.addAttribute("userList", userList);
 
         }
-        return "hobbyFriend";
+        return "search/hobbyFriend";
     }
 
-    @GetMapping("/friendDetail")
+    @GetMapping("/search/friendDetail")
     public String friendDetail(@RequestParam(value = "user_id") Long user_id, Model model, @LoginUser SessionUser user, Interest friendInterest){
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
@@ -202,11 +202,11 @@ public class SearchController {
             }
 
         }
-        return "friendDetail";
+        return "search/friendDetail";
     }
 
     @ResponseBody
-    @GetMapping("/friendDetail/follower")
+    @GetMapping("/search/friendDetail/follower")
     public void follower(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Follower follower) {
         User userinfo = userRepository.findByUsername(user.getUsername());
         Optional<Follower> followerOptional = followerRepository.findByUserIdOptional(userinfo.getId());
@@ -233,7 +233,7 @@ public class SearchController {
     }
 
     @ResponseBody
-    @GetMapping("/friendDetail/followerCancel")
+    @GetMapping("/search/friendDetail/followerCancel")
     public void followerCancel(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Follower follower) {
         User userinfo = userRepository.findByUsername(user.getUsername());
         System.out.println("로그인 유저 : " + userinfo);
@@ -256,7 +256,7 @@ public class SearchController {
     }
 
     @ResponseBody
-    @GetMapping("/friendDetail/black")
+    @GetMapping("/search/friendDetail/black")
     public void black(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Blacklist blacklist) {
         User userinfo = userRepository.findByUsername(user.getUsername());
         Optional<Blacklist> blacklistOptional = blacklistRepository.findByUserIdOptional(userinfo.getId());
@@ -282,7 +282,7 @@ public class SearchController {
     }
 
     @ResponseBody
-    @GetMapping("/friendDetail/blackCancel")
+    @GetMapping("/search/friendDetail/blackCancel")
     public void blackCancel(@RequestParam ("user_id") String user_id, @LoginUser SessionUser user, Blacklist blacklist) {
         User userinfo = userRepository.findByUsername(user.getUsername());
         System.out.println("로그인 유저 : " + userinfo);

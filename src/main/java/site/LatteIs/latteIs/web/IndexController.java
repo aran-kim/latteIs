@@ -67,7 +67,7 @@ public class IndexController {
     @GetMapping("/join")
     public String check(){
         System.out.println("checkControl 통과");
-        return "join";
+        return "join/join";
     }
 
     @ResponseBody
@@ -79,7 +79,7 @@ public class IndexController {
 
     @GetMapping("/joinID")
     public String join(){
-        return "joinID";
+        return "join/joinID";
     }
 
     @PostMapping("/joinProc")

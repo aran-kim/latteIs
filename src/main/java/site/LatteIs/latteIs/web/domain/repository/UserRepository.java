@@ -1,6 +1,7 @@
 package site.LatteIs.latteIs.web.domain.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import site.LatteIs.latteIs.web.domain.entity.User;
 
 import java.util.List;
@@ -21,6 +22,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // SELECT * FROM user WHERE provider = ?1 and providerId = ?2
     Optional<User> findByProviderAndProviderId(String provider, String providerId);
-
 
 }

@@ -14,21 +14,16 @@
     <div class="top-content">
 
         <div class="inner-bg">
-            <div class="container" id="container">
+            <div class="container">
                 <div class="row">
-                    <h3>차단한 친구들</h3>
+                    <h3>취미 같은 친구들</h3>
                     <div class="card">
                         <div class="board">
                             <td class="td_name">
-                                {{#blackList}}
-                                    <img src="images/no_profile.png" alt="no_profile" style="width: 55px;height: 55px;margin:10px;">{{user.nickName}}
+                                {{#userList}}
+                                    <img src="../images/no_profile.png" alt="no_profile" style="width: 55px;height: 55px;margin:10px;">{{user.nickName}}
                                     <a onclick="location.href='friendDetail?user_id='+{{user.id}}">정보 보기</a>
-                                    <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
-                                    <button type="button" id="btn-blackCancel" class="btn-blackCancel" value="{{user.id}}" style="float:right">차단 풀기</button><br>
-                                {{/blackList}}
-                                {{^blackList}}
-                                    차단한 친구가 없어용
-                                {{/blackList}}
+                                {{/userList}}
                             </td>
                         </div>
 

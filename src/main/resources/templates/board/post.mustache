@@ -46,7 +46,7 @@
                                 <tbody>
                                 {{#post}}
                                     <tr>
-                                        <td><a onclick="location.href='postDetail?board_id='+{{board_id}}+'&post_id='+{{id}}">{{title}}</a></td>
+                                        <td><a onclick="location.href='post/postDetail?board_id='+{{board_id}}+'&post_id='+{{id}}">{{title}}</a></td>
                                         <td>{{user.nickName}}</td>
                                         <td>{{createDate}}</td>
                                     </tr>
@@ -54,7 +54,7 @@
                                 </tbody>
                             </table>
 
-                        <button type="button" class="btn" style="float:right" onclick="location.href='postSave?board_id='+{{board_id}}">글 등록</button>
+                        <button type="button" class="btn" style="float:right" onclick="location.href='post/postSave?board_id='+{{board_id}}">글 등록</button>
 
                     </div>
 

@@ -45,10 +45,10 @@ public class BoardController {
             model.addAttribute("postList3", postList3);
             model.addAttribute("postList4", postList4);
         }
-        return "board";
+        return "board/board";
     }
 
-    @GetMapping("/post")
+    @GetMapping("/board/post")
     public String post(@RequestParam(value = "board_id") Long board_id, Model model, @LoginUser SessionUser user){
         if(user != null){
 
@@ -61,16 +61,14 @@ public class BoardController {
             model.addAttribute("board_id", board_id);
 
             int check_id = board_id.intValue();
-            //List<Post> post = postRepository.findPostNickNameByBoardId(check_id);
             List<Post> post = postRepository.findAllByBoardId(check_id);
             System.out.println("findPostNickName Test : " + post);
             model.addAttribute("post", post);
-
         }
-        return "post";
+        return "board/post";
     }
 
-    @GetMapping("/postSave")
+    @GetMapping("/board/post/postSave")
     public String postSave(@RequestParam(value = "board_id") Long board_id, Model model, @LoginUser SessionUser user){
         if(user != null){
 
@@ -84,10 +82,10 @@ public class BoardController {
             int check_id = board_id.intValue();
             model.addAttribute("post", postRepository.findAllByBoardId(check_id));
         }
-        return "postSave";
+        return "board/postSave";
     }
 
-    @PostMapping("/postSaveProc")
+    @PostMapping("/board/post/postSaveProc")
     public String postSaveProc(@RequestParam(value = "board_id") Long board_id, Model model, @LoginUser SessionUser user, Post post){
         User user1 = userRepository.findByUsername(user.getUsername());
         Board board = boardRepository.findById(board_id.intValue());
@@ -96,10 +94,10 @@ public class BoardController {
         System.out.println("Post save 전 정보 : " + post);
         postRepository.save(post);
         System.out.println("Post save 후 정보 : " + post);
-        return "redirect:/post?board_id=" + board_id;
+        return "redirect:/board/post?board_id=" + board_id;
     }
 
-    @GetMapping("/postDetail")
+    @GetMapping("/board/post/postDetail")
     public String postDetail(@RequestParam(value = "board_id") Long board_id, @RequestParam(value = "post_id") Long post_id, Model model, @LoginUser SessionUser user, Post post){
         if(user != null){
 
@@ -116,6 +114,6 @@ public class BoardController {
             int writerId = post.getUser().getId();
             model.addAttribute("writername", userRepository.findById(writerId).getUsername());
         }
-        return "postDetail";
+        return "board/postDetail";
     }
 }
