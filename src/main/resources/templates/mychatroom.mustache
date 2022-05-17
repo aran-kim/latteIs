@@ -2,13 +2,13 @@
 
 <nav class="codrops-demos">
     <a href="/">Home</a>
-    <a class="current-demo" href="/mychatroom">Chatting</a>
+    <a class="current-demo" href="/chat/mychatroom">Chatting</a>
     <a href="/search">Search</a>
     <a href="/board">Board</a>
     <a href="/info">Info</a>
 </nav>
 
-<link rel="stylesheet" type="text/css" href="css/mychatroom.css" />
+<link rel="stylesheet" type="text/css" href="../css/mychatroom.css" />
 
 </header>
 
@@ -20,31 +20,36 @@
             <div id="pop_info_1" class="pop_wrap" style="display:none;">
                 <div class="pop_inner">
                     <p class="dsc">채팅창 만들기</p>
-                    <form action="/createChatRoom" method="post" class="room-form">
+                    <form action="/chat/createChatRoom" method="post" class="room-form">
                         <div class="form-group">
                             <input type="text" name="roomname" placeholder="방 이름"
                                    class="form-username form-control" id="form-username">
                             <br>
-                            <input type="int" name="maxnumber" placeholder="최대 인원"
+                            <input type="number" name="maxnumber" placeholder="최대 인원"
                                    class="form-username form-control" id="form-username">
+                            <br>
+                            <div class="form-username form-control" id="form-username">
+                                비밀방
+                                <input type="radio" id="search" name="search" value="1" checked="checked">공개
+                                <input type="radio" id="search" name="search" value="0">비공개
+                            </div>
                         </div>
                         <button type="submit" class="btn">방 만들기</button>
                     </form>
-
                     <button type="button" class="btn_close">닫기</button>
                 </div>
             </div>
         </article>
 
         <h3>채팅방 검색</h3>
-        <input id="textMessage" class="textMessage" type="text">
+        <input id="textMessage" class="textMessage" type="text" onkeyup="if(window.event.keyCode==13){sendMessage()}">
         <input onclick="searchKey()" value="Send" type="button">
         {{#searchedRoom}}
             <br>
             <tr>
                 <td>{{roomname}}</td>
                 <td>({{currentnumber}}/{{maxnumber}})</td>
-                <button type="btn" onclick="location.href='chat?id='+{{id}}">입장</button>
+                <button type="btn" onclick="location.href='/chat/chatting?id='+{{id}}">입장</button>
             </tr>
         {{/searchedRoom}}
 
@@ -57,7 +62,7 @@
                 <tr>
                     <td>{{chatRoom.roomname}}</td>
                     <td>({{chatRoom.currentnumber}}/{{chatRoom.maxnumber}})</td>
-                    <button type="button" onclick="location.href='chat?id='+{{chatRoom.id}}">입장</button>
+                    <button type="button" onclick="location.href='/chat/chatting?id='+{{chatRoom.id}}">입장</button>
                 </tr>
                 <br>
             {{/mychatroom}}
@@ -70,7 +75,7 @@
             <tr>
                 <td>{{roomname}}</td>
                 <td>({{currentnumber}}/{{maxnumber}})</td>
-                <button type="button" onclick="location.href='chat?id='+{{id}}">입장</button>
+                <button type="button" onclick="location.href='/chat/chatting?id='+{{id}}">입장</button>
             </tr>
             <br>
         {{/chatroom}}
@@ -85,7 +90,7 @@
 <script>
     function searchKey() {
         var key = document.getElementById("textMessage");
-        location.href = "/mychatroom?searchkey=" + $("#textMessage").val()
+        location.href = "/chat/chatroom?searchkey=" + $("#textMessage").val()
     }
 
     var target = document.querySelectorAll('.btn-open');

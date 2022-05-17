@@ -12,116 +12,175 @@
 <h2>{{chatroom.roomname}}</h2>
 
 <div class="container" id="app" v-cloak>
-<div class="row">
+    <div class="row">
 
-    <div class="col-md-12">
-        <a onclick="window.opener.location.reload();" href="#setting" class="btn-open"
-           style="color: darkgray; float: right;">설정</a>
-        <div id="setting" class="pop_wrap" style="display:none;">
-            <div class="pop_inner">
-                <p class="dsc">방 설정</p>
-                방 인원 : {{roomsize}} / {{maxroomsize}}
-                <br>
-                방장 : {{chatroom.masterusername}}
-                <br>
-                {{#room}}
-                    <tr>
-                        <td>
-                            {{User.nickName}}
-                        </td>
-                        <td>
-                            {{#me}}
-                                <input onclick="disconnect()" value="방나가기" type="button">
-                            {{/me}}
-                            {{^me}}
-                                <input onclick="forceExit({{User.id}},'{{&User.nickName}}')" value="강제퇴장" type="button">
-                            {{/me}}
-                        </td>
-                    </tr>
+        <div class="col-md-12">
+            <a href="#info" class="btn-open" style="color: darkgray; float: right;">방 정보</a>
+            <div id="info" class="pop_wrap" style="display:none;">
+                <div class="pop_inner">
+                    <p class="dsc">방 정보</p>
+                    방 인원 : {{roomsize}} / {{maxroomsize}}
                     <br>
-                {{/room}}
-                <br>
-
-                <br>
-                <td>
-                    <button type="button" id="button_copy">초대 링크</button>
-                    <button type="button" class="btn_close">닫기</button>
-                </td>
-                <br>
-            </div>
-        </div>
-    </div>
-
-<div class="col-12" id="msgArea" style="float: none; margin: auto">
-    {{#saveMessage}}
-        {{#me}}
-            <div class='col-12'>
-                <div class='message-me'>
-                    <b>
-                        <tr>
-                            <td>나</td>
-                            <td>:</td>
-                            <td>{{message}}</td>
-                        </tr>
-                    </b>
-                </div>
-            </div>
-        {{/me}}
-        {{^me}}
-            <div class='col-12'>
-                <div class='message'>
-                    <b>
-                        <tr>
-                            <a onclick="window.opener.location.reload();" href="#profile"
-                               class="btn-open"">{{User.nickName}}</a>
-                            <div id="profile" class="pop_wrap" style="display:none;">
-                            <div class="pop_inner">
-                                <p class="dsc">{{User.nickName}}프로필</p>
+                    방장 : {{chatroom.masterusername}}
+                    <br>
+                    {{#room}}
                         <tr>
                             <td>
-                                닉네임 : {{User.nickName}}
+                                {{User.nickName}}
                             </td>
+                            <td><div id="profile" class="pop_wrap" style="display:none;">
+                                <div class="pop_inner">
+                                    <p class="dsc">{{User.nickName}}프로필</p>
+                        <tr>
                             <br>
                             <td>
-                                MBTI : ESTJ
+                                {{#User.mbti}}{{User.mbti}}{{/User.mbti}}
+                                {{#User.mbti}}검사 미완료{{/User.mbti}}
                             </td>
                             <br>
                             <td>
                                 <input value="팔로잉" type="button">
-                                <input value="개인톡" type="button">
+                                <button type="button"
+                                        onclick="location.href = '/chat/personalChat?user_id=' + {{User.id}}">
+                                    개인톡
+                                </button>
+                            </td>
+                        </tr>
+                        <br><br>
+                        <button type="button" class="btn_close">닫기</button>
+                    </div>
+                    </div>
+                        <a href="#profile" class="btn-open">프로필</a>
+
+                            <br>
+                        </td>
+                        </tr>
+
+                    {{/room}}
+                    <br>
+                    <td>
+                        <button type="button" onclick="disconnect()">방 나가기</button>
+                        <button type="button" class="btn_close">닫기</button>
+                    </td>
+                    <br>
+                </div>
+            </div>
+            {{#master}}
+                <a href="#setting" class="btn-open" style="color: darkgray; float: right;">방설정&nbsp;&ensp;</a>
+            {{/master}}
+            <div id="setting" class="pop_wrap" style="display:none;">
+                <div class="pop_inner">
+                    <p class="dsc">방 설정</p>
+                    <br>
+                    <a href="#modifyroom" class="btn-open">방 수정</a>
+                    <div id="modifyroom" class="pop_wrap" style="display:none;">
+                        <div class="pop_inner">
+                            <p class="dsc">방 최대 인원 수정</p>
+                            <tr>
+                                <form action="/chat/modifyChatroom" method="post" class="room-form">
+                                    <div class="form-group">
+                                        <input type="hidden" name="id" value="{{chatroom.id}}"></hidden>
+                                        <input type="text" name="roomname" placeholder="{{chatroom.roomname}}"
+                                               value="{{chatroom.roomname}}"
+                                               class="form-username form-control" id="form-username">
+                                        <br>
+                                        <input type="number" name="maxnumber" placeholder="{{maxroomsize}}"
+                                               value="{{maxroomsize}}"
+                                               class="form-username form-control" id="form-username">
+                                        <br>
+                                        <div class="form-username form-control" id="form-username">
+                                            비밀방
+                                            <input type="radio" id="search" name="search" value="1"
+                                                   checked="checked">공개
+                                            <input type="radio" id="search" name="search" value="0">비공개
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn">방 수정</button>
+                                </form>
+                            </tr>
+                            <button type="button" class="btn_close">닫기</button>
+                            </td>
+                            <br>
+                        </div>
+                    </div>
+                    방 인원 : {{roomsize}} / {{maxroomsize}}
+
+                    <br>
+                    방장 : {{chatroom.masterusername}}
+                    <br>
+                    {{#room}}
+                        <tr>
+                        <td>
+                            {{^me}}
+                                <td>
+                                    {{User.nickName}}
+                                </td>
+                                <input onclick="forceExit({{User.id}},'{{&User.nickName}}')" value="강제퇴장"
+                                       type="button">
+                                <input onclick="changeMaster({{User.id}},'{{&User.nickName}}')" value="매니저위임"
+                                       type="button">
+                            {{/me}}
                             </td>
                         </tr>
                         <br>
+                    {{/room}}
+                    <br>
+                    <br>
+                    <td>
+                        <button type="button" id="button_copy">초대 링크</button>
                         <button type="button" class="btn_close">닫기</button>
-                        </td>
-                        <br>
+                    </td>
+                    <br>
                 </div>
             </div>
-                        </tr>
-                    </b>
-            <td>:</td>
-            <td>{{message}}</td>
-            </tr>
-            </b>
         </div>
+
+        <div class="col-12" id="msgArea" style="float: none; margin: auto">
+            {{#saveMessage}}
+                {{#me}}
+                    <div class='col-12'>
+                        <div class='message-me'>
+                            <b>
+                                <tr>
+                                    <td>나</td>
+                                    <td>:</td>
+                                    <td>{{message}}</td>
+                                </tr>
+                            </b>
+                        </div>
+                    </div>
+                {{/me}}
+                {{^me}}
+                    <div class='col-12'>
+                        <div class='message'>
+                            <b>
+                                <tr>
+                                    {{User.nickName}}
+                                    <td>:</td>
+                                    <td>{{message}}</td>
+                                </tr>
+                            </b>
+                        </div>
+                    </div>
+                {{/me}}
+            {{/saveMessage}}
         </div>
-        {{/me}}
-    {{/saveMessage}}
-</div>
+
+        <br>
+        <from>
+            <input id="textMessage" class="textMessage" type="text"
+                   onkeyup="if(window.event.keyCode==13){sendMessage()}"/>
+            <input onclick="sendMessage()" value="Send" type="button">
+        </from>
+        <br><br><br>
+    </div>
 </div>
 
-<br>
-<from>
-    <input id="textMessage" class="textMessage" type="text">
-    <!-- 송신 버튼 -->
-    <input onclick="sendMessage()" value="Send" type="button">
-</from>
-<br><br><br>
-</div>
+
 <script type="text/javascript">
 
     function copyToClipboard(val) {
-        const str = "http://localhost:8080/chat?id=" +{{chatroom.id}};
+        const str = "http://" + location.host + "/chat/chatting?id=" +{{chatroom.id}};
         navigator.clipboard.writeText(str);
         alert("URL이 클립보드에 복사되었습니다");
     }
@@ -130,14 +189,13 @@
     button.addEventListener('click', copyToClipboard);
 
 
-    const webSocket = new WebSocket("ws://" + location.host + "/ws/chat?id=" +{{chatroom.id}});
+    const webSocket = new WebSocket("ws://" + location.host + "/ws/chat/chatting?id=" +{{chatroom.id}});
 
     var messageTextArea = document.getElementById("messageTextArea");
 
     //웹 소켓이 연결되었을 때 호출되는 이벤트
 
     webSocket.onopen = function (message) {
-
         var option = {
             messagetype: "ENTER",
             roomId: {{chatroom.id}},
@@ -155,7 +213,6 @@
     //웹 소켓이 에러가 났을 때 호출되는 이벤트
 
     webSocket.onerror = function (ev, message) {
-        alert(ev.data);
         messageTextArea.value += ev.data + "error...\n";
     };
 
@@ -164,7 +221,6 @@
     webSocket.onmessage = function (data) {
         var msg = data.data;
         var d = JSON.parse(msg);
-
         if (d.messagetype == "ENTER") {
             history.go(0);
         } else if (d.messagetype == "TALK") {
@@ -175,7 +231,11 @@
                 str += "</div></div>";
                 $("#msgArea").prepend(str);
             } else {
-                history.go(0);
+                var str = "<div class='col-12'>";
+                str += "<div class='message'>";
+                str += "<b>" + d.sender + " :" + d.msg + "</b>";
+                str += "</div></div>";
+                $("#msgArea").prepend(str);
             }
         } else if (d.messagetype == "EXIT") {
             history.go(0);
@@ -192,7 +252,7 @@
             messagetype: "TALK",
             roomId: {{chatroom.id}},
             sender: "{{nickName}}",
-            msg: $("#textMessage").val()
+            msg: message.value
         }
         webSocket.send(JSON.stringify(option));
         message.value = "";
@@ -200,31 +260,37 @@
 
     //웹소켓 종료
     function disconnect() {
-        var option = {
-            messagetype: "EXIT",
-            roomId: {{chatroom.id}},
-            sender: "{{nickName}}",
-            msg: '님이 채팅방을 나갔습니다.'
+        if ('{{&nickName}}' == '{{&chatroom.masterusername}}') {
+            alert("방장을 위임한 후, 나가십시오.")
+        } else {
+            var option = {
+                messagetype: "EXIT",
+                roomId: {{chatroom.id}},
+                sender: "{{nickName}}",
+                msg: '님이 채팅방을 나갔습니다.'
+            }
+            webSocket.send(JSON.stringify(option));
+            webSocket.close();
+            location.href = "/chat/exitchatroom?id=" + "{{chatroom.id}}";
         }
-        webSocket.send(JSON.stringify(option));
-        webSocket.close();
-        location.href = "/exitchatroom?id=" + "{{chatroom.id}}";
     }
 
     function forceExit(user_id, username) {
-        if ('{{&chatroom.masterusername}}' != '{{&nickName}}') {
-            alert("방장만 강제퇴장 시킬 수 있습니다.");
-        } else {
-            if (confirm(username + "를 강제 퇴장 시키겠습니까?\n강제퇴장 후 다시 입장할 수 없습니다.")) {
-                var option = {
-                    messagetype: "OUT",
-                    roomId: {{chatroom.id}},
-                    sender: username,
-                    msg: '님이 채팅방을 퇴장당했습니다.'
-                }
-                webSocket.send(JSON.stringify(option));
-                location.href = "/forceexitchatroom?room_id=" + "{{chatroom.id}}" + "&user_id=" + user_id;
+        if (confirm(username + "를 강제 퇴장 시키겠습니까?\n강제퇴장 후 다시 입장할 수 없습니다.")) {
+            var option = {
+                messagetype: "OUT",
+                roomId: {{chatroom.id}},
+                sender: username,
+                msg: '님이 채팅방을 퇴장당했습니다.'
             }
+            webSocket.send(JSON.stringify(option));
+            location.href = "/chat/forceexitchatroom?room_id=" + "{{chatroom.id}}" + "&user_id=" + user_id;
+        }
+    }
+
+    function changeMaster(user_id, username) {
+        if (confirm(username + "에게 매니저를 위임하시겠습니까?")) {
+            location.href = "/chat/changeMaster?room_id=" + "{{chatroom.id}}" + "&user_id=" + user_id;
         }
     }
 </script>
@@ -233,10 +299,6 @@
     var target = document.querySelectorAll('.btn-open');
     var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
     var targetID;
-
-    function parentRefresh() {
-        opener.location.reload();
-    }
 
     // 팝업 열기
     for (var i = 0; i < target.length; i++) {
@@ -254,4 +316,6 @@
     }
 
 </script>
+
 {{>layout/footer}}
+

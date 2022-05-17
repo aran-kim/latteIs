@@ -26,6 +26,7 @@ public class ChatRoom implements Serializable {
     private String masterusername;
     private int maxnumber;
     private int currentnumber;
+    private int search;
     @CreationTimestamp
     private Timestamp createDate;
 }
