@@ -16,6 +16,9 @@ import site.LatteIs.latteIs.web.domain.repository.InterestRepository;
 import site.LatteIs.latteIs.web.domain.repository.MBTIRepository;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.List;
 
@@ -30,14 +33,22 @@ public class InterestController {
     MBTIRepository mbtiRepository;
 
     @GetMapping("/mbti")
-    public String mbti(Model model, @LoginUser SessionUser user){
+    public String mbti(Model model, @LoginUser SessionUser user, HttpServletResponse response) throws IOException {
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
             System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
+
+            return "join/mbti";
         }
-        return "join/mbti";
+        else{
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('로그인부터 하고 오시죠?');location.href='/loginForm';</script>");
+            out.flush();
+            return "";
+        }
     }
 
     @ResponseBody
@@ -60,14 +71,22 @@ public class InterestController {
     }
 
     @GetMapping("/question")
-    public String question(Model model, @LoginUser SessionUser user){
+    public String question(Model model, @LoginUser SessionUser user, HttpServletResponse response) throws IOException{
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
             System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
+            return "join/question";
         }
-        return "join/question";
+        else{
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('로그인부터 하고 오시죠?');location.href='/loginForm';</script>");
+            out.flush();
+            return "";
+        }
+
     }
 
     @PostMapping("/questionProc")

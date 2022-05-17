@@ -19,6 +19,9 @@ import site.LatteIs.latteIs.web.domain.repository.FollowerRepository;
 import site.LatteIs.latteIs.web.domain.repository.InterestRepository;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,15 +38,22 @@ public class SearchController {
     private BlacklistRepository blacklistRepository;
 
     @GetMapping("/search")
-    public String search(Model model, @LoginUser SessionUser user){
+    public String search(Model model, @LoginUser SessionUser user, HttpServletResponse response) throws IOException {
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
             System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
             int init = userRepository.findByUsername(user.getUsername()).getInit();
-            if(init == 0) // 관심사 없음
-                model.addAttribute("moreInfo", 0);
+            if(init != 2){ // 질문을 다 안함
+                response.setContentType("text/html; charset=UTF-8");
+                PrintWriter out = response.getWriter();
+                if(init == 0)
+                    out.println("<script>alert('당신 MBTI 질문을 안했네요?');location.href='/mbti';</script>");
+                if(init == 1)
+                    out.println("<script>alert('당신 관심사 질문을 안했네요?');location.href='/question';</script>");
+                out.flush();
+            }
         }
         return "search/search";
     }
