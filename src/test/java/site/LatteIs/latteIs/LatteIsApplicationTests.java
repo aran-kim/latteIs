@@ -20,8 +20,7 @@ class LatteIsApplicationTests {
 	UserRepository userRepository;
 	@Autowired
 	FollowerRepository followerRepository;
-	@Autowired
-	FollowingRepository followingRepository;
+
 	@Autowired
 	BlacklistRepository blacklistRepository;
 	@Autowired

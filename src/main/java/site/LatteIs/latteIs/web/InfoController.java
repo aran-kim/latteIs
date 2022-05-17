@@ -19,7 +19,10 @@ import site.LatteIs.latteIs.web.domain.repository.FollowerRepository;
 import site.LatteIs.latteIs.web.domain.repository.InterestRepository;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,12 +57,23 @@ public class InfoController {
     }
 
     @GetMapping("/info/changePwd")
-    public String changePwd(Model model, @LoginUser SessionUser user){
+    public String changePwd(Model model, @LoginUser SessionUser user, HttpServletResponse response) throws IOException {
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
             System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
+            User userinfo = userRepository.findByUsername(user.getUsername());
+
+            String pwdCheck = userinfo.getPassword();
+            if(pwdCheck == null){
+                response.setContentType("text/html; charset=UTF-8");
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('당신은 비밀번호가 없습니다~');location.href='/info';</script>");
+                out.flush();
+                return "information/info";
+            }
+
         }
         return "information/changePwd";
     }
