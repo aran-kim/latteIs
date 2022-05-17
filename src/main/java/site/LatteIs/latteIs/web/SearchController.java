@@ -58,8 +58,7 @@ public class SearchController {
             User userinfo = userRepository.findByUsername(user.getUsername());
             Interest userInterest = interestRepository.findByUserId(userinfo.getId());
 
-            //String userMBTI = userInterest.getMbti();
-            String userMBTI = "ENTJ";
+            String userMBTI = userInterest.getMbti();
             System.out.println("사용자의 MBTI : " + userMBTI);
             String good;
             if(userMBTI.equals("ENFJ") || userMBTI.equals("INTJ")){
@@ -113,7 +112,6 @@ public class SearchController {
             else
                 good = null;
             System.out.println("good : " + good);
-            good = "ENFP"; //테스트용
             model.addAttribute("searchMbti", good);
 
             List<Interest> userList = interestRepository.findAllByMbtiandUniversity(good, userInterest.getUniversity(), userInterest.getUser().getId());
