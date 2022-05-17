@@ -18,8 +18,12 @@ var main = {
                 alert("당신 관심사 질문을 안했네요?");
                 location.href="/question";
             }
-            else
+            else if(init == 2)
                 location.href="/search";
+            else{
+                alert("이건 나오면 안되는데...?");
+                location.href="/";
+            }
         });
 
         $('#btn-follower').on('click', function(){

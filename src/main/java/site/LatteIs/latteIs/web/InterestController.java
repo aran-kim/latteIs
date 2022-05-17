@@ -47,15 +47,15 @@ public class InterestController {
         Interest interest = interestRepository.findByUserId(userinfo.getId());
         System.out.println("mbti : " + mbti);
 
-        userinfo.setMbti(mbti);
-        userinfo.setInit(1);
-        userRepository.save(userinfo);
-
         _mbti.setMbti(mbti);
         _mbti.setUser(userinfo);
         mbtiRepository.save(_mbti);
-
         System.out.println("MBTI save 후 정보 : " + _mbti);
+
+        userinfo.setMbti(mbti);
+        userinfo.setInit(1);
+        userRepository.save(userinfo);
+        System.out.println("userinfo : " + userinfo);
 
     }
 
@@ -80,21 +80,22 @@ public class InterestController {
         interest.setMbti(mbti.getMbti());
 
         System.out.println("Interest save 전 정보 : " + interest);
-        interestRepository.save(interest);
-        System.out.println("Interest save 후 정보 : " + interest);
 
         System.out.println(interest.getBirthday());
         int year = Integer.parseInt(interest.getBirthday().substring(0, 4));
         int age = Calendar.getInstance().get(Calendar.YEAR) - year + 1;
         System.out.println(age);
         interest.setAge(age);
-
         System.out.println(characteristic.toString() + hobby.toString() + friend_style.toString());
         interest.setCharacteristic(characteristic.toString());
         interest.setHobby(hobby.toString());
         interest.setFriend_style(friend_style.toString());
 
+        interestRepository.save(interest);
+        System.out.println("Interest save 후 정보 : " + interest);
+
         userinfo.setInit(2);
+        userRepository.save(userinfo);
 
         return "redirect:/";
     }

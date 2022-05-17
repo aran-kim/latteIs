@@ -36,18 +36,6 @@ public class IndexController {
         return "index"; //src/main/resources/templates/index.mustache
     }
 
-    @GetMapping("/user")
-    @ResponseBody
-    public String user(){
-        return "user";
-    }
-
-    @GetMapping("/admin")
-    @ResponseBody
-    public String admin(){
-        return "admin";
-    }
-
     @GetMapping("/login")
     public String login(){
         return "login";
