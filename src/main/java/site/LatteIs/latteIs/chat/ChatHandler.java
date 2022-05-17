@@ -24,8 +24,7 @@ import java.util.List;
 @Component
 @Log4j2 // 자바 로깅 프레임워크 // xml, json 등 구성 지원
 public class ChatHandler extends TextWebSocketHandler {
-    private static List<WebSocketSession> list = new ArrayList<WebSocketSession>();
-    HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
+    private static List<HashMap<String, Object>> sessionList = new ArrayList<>();
 
     @Autowired
     ChatMessageRepository chatMessageRepository;
@@ -35,51 +34,66 @@ public class ChatHandler extends TextWebSocketHandler {
     ChatRoomRepository chatRoomRepository;
 
     @Override // 메시지 전송 핸들러
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception{
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         ChatMessage chatMessage = new ChatMessage();
         String msg = message.getPayload();
         JSONObject obj = jsonToObjectParser(msg);
-        for(String key : sessionMap.keySet()) {
-            WebSocketSession wss = sessionMap.get(key);
-            try {
-                long room_id = Long.parseLong(obj.get("roomId").toString());
-                ChatRoom chatRoom = chatRoomRepository.findById(room_id);
-                String user_name = obj.get("sender").toString();
-                User user = userRepository.findByNickName(user_name);
+        String rN = obj.get("roomId").toString();
+        HashMap<String, Object> temp = new HashMap<String, Object>();
 
-                List<ChatMessage> list = chatMessageRepository.findAllMessageByRoomIdandUserId(chatRoom.getId(),user.getId());
-
-                System.out.println("list size: " + list.size());
-                System.out.println("type: " + obj.get("messagetype").toString());
-
-                if(!(obj.get("messagetype").toString().equals("ENTER")) || (list.size()==0)) {
-                    int currentNumber = chatRoom.getCurrentnumber();
-                    currentNumber++;
-                    if(obj.get("messagetype").toString().equals("ENTER")) {
-                        if (currentNumber > chatRoom.getMaxnumber()) {
-                            break;
-                        } else {
-                            chatRoom.setCurrentnumber(currentNumber);
-                            chatRoomRepository.save(chatRoom);
-                        }
-                    }
-                    chatMessage.setType(obj.get("messagetype").toString());
-
-                    String str = obj.get("msg").toString();
-                    if(str.contains("씨발")){
-                        str = str.replace("씨발","**");
-                        obj.replace("msg",str);
-                    }
-                    chatMessage.setMessage(str);
-                    chatMessage.setChatRoom(chatRoom);
-                    chatMessage.setMe(false);
-                    chatMessage.setUser(user);
-                    wss.sendMessage(new TextMessage(obj.toJSONString()));
-                    chatMessageRepository.save(chatMessage); // 대화저장
+        if (sessionList.size() > 0) {
+            for (int i = 0; i < sessionList.size(); i++) {
+                String roomNumber =  sessionList.get(i).get("roomNumber").toString();
+                if (roomNumber.equals(rN)) {
+                    temp = sessionList.get(i);
+                    break;
                 }
+            }
+            for (String key : temp.keySet()) {
+                if(key.equals("roomNumber")) {
+                    continue;
+                }
+                WebSocketSession wss = (WebSocketSession) temp.get(key);
+                try {
+                    if(wss == null) continue;
+                    long room_id = Long.parseLong(obj.get("roomId").toString());
+                    ChatRoom chatRoom = chatRoomRepository.findById(room_id);
+                    String user_name = obj.get("sender").toString();
+                    User user = userRepository.findByNickName(user_name);
 
-            }catch(Exception e) {
-                e.printStackTrace();
+                    List<ChatMessage> list = chatMessageRepository.findAllMessageByRoomIdandUserId(chatRoom.getId(), user.getId());
+
+                    System.out.println("list size: " + list.size());
+                    System.out.println("type: " + obj.get("messagetype").toString());
+
+                    if (!(obj.get("messagetype").toString().equals("ENTER")) || (list.size() == 0)) {
+                        int currentNumber = chatRoom.getCurrentnumber();
+                        currentNumber++;
+                        if (obj.get("messagetype").toString().equals("ENTER")) {
+                            if (currentNumber > chatRoom.getMaxnumber()) {
+                                break;
+                            } else {
+                                chatRoom.setCurrentnumber(currentNumber);
+                                chatRoomRepository.save(chatRoom);
+                            }
+                        }
+                        chatMessage.setType(obj.get("messagetype").toString());
+
+                        String str = obj.get("msg").toString();
+                        if (str.contains("씨발")) {
+                            str = str.replace("씨발", "**");
+                            obj.replace("msg", str);
+                        }
+                        chatMessage.setMessage(str);
+                        chatMessage.setChatRoom(chatRoom);
+                        chatMessage.setMe(false);
+                        chatMessage.setUser(user);
+                        wss.sendMessage(new TextMessage(obj.toJSONString()));
+                        chatMessageRepository.save(chatMessage); // 대화저장
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -88,10 +102,34 @@ public class ChatHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         super.afterConnectionEstablished(session);
-        sessionMap.put(session.getId(), session);
+        boolean flag = false;
+        String url = session.getUri().toString();
+        System.out.println(url.split("id=")[1]);
+        String roomNumber = url.split("id=")[1];
+        int size = sessionList.size();
+        int idx = size;
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                String rN = (String) sessionList.get(i).get("roomNumber");
+                if (rN.equals(roomNumber)) {
+                    flag = true;
+                    idx = i;
+                    break;
+                }
+            }
+        }
+        if (flag) {
+            HashMap<String, Object> map = sessionList.get(idx);
+            map.put(session.getId(), session);
+        } else {
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("roomNumber", roomNumber);
+            map.put(session.getId(), session);
+            sessionList.add(map);
+        }
         JSONObject obj = new JSONObject();
         obj.put("type", "getId");
-        obj.put("sender", session.getId());
+        obj.put("sessionId", session.getId());
         session.sendMessage(new TextMessage(obj.toJSONString()));
     }
 
@@ -99,7 +137,11 @@ public class ChatHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         //소켓 종료
-        sessionMap.remove(session.getId());
+        if (sessionList.size() > 0) {
+            for (int i = 0; i < sessionList.size(); i++) {
+                sessionList.get(i).remove(session.getId());
+            }
+        }
         super.afterConnectionClosed(session, status);
     }
 
