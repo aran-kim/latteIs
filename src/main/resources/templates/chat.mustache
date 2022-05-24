@@ -2,7 +2,7 @@
 
 <nav class="codrops-demos">
     <a href="/">Home</a>
-    <a class="current-demo" href="/mychatroom">Chatting</a>
+    <a class="current-demo" href="/chat/chatroom">Chatting</a>
     <a href="/search">Search</a>
     <a href="/board">Board</a>
     <a href="/info">Info</a>
@@ -24,33 +24,34 @@
             방장 : {{chatroom.masterusername}}
             <br>
             {{#room}}
+                <div id="profile{{User.id}}" class="pop_wrap" style="display:none;">
+                <div class="pop_inner">
+                    <p class="dsc">{{User.nickName}}프로필</p>
+                    <tr>
+                        <br>
+                        <td>
+                            {{#User.mbti}}{{User.mbti}}{{/User.mbti}}
+                            {{^User.mbti}}검사 미완료{{/User.mbti}}
+                        </td>
+                        <br>
+                        <td>
+                            <input value="팔로잉" type="button">
+                            <button type="button"
+                                    onclick="location.href = '/chat/personalChat?user_id=' + {{User.id}}">
+                                개인톡
+                            </button>
+                        </td>
+                    </tr>
+                    <br><br>
+                    <button type="button" class="btn_close">닫기</button>
+                </div>
+            </div>
                 <tr>
                     <td>
                         {{User.nickName}}
                     </td>
-                    <td><div id="profile" class="pop_wrap" style="display:none;">
-                        <div class="pop_inner">
-                            <p class="dsc">{{User.nickName}}프로필</p>
-                <tr>
-                    <br>
                     <td>
-                        {{#User.mbti}}{{User.mbti}}{{/User.mbti}}
-                        {{#User.mbti}}검사 미완료{{/User.mbti}}
-                    </td>
-                    <br>
-                    <td>
-                        <input value="팔로잉" type="button">
-                        <button type="button"
-                                onclick="location.href = '/chat/personalChat?user_id=' + {{User.id}}">
-                            개인톡
-                        </button>
-                    </td>
-                </tr>
-                <br><br>
-                <button type="button" class="btn_close">닫기</button>
-            </div>
-            </div>
-                <a href="#profile" class="btn-open">프로필</a>
+                <a href="#profile{{User.id}}" class="btn-open">프로필</a>
 
                 <br>
                 </td>
@@ -73,6 +74,7 @@
             <p class="dsc">방 설정</p>
             <br>
             <a href="#modifyroom" class="btn-open">방 수정</a>
+            <br>
             <div id="modifyroom" class="pop_wrap" style="display:none;">
                 <div class="pop_inner">
                     <p class="dsc">방 최대 인원 수정</p>
@@ -180,7 +182,7 @@
 <script type="text/javascript">
 
     function copyToClipboard(val) {
-        const str = "http://" + location.host + "/chat/chatting?id=" +{{chatroom.id}};
+        const str = "https://" + location.host + "/chat/chatting?id=" +{{chatroom.id}};
         navigator.clipboard.writeText(str);
         alert("URL이 클립보드에 복사되었습니다");
     }
@@ -188,10 +190,8 @@
     const button = document.getElementById('button_copy');
     button.addEventListener('click', copyToClipboard);
 
+    const webSocket = new SockJS("/ws/chat/chatting?id=" + {{chatroom.id}});
 
-    const webSocket = new WebSocket("ws://" + location.host + "/ws/chat/chatting?id=" +{{chatroom.id}});
-
-    var messageTextArea = document.getElementById("messageTextArea");
 
     //웹 소켓이 연결되었을 때 호출되는 이벤트
 
@@ -213,7 +213,7 @@
     //웹 소켓이 에러가 났을 때 호출되는 이벤트
 
     webSocket.onerror = function (ev, message) {
-        messageTextArea.value += ev.data + "error...\n";
+        alert("error : "+ev.data);
     };
 
     //웹 소켓에서 메시지가 날라왔을 때 호출되는 이벤트

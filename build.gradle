@@ -41,7 +41,10 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 
 	//websocket
-	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.webjars:sockjs-client:1.5.1'
+	implementation 'org.springframework:spring-websocket:5.2.22.RELEASE'
+	implementation 'org.webjars:webjars-locator:0.45'
+
 }
 
 tasks.named('test') {
