@@ -2,7 +2,7 @@
 
 <nav class="codrops-demos">
     <a href="/">Home</a>
-    <a class="current-demo" href="/chat/chatroom">Chatting</a>
+    <a class="current-demo" href="/chat/chartroom">Chatting</a>
     <a href="/search">Search</a>
     <a href="/board">Board</a>
     <a href="/info">Info</a>
@@ -182,7 +182,7 @@
 <script type="text/javascript">
 
     function copyToClipboard(val) {
-        const str = "https://" + location.host + "/chat/chatting?id=" +{{chatroom.id}};
+        const str = "http://" + location.host + "/chat/chatting?id=" +{{chatroom.id}};
         navigator.clipboard.writeText(str);
         alert("URL이 클립보드에 복사되었습니다");
     }
@@ -190,8 +190,7 @@
     const button = document.getElementById('button_copy');
     button.addEventListener('click', copyToClipboard);
 
-    const webSocket = new SockJS("/ws/chat/chatting?id=" + {{chatroom.id}});
-
+    const webSocket  = new SockJS("http://localhost:8080/ws/chat/chatting?id="+{{chatroom.id}}, null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
 
     //웹 소켓이 연결되었을 때 호출되는 이벤트
 
