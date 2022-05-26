@@ -1,4 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
 {{>layout/header}}
+<meta charset="UTF-8">
+<title>swiper js</title>
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+<style>
+    html,
+    body {
+        position: relative;
+        height: 100%;
+    }
+
+    body {
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #000;
+        margin: 0;
+        padding: 0;
+    }
+
+    .swiper {
+        width: 400px;
+        height: 400px;
+        padding-top: 100px;
+        padding-bottom: 50px;
+    }
+
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        width: 300px;
+        height: 300px;
+    }
+
+</style>
 
 <nav class="codrops-demos">
     <a href="/">Home</a>
@@ -9,109 +46,126 @@
 </nav>
 </header>
 
-<div>
-    <!-- Top content -->
-    <div class="top-content">
-
-        <div class="inner-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="form-box">
-                        <div class="form-top">
-                            <div class="form-top-left">
-                                <h1><strong>Question</strong></h1>
-                                <p>Enter your Infomation</p>
-                            </div>
-                        </div>
-                        <div class="form-bottom">
-                            <form action="/questionProc" method="post" class="question-form">
-                                <div class="form-group">
-                                    <p>성별</p>
-                                    <input type="radio" id="sex" name="sex" value="남자">남자
-                                    <input type="radio" id="sex" name="sex" value="여자">여자
-                                </div>
-                                <div class="form-group">
-                                    <p>생년월일</p>
-                                    <input type="date" id="birthday" name="birthday">
-                                </div>
-                                <div class="form-group">
-                                    <p>학교</p>
-                                    <input type="radio" id="university" name="university" value="서울대학교">서울대학교
-                                    <input type="radio" id="university" name="university" value="고려대학교">고려대학교
-                                    <input type="radio" id="university" name="university" value="광운대학교">광운대학교
-                                </div>
-                                <div class="form-group">
-                                    <p>종교</p>
-                                    <input type="radio" id="religion" name="religion" value="무교">무교
-                                    <input type="radio" id="religion" name="religion" value="천주교">천주교
-                                    <input type="radio" id="religion" name="religion" value="기독교">기독교
-                                    <input type="radio" id="religion" name="religion" value="불교">불교
-                                </div>
-                                <div class="form-group">
-                                    <p>주량</p>
-                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="전혀 안 함">전혀 안 함
-                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="반 병">반 병
-                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="한 병">한 병
-                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="두 병">두 병
-                                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="많이">많이
-                                </div>
-                                <div class="form-group">
-                                    <p>흡연</p>
-                                    <input type="radio" id="smoking" name="smoking" value="비흡연자">비흡연자
-                                    <input type="radio" id="smoking" name="smoking" value="흡연자">흡연자
-                                </div>
-                                <div class="form-group"> <!-- 다중 선택 고려해야함 -->
-                                    <p>특징</p>
-                                    <input type="checkbox" name="characteristic" value="활발한">활발한
-                                    <input type="checkbox" name="characteristic" value="조용한">조용한
-                                    <input type="checkbox" name="characteristic" value="애교가 넘치는">애교가 넘치는
-                                    <input type="checkbox" name="characteristic" value="어른스러운">어른스러운
-                                    <input type="checkbox" name="characteristic" value="열정적인">열정적인
-                                    <input type="checkbox" name="characteristic" value="침착한">침착한
-                                    <input type="checkbox" name="characteristic" value="또라이 같은">또라이 같은
-                                    <input type="checkbox" name="characteristic" value="예의 바른">예의 바른
-                                    <input type="checkbox" name="characteristic" value="유머러스한">유머러스한
-                                </div>
-                                <div class="form-group"> <!-- 다중 선택 고려해야함 -->
-                                    <p>취미</p>
-                                    <input type="checkbox" name="hobby" value="영화">영화
-                                    <input type="checkbox" name="hobby" value="넷플릭스">넷플릭스
-                                    <input type="checkbox" name="hobby" value="카페">카페
-                                    <input type="checkbox" name="hobby" value="노래방">노래방
-                                    <input type="checkbox" name="hobby" value="맥주">맥주
-                                    <input type="checkbox" name="hobby" value="쇼핑">쇼핑
-                                    <input type="checkbox" name="hobby" value="독서">독서
-                                    <input type="checkbox" name="hobby" value="등산">등산
-                                    <input type="checkbox" name="hobby" value="맛집 탐방">맛집 탐방
-                                </div>
-                                <div class="form-group">
-                                    <p>친구 스타일</p>
-                                    <input type="checkbox" name="friend_style" value="예쁘고 잘생긴">예쁘고 잘생긴
-                                    <input type="checkbox" name="friend_style" value="옷 잘 입는">옷 잘 입는
-                                    <input type="checkbox" name="friend_style" value="듬직한">듬직한
-                                    <input type="checkbox" name="friend_style" value="아담한">아담한
-                                    <input type="checkbox" name="friend_style" value="연상">연상
-                                    <input type="checkbox" name="friend_style" value="연하">연하
-                                    <input type="checkbox" name="friend_style" value="동갑">동갑
-                                    <input type="checkbox" name="friend_style" value="취미가 같은">취미가 같은
-                                    <input type="checkbox" name="friend_style" value="잘 웃어주는">잘 웃어주는
-                                </div>
-                                <button type="submit" id="btn-question">끝! </button>
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
-
+<body>
+<!-- Top content -->
+<div class="top-content">
+    <h1><strong>나를 표현해보세요!</strong></h1>
+    <p>친구를 찾는데 도움을 줍니다!</p>
+</div>
+<!-- Swiper -->
+<form action="/questionProc" method="post" class="question-form">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <fieldset>
+                    <legend>성별</legend>
+                    <input type="radio" id="sex" name="sex" value="남자">남자
+                    <input type="radio" id="sex" name="sex" value="여자">여자
+                </fieldset>
+            </div>
+            <div class="swiper-slide">
+                <fieldset>
+                    <legend>생년월일</legend>
+                    <input type="date" id="birthday" name="birthday">
+                </fieldset>
+            </div>
+            <div class="swiper-slide">
+                <fieldset>
+                    <legend>학교</legend>
+                    <input type="radio" id="university" name="university" value="서울대학교">서울대학교
+                    <input type="radio" id="university" name="university" value="고려대학교">고려대학교
+                    <input type="radio" id="university" name="university" value="광운대학교">광운대학교
+                </fieldset>
+            </div>
+            <div class="swiper-slide">
+                <fieldset>
+                    <legend>종교</legend>
+                    <input type="radio" id="religion" name="religion" value="무교">무교
+                    <input type="radio" id="religion" name="religion" value="천주교">천주교
+                    <input type="radio" id="religion" name="religion" value="기독교">기독교
+                    <input type="radio" id="religion" name="religion" value="불교">불교
+                </fieldset>
+            </div>
+            <div class="swiper-slide">
+                <fieldset>
+                    <legend>주량</legend>
+                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="전혀 안 함">전혀 안 함
+                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="반 병">반 병
+                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="한 병">한 병
+                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="두 병">두 병
+                    <input type="radio" id="amount_of_alcohol" name="amount_of_alcohol" value="많이">많이
+                </fieldset>
+            </div>
+            <div class="swiper-slide">
+                <fieldset>
+                    <legend>흡연</legend>
+                    <input type="radio" id="smoking" name="smoking" value="비흡연자">비흡연자
+                    <input type="radio" id="smoking" name="smoking" value="흡연자">흡연자
+                </fieldset>
+            </div>
+            <div class="swiper-slide">
+                <fieldset>
+                    <legend>특징</legend>
+                    <input type="checkbox" name="characteristic" id="characteristic1" value="활발한"><label for="characteristic1">활발한</label>
+                    <input type="checkbox" name="characteristic" id="characteristic2" value="조용한"><label for="characteristic2">조용한</label>
+                    <input type="checkbox" name="characteristic" id="characteristic3" value="애교가 넘치는"><label for="characteristic3">애교가 넘치는</label>
+                    <input type="checkbox" name="characteristic" id="characteristic4" value="어른스러운"><label for="characteristic4">어른스러운</label>
+                    <input type="checkbox" name="characteristic" id="characteristic5" value="열정적인"><label for="characteristic5">열정적인</label>
+                    <input type="checkbox" name="characteristic" id="characteristic6" value="침착한"><label for="characteristic6">침착한</label>
+                    <input type="checkbox" name="characteristic" id="characteristic7" value="또라이 같은"><label for="characteristic7">또라이 같은</label>
+                    <input type="checkbox" name="characteristic" id="characteristic8" value="예의 바른"><label for="characteristic8">예의 바른</label>
+                    <input type="checkbox" name="characteristic" id="characteristic9" value="유머러스한"><label for="characteristic9">유머러스한</label>
+                </fieldset>
+            </div>
+            <div class="swiper-slide">
+                <fieldset>
+                    <legend>취미</legend>
+                    <input type="checkbox" name="hobby" value="영화">영화
+                    <input type="checkbox" name="hobby" value="넷플릭스">넷플릭스
+                    <input type="checkbox" name="hobby" value="카페">카페
+                    <input type="checkbox" name="hobby" value="노래방">노래방
+                    <input type="checkbox" name="hobby" value="맥주">맥주
+                    <input type="checkbox" name="hobby" value="쇼핑">쇼핑
+                    <input type="checkbox" name="hobby" value="독서">독서
+                    <input type="checkbox" name="hobby" value="등산">등산
+                    <input type="checkbox" name="hobby" value="맛집 탐방">맛집 탐방
+                </fieldset>
+            </div>
+            <div class="swiper-slide">
+                <fieldset>
+                    <legend>친구 스타일</legend>
+                    <input type="checkbox" name="friend_style" value="예쁘고 잘생긴">예쁘고 잘생긴
+                    <input type="checkbox" name="friend_style" value="옷 잘 입는">옷 잘 입는
+                    <input type="checkbox" name="friend_style" value="듬직한">듬직한
+                    <input type="checkbox" name="friend_style" value="아담한">아담한
+                    <input type="checkbox" name="friend_style" value="연상">연상
+                    <input type="checkbox" name="friend_style" value="연하">연하
+                    <input type="checkbox" name="friend_style" value="동갑">동갑
+                    <input type="checkbox" name="friend_style" value="취미가 같은">취미가 같은
+                    <input type="checkbox" name="friend_style" value="잘 웃어주는">잘 웃어주는
+                </fieldset>
+                <button type="submit" id="btn-question">끝! </button>
             </div>
         </div>
-
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
     </div>
+</form>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
 
-    <!-- Footer -->
-    <footer>
+    var swiper = new Swiper(".mySwiper", {
+        grabCursor: true,
+        pagination: {
+            el: ".swiper-pagination",
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+</script>
+</body>
 
-    </footer>
-</div>
-
-{{>layout/footer}}
+</html>

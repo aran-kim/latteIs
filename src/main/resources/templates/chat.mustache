@@ -35,7 +35,9 @@
                         </td>
                         <br>
                         <td>
-                            <input value="팔로잉" type="button">
+                            <button type="button" onclick="window.open('/search/friendDetail?user_id='+{{User.id}},'친구디테일','width=430,height=500');">
+                                디테일
+                            </button>
                             <button type="button"
                                     onclick="location.href = '/chat/personalChat?user_id=' + {{User.id}}">
                                 개인톡
@@ -182,7 +184,7 @@
 <script type="text/javascript">
 
     function copyToClipboard(val) {
-        const str = "http://" + location.host + "/chat/chatting?id=" +{{chatroom.id}};
+        const str = "https://" + location.host + "/chat/chatting?id=" +{{chatroom.id}};
         navigator.clipboard.writeText(str);
         alert("URL이 클립보드에 복사되었습니다");
     }
@@ -190,7 +192,7 @@
     const button = document.getElementById('button_copy');
     button.addEventListener('click', copyToClipboard);
 
-    const webSocket  = new SockJS("http://localhost:8080/ws/chat/chatting?id="+{{chatroom.id}}, null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
+    const webSocket  = new SockJS("/ws/chat/chatting?id="+{{chatroom.id}});
 
     //웹 소켓이 연결되었을 때 호출되는 이벤트
 
@@ -226,7 +228,7 @@
             if (d.sender == "{{nickName}}") {
                 var str = "<div class='col-12'>";
                 str += "<div class='message-me'>";
-                str += "<b>나 :" + d.msg + "</b>";
+                str += "<b>나 : " + d.msg + "</b>";
                 str += "</div></div>";
                 $("#msgArea").prepend(str);
             } else {
