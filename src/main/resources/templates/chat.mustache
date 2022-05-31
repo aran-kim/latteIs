@@ -11,7 +11,7 @@
 
 <h2>{{chatroom.roomname}}</h2>
 
-<div class="container" id="app" v-cloak>
+<div id="app" v-cloak>
     <div class="row">
 
         <div class="col-md-12">
@@ -135,7 +135,7 @@
     </div>
 </div>
 
-<div class="col-12" id="msgArea" style="float: none; margin: auto">
+<div class="col-12" id="msgArea" style="float: none; width: 100%">
     {{#saveMessage}}
         {{#me}}
             <div class='col-12'>

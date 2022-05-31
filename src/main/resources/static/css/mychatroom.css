@@ -1,6 +1,7 @@
 main{
     display: flex;
     justify-content: center;
+    margin-bottom: 30px;
 }
 
 section{
@@ -15,4 +16,5 @@ article{
     background: white;
     margin-bottom: 10px;
     padding: 10px;
+    text-align: left;
 }
