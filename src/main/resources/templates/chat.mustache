@@ -192,7 +192,7 @@
     const button = document.getElementById('button_copy');
     button.addEventListener('click', copyToClipboard);
 
-    const webSocket  = new SockJS("/ws/chat/chatting?id="+{{chatroom.id}});
+    const webSocket  = new WebSocket("/ws/chat/chatting?id="+{{chatroom.id}});
 
     //웹 소켓이 연결되었을 때 호출되는 이벤트
 
