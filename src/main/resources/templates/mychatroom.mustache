@@ -62,7 +62,7 @@
                 <tr>
                     <td>{{chatRoom.roomname}}</td>
                     <td>({{chatRoom.currentnumber}}/{{chatRoom.maxnumber}})</td>
-                    <button type="button" onclick="location.href='/chat/chatting?id='+{{chatRoom.id}}">입장</button>
+                    <button type="button" onclick="location.href='/chat/chatting?id='+{{chatRoom.id}}" style="height:28px; float:right">입장</button>
                 </tr>
                 <br>
             {{/mychatroom}}
@@ -75,7 +75,7 @@
                 <tr>
                     <td>{{roomname}}</td>
                     <td>({{currentnumber}}/{{maxnumber}})</td>
-                    <button type="button" onclick="location.href='/chat/chatting?id='+{{id}}">입장</button>
+                    <button type="button" onclick="location.href='/chat/chatting?id='+{{id}}" style="height:28px; float:right">입장</button>
                 </tr>
                 <br>
             {{/chatroom}}

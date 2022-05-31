@@ -17,6 +17,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         /*Endpoint는 "/chat", 다른 서버에서도 접속이 가능하도록 setAllowedOrigin("*") 추가*/
-        registry.addHandler(chatHandler, "/ws/chat/chatting").setAllowedOrigins("*");
+        registry.addHandler(chatHandler, "/ws/chat/chatting").setAllowedOrigins("https://*:8080").withSockJS();
     }
 }

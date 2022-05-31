@@ -158,9 +158,10 @@ public class ChatController {
     @GetMapping("/chat/personalChat")
     public String personalChat(@RequestParam(value = "user_id") int user_id, @LoginUser SessionUser user, HttpServletResponse response) throws IOException {
         User user1 = userRepository.findById(user_id);
-        User user2 = userRepository.findByUsername(user.getNickName());
+        System.out.println("user2 : " + user.getNickName());
+        User user2 = userRepository.findByNickName(user.getNickName());
         System.out.println("user1 : " + user1.getNickName());
-        System.out.println("user2 : " + user2.getNickName());
+        System.out.println("user2 : " + user2);
         if (user1.getNickName().equals(user2.getNickName())) {
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();

@@ -30,3 +30,4 @@ public class ChatRoom implements Serializable {
     @CreationTimestamp
     private Timestamp createDate;
 }
+
