@@ -2,7 +2,7 @@
 
 <nav class="codrops-demos">
     <a href="/">Home</a>
-    <a class="current-demo" href="/chat/chartroom">Chatting</a>
+    <a class="current-demo" href="/chat/chatroom">Chatting</a>
     <a href="/search">Search</a>
     <a href="/board">Board</a>
     <a href="/info">Info</a>
@@ -224,9 +224,6 @@
                 str += "</div></div>";
                 $("#msgArea").prepend(str);
             }
-
-
-
         });
     });
 
@@ -254,7 +251,7 @@
                 sender: "{{nickName}}",
                 msg: '님이 채팅방을 나갔습니다.'
             }
-            stompClient.send("/app/chat/send", {}, JSON.stringify(option));
+            stompClient.send("/pub/chat/send", {}, JSON.stringify(option));
             if (stompClient !== null) {
                 stompClient.disconnect();
             }
@@ -270,7 +267,7 @@
                 sender: username,
                 msg: '님이 채팅방을 퇴장당했습니다.'
             }
-            webSocket.send(JSON.stringify(option));
+            stompClient.send("/pub/chat/send", {}, JSON.stringify(option));
             location.href = "/chat/forceexitchatroom?room_id=" + "{{chatroom.id}}" + "&user_id=" + user_id;
         }
     }
