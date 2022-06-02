@@ -27,7 +27,6 @@ public class MessageController {
     @MessageMapping("/chat/send")
     public void sendMsg(ChatDTO message) throws Exception{
         ChatMessage chatMessage = new ChatMessage();
-        System.out.println("message: "+ message.getUser());
         String sender = message.getUser();
         String type = message.getType();
         ChatRoom chatRoom = chatRoomRepository.findById(Long.parseLong(message.getChatRoom()));
@@ -38,6 +37,8 @@ public class MessageController {
 
         if (!(type.equals("ENTER")) || (list.size() == 0)) {
             int currentNumber = chatRoom.getCurrentnumber();
+            currentNumber++;
+            System.out.println(currentNumber);
             if (type.equals("ENTER")){
                 if (currentNumber > chatRoom.getMaxnumber()) {
                     return;
