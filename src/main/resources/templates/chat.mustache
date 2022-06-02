@@ -192,70 +192,55 @@
     const button = document.getElementById('button_copy');
     button.addEventListener('click', copyToClipboard);
 
-    const webSocket  = new WebSocket("/ws/chat/chatting?id="+{{chatroom.id}});
+    const socket = new SockJS('/ws/chat');
+    const stompClient  = Stomp.over(socket);
 
     //웹 소켓이 연결되었을 때 호출되는 이벤트
 
-    webSocket.onopen = function (message) {
+    stompClient.connect({}, function () {
         var option = {
-            messagetype: "ENTER",
-            roomId: {{chatroom.id}},
-            sender: "{{nickName}}",
-            msg: '님이 채팅방을 들어왔습니다.'
+        type: "ENTER",
+        chatRoom: {{chatroom.id}},
+        user: "{{nickName}}",
+        message: "님이 채팅방을 들어왔습니다."
         }
-        webSocket.send(JSON.stringify(option));
-    };
+        stompClient.send("/pub/chat/send", {}, JSON.stringify(option));
+        stompClient.subscribe("/sub/chat/chatting?id=" + {{chatroom.id}}, function (chat) {
+            const content = JSON.parse(chat.body);
 
-    //웹 소켓이 닫혔을 때 호출되는 이벤트
+            const sender = content.user;
+            const message = content.message;
+            let str = '';
 
-    webSocket.onclose = function (message) {
-    };
-
-    //웹 소켓이 에러가 났을 때 호출되는 이벤트
-
-    webSocket.onerror = function (ev, message) {
-        alert("error : "+ev.data);
-    };
-
-    //웹 소켓에서 메시지가 날라왔을 때 호출되는 이벤트
-
-    webSocket.onmessage = function (data) {
-        var msg = data.data;
-        var d = JSON.parse(msg);
-        if (d.messagetype == "ENTER") {
-            history.go(0);
-        } else if (d.messagetype == "TALK") {
-            if (d.sender == "{{nickName}}") {
-                var str = "<div class='col-12'>";
+            if(sender == '{{&nickName}}'){
+                str = "<div class='col-12'>";
                 str += "<div class='message-me'>";
-                str += "<b>나 : " + d.msg + "</b>";
+                str += "<b>" + "나" + " : " + message + "</b>";
                 str += "</div></div>";
                 $("#msgArea").prepend(str);
-            } else {
-                var str = "<div class='col-12'>";
+            }else {
+                str = "<div class='col-12'>";
                 str += "<div class='message'>";
-                str += "<b>" + d.sender + " :" + d.msg + "</b>";
+                str += "<b>" + sender + " : " + message + "</b>";
                 str += "</div></div>";
                 $("#msgArea").prepend(str);
             }
-        } else if (d.messagetype == "EXIT") {
-            history.go(0);
-        } else if (d.messagetype == "OUT") {
-            history.go(0);
-        }
-    };
 
+
+
+        });
+    });
 
     //Send 버튼을 누르면 실행되는 함수
     function sendMessage() {
         var message = document.getElementById("textMessage");
         var option = {
-            messagetype: "TALK",
-            roomId: {{chatroom.id}},
-            sender: "{{nickName}}",
-            msg: message.value
+            type: "TALK",
+            chatRoom: {{chatroom.id}},
+            user: "{{nickName}}",
+            message: message.value
         }
-        webSocket.send(JSON.stringify(option));
+        stompClient.send("/pub/chat/send", {}, JSON.stringify(option));
         message.value = "";
     }
 
@@ -270,8 +255,10 @@
                 sender: "{{nickName}}",
                 msg: '님이 채팅방을 나갔습니다.'
             }
-            webSocket.send(JSON.stringify(option));
-            webSocket.close();
+            stompClient.send("/app/chat/send", {}, JSON.stringify(option));
+            if (stompClient !== null) {
+                stompClient.disconnect();
+            }
             location.href = "/chat/exitchatroom?id=" + "{{chatroom.id}}";
         }
     }
