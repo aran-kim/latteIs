@@ -307,3 +307,13 @@ div.card > div.board > a {
     border-bottom: 1px solid #e3e3e3;
 }
 
+/* joinID 영역 -----------------------------*/
+#pwc{
+    display: block;
+    margin: 9px 0 -2px;
+    font-size: 12px;
+    line-height: 14px;
+    color: red;
+}
+
+

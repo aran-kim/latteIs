@@ -1,41 +1,54 @@
-{{>layout/header}}
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Join</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Codrops" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="css/main.css">
 
-</header>
+    <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
+</head>
 
 
-<div>
-    <!-- Top content -->
-    <div class="top-content">
+<body>
 
-        <div class="inner-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="form-box">
-                        <div class="form-top">
-                            <div class="form-top-left">
-                                <h1><strong>본인 인증</strong></h1>
-                            </div>
-                        </div>
-                        <div id="contents">
-                            받는사람 : <input type="text" id="phoneNumber" name="phoneNumber"/>   <!-- 인증번호 받을사람 휴대폰 번호 -->
-                            <button type="button" id="btn-send">전송</button><br> <!-- 문자보내는 전송버튼 -->
-
-                            인증번호 : <input type="text" id="numStr">   <!-- 인증번호 입력창 -->
-                            <button type="button" id="btn-send-check">확인</button>  <!-- 인증번호와 내가 입력창에 입력한 인증번호 비교하는 창 -->
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Footer -->
-    <footer>
-
-    </footer>
+<!--header-->
+<div id="header">
+    <a href="/"><img src="../../images/icon.png" height="130px"></a>
+    <a href="/"><h2>라때는...</h2></a>
+    <h1>본인 인증</h1>
 </div>
 
+<!--wrapper-->
+<div id="wrapper">
+
+    <!--content-->
+    <div id="content">
+        <div class="join_row join_mobile" id="mobDiv">
+            <!--phonenumber-->
+            <div class="int_mobile_area">
+            <span class="box int_mobile">
+                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="전화번호 입력" aria-label="전화번호 입력" class="int" maxlength="16"/> <!-- 인증번호 받을사람 휴대폰 번호 -->
+                <button type="button" id="btn-send">인증번호 받기</button><br> <!-- 문자보내는 전송버튼 -->
+            </span>
+                <span class="error_next_box"></span>
+            </div>
+
+            <div class="box px_box_disable box_right_space" id="autoNoBox">
+                <input type="tel" id="numStr" name="numStr" placeholder="인증번호 입력하세요" aria-label="인증번호 입력하세요" aria-describedby="wa_verify" class="int" maxlength="4"> <!-- 인증번호 입력창 -->
+                <button type="button" id="btn-send-check">확인</button>  <!-- 인증번호와 내가 입력창에 입력한 인증번호 비교하는 창 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<!-- Footer -->
+<footer>
+
+</footer>
 {{>layout/footer}}

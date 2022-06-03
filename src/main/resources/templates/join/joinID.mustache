@@ -3,43 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="Codrops" />
     <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" type="text/css" href="css/default.css" />
-    <link rel="stylesheet" type="text/css" href="css/component.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <script src="js/modernizr.custom.js"></script>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/form-elements.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    </div>
-    <!-- JavaScript -->
-    <script src="/webjars/vue/2.5.16/dist/vue.min.js"></script>
-    <script src="/webjars/axios/0.17.1/dist/axios.min.js"></script>
-    <script src="/webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
-
-    <!-- Favicon and touch icons -->
-    <link rel="shortcut icon" href="images/icon.png">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <script>
@@ -47,60 +16,76 @@
 </script>
 
 <body>
-    <!-- Top content -->
-    <div class="top-content">
+<!--header-->
+<div id="header">
+    <h1>회원가입</h1>
+</div>
 
-        <div class="inner-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="form-box">
-                        <div class="form-top">
-                            <div class="form-top-left">
-                                <h1><strong>회원 가입</strong></h1>
-                            </div>
-                            <!--
-                            <div class="form-top-right">
-                                <i class="fa fa-key"></i>
-                            </div> -->
-                        </div>
-                        <div class="form-bottom">
-                            <form action="/joinProc" method="post" class="join-form">
-                                <div class="form-group">
-                                    <label class="sr-only" for="form-username">Username</label>
-                                    <input type="text" name="username" placeholder="아이디"
-                                           class="form-username form-control" id="form-username">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="form-password">Password</label>
-                                    <input type="password" name="password" placeholder="비밀번호"
-                                           class="form-password form-control" id="form-password">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="form-email">Email</label>
-                                    <input type="email" name="email" placeholder="이메일"
-                                           class="form-email form-control" id="form-email">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="form-nickName">Nickname</label>
-                                    <input type="text" name="nickName" placeholder="활동명"
-                                           class="form-Nickname form-control" id="form-nickName">
-                                </div>
-                                <button type="submit" class="btn btn-outline-dark">회원 가입</button>
-                            </form>
-                        </div>
-                    </div>
+<!--wrapper-->
+<div id="wrapper">
 
-                </div>
+    <!--content-->
+    <div id="content">
 
+        <form action="/joinProc" method="post" class="join-form">
+            <!--ID-->
+            <div>
+                <h3 class="join_title">
+                    <label for="id">아이디</label>
+                </h3>
+                <span class="box init_id">
+                    <input type="text" name="username" class="int" id="id" maxlength="20">
+                </span>
+                <span class="error_next_box"></span>
             </div>
-        </div>
+
+            <!--PW1-->
+            <div>
+                <h3 class="join_title">
+                    <label for="psw1">비밀번호</label>
+                </h3>
+                <span class="box int_pass">
+                    <input type="password" name="password" id="pswd1" class="int" maxlength="20">
+                    <span id="alertTxt">사용불가</span>
+                    <img src="../../images/m_icon_pass.png" id="pswd1_img1" class="pswdImg">
+                </span>
+                <span class="error_next_box"></span>
+            </div>
+
+            <!--Email-->
+            <div>
+                <h3 class="join_title"><label for="email">이메일</label></h3>
+                <span class="box int_email">
+                    <input type="email" name="email" id="email" class="int" maxlength="100">
+                </span>
+                <span class="error_next_box">이메일 주소를 다시 확인해주세요.</span>
+            </div>
+
+            <!--Nickname-->
+            <div>
+                <h3 class="join_title"><label for="name">활동명</label></h3>
+                <span class="box init_id">
+                    <input type="text" name="nickName" class="int" id="name" maxlength="20">
+                </span>
+                <span class="error_next_box"></span>
+            </div>
+
+            <!--Join button-->
+            <div class="btn_area">
+                <button type="submit" id="btnJoin">가입하기</button>
+            </div>
+
+        </form>
 
     </div>
+</div>
 
+    <script src="/js/validate.js"></script>
+</body>
     <!-- Footer -->
     <footer>
 
     </footer>
-</body>
+
 
 {{>layout/footer}}
