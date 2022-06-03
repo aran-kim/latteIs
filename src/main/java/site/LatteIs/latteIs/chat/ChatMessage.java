@@ -5,8 +5,10 @@ import org.hibernate.annotations.CreationTimestamp;
 import site.LatteIs.latteIs.web.domain.entity.User;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+
 
 @Builder
 @Data
@@ -15,6 +17,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class ChatMessage implements Serializable {
 
+    public static Event MessageType;
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
