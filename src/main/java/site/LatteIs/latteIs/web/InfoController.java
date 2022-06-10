@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import site.LatteIs.latteIs.auth.LoginUser;
 import site.LatteIs.latteIs.auth.SessionUser;
 import site.LatteIs.latteIs.web.domain.entity.Blacklist;
@@ -19,8 +20,11 @@ import site.LatteIs.latteIs.web.domain.repository.FollowerRepository;
 import site.LatteIs.latteIs.web.domain.repository.InterestRepository;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -145,6 +149,39 @@ public class InfoController {
         httpSession.setAttribute("user", user);
         System.out.println("변경 후 user 정보 : " + userinfo);
         System.out.println("변경 후 Seesion nickname : " + user.getNickName());
+        return "redirect:/info";
+    }
+
+    @GetMapping("/info/changeImage")
+    public String changeImage(Model model, @LoginUser SessionUser user){
+        if(user != null){
+            System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("접속 닉네임 : " + user.getNickName());
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("nickName", user.getNickName());
+        }
+        return "information/changeImage";
+    }
+
+    @PostMapping("/info/changeImageProc")
+    public String changeImage(Model model, @LoginUser SessionUser user, @RequestParam MultipartFile image, HttpServletRequest request) throws Exception{
+        User userinfo = userRepository.findByUsername(user.getUsername());
+        System.out.println("변경 전 user 정보 : " + userinfo);
+
+        String filePath = request.getSession().getServletContext().getRealPath("/") + "../resources/static/profile_images/";
+        String fileName = "profile_image_" + userinfo.getId() + ".jpg";
+
+        System.out.println("filePath : " + filePath);
+        System.out.println("fileName : " + fileName);
+
+        File dest = new File(filePath + fileName);
+        System.out.println(dest);
+        image.transferTo(dest);
+
+        userinfo.setImage(fileName);
+
+        System.out.println("변경 후 user 정보 : " + userinfo);
+
         return "redirect:/info";
     }
 

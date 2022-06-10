@@ -30,4 +30,5 @@ public class User implements Serializable {
     private String nickName;
     private String mbti;
     private int init;
+    private String image;
 }
