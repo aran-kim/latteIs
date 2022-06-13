@@ -176,7 +176,7 @@ public class InfoController {
         SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd_HHmmSS");
         String timeStamp = date.format(new Date());
         String imagePath = null;
-        String absolutePath = new File("").getAbsolutePath() + "\\";
+        String absolutePath = new File("").getAbsolutePath() + "/";
         String path = "src/main/resources/static/profile_images";
         System.out.println("absolutePate : " + absolutePath);
         File file = new File(path);
