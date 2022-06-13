@@ -169,7 +169,7 @@ public class InfoController {
     }
 
     @PostMapping("/info/changeImageProc")
-    public String changeImage(Model model, @LoginUser SessionUser user, @RequestParam MultipartFile image, HttpServletRequest request) throws Exception{
+    public String changeImage(Model model, @LoginUser SessionUser user, @RequestParam MultipartFile image) throws Exception{
         User userinfo = userRepository.findByUsername(user.getUsername());
         System.out.println("변경 전 user 정보 : " + userinfo);
 
