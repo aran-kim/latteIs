@@ -162,6 +162,7 @@ public class InfoController {
             System.out.println("접속 닉네임 : " + user.getNickName());
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
+            model.addAttribute("image", userRepository.findByUsername(user.getUsername()).getImage());
         }
         return "information/changeImage";
     }
