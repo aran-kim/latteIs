@@ -160,6 +160,7 @@ public class InfoController {
         if(user != null){
             System.out.println("접속 아이디 : " + user.getUsername());
             System.out.println("접속 닉네임 : " + user.getNickName());
+            System.out.println("image check : " + userRepository.findByUsername(user.getUsername()).getImage());
             model.addAttribute("username", user.getUsername());
             model.addAttribute("nickName", user.getNickName());
             model.addAttribute("image", userRepository.findByUsername(user.getUsername()).getImage());
@@ -177,6 +178,7 @@ public class InfoController {
         String imagePath = null;
         String absolutePath = new File("").getAbsolutePath() + "\\";
         String path = "src/main/resources/static/profile_images";
+        System.out.println("absolutePate : " + absolutePath);
         File file = new File(path);
         if (!file.exists()) {
             file.mkdirs();
@@ -196,6 +198,7 @@ public class InfoController {
                 }
             }
             imagePath = path + "/" + userinfo.getId() + "__" + timeStamp + originalFileExtension;
+            System.out.println("path : " + absolutePath + imagePath);
             file = new File(absolutePath + imagePath);
             image.transferTo(file);
             userinfo.setImage(file.getName());
@@ -206,7 +209,7 @@ public class InfoController {
 
         System.out.println("변경 후 user 정보 : " + userinfo);
 
-        return "redirect:/info";
+        return "redirect:/info/changeImage";
     }
 
     @GetMapping("/info/followerList")
