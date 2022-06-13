@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,9 @@ import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -168,17 +171,37 @@ public class InfoController {
         User userinfo = userRepository.findByUsername(user.getUsername());
         System.out.println("변경 전 user 정보 : " + userinfo);
 
-        String filePath = request.getSession().getServletContext().getRealPath("/") + "../resources/static/profile_images/";
-        String fileName = "profile_image_" + userinfo.getId() + ".jpg";
-
-        System.out.println("filePath : " + filePath);
-        System.out.println("fileName : " + fileName);
-
-        File dest = new File(filePath + fileName);
-        System.out.println(dest);
-        image.transferTo(dest);
-
-        userinfo.setImage(fileName);
+        SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd_HHmmSS");
+        String timeStamp = date.format(new Date());
+        String imagePath = null;
+        String absolutePath = new File("").getAbsolutePath() + "\\";
+        String path = "src/main/resources/static/profile_images";
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        if (!image.isEmpty()) {
+            String contentType = image.getContentType();
+            String originalFileExtension;
+            if (ObjectUtils.isEmpty(contentType)) {
+                throw new Exception("이미지 파일은 jpg, png 만 가능합니다.");
+            } else {
+                if (contentType.contains("image/jpeg")) {
+                    originalFileExtension = ".jpg";
+                } else if (contentType.contains("image/png")) {
+                    originalFileExtension = ".png";
+                } else {
+                    throw new Exception("이미지 파일은 jpg, png 만 가능합니다.");
+                }
+            }
+            imagePath = path + "/" + userinfo.getId() + "__" + timeStamp + originalFileExtension;
+            file = new File(absolutePath + imagePath);
+            image.transferTo(file);
+            userinfo.setImage(file.getName());
+        }
+        else {
+            throw new Exception("이미지 파일이 비어있습니다.");
+        }
 
         System.out.println("변경 후 user 정보 : " + userinfo);
 
