@@ -15,8 +15,31 @@
 <main>
     <section id="chatlist">
         <h3>채팅방 리스트</h3>
-        <a href="#pop_info_1" class="btn-open">채팅방 만들기</a>
-
+        <article1>
+            <a href="#pop_info_1" class="btn-open">채팅방 만들기</a>
+            <div id="pop_info_1" class="pop_wrap" style="display:none;">
+                <div class="pop_inner">
+                    <p class="dsc">채팅창 만들기</p>
+                    <form action="/chat/createChatRoom" method="post" class="room-form">
+                        <div class="form-group">
+                            <input type="text" name="roomname" placeholder="방 이름"
+                                   class="form-username form-control" id="form-username">
+                            <br>
+                            <input type="number" name="maxnumber" placeholder="최대 인원"
+                                   class="form-username form-control" id="form-username">
+                            <br>
+                            <div class="form-username form-control" id="form-username">
+                                비밀방
+                                <input type="radio" id="search" name="search" value="1" checked="checked">공개
+                                <input type="radio" id="search" name="search" value="0">비공개
+                            </div>
+                        </div>
+                        <button type="submit" class="btn">방 만들기</button>
+                    </form>
+                    <button type="button" class="btn_close">닫기</button>
+                </div>
+            </div>
+        </article1>
 
         <h3>채팅방 검색</h3>
         <input id="textMessage" class="textMessage" type="text" onkeyup="if(window.event.keyCode==13){sendMessage()}">
@@ -62,30 +85,7 @@
 
 </main>
 
-<article>
-    <div id="pop_info_1" class="pop_wrap" style="display:none;">
-        <div class="pop_inner">
-            <p class="dsc">채팅창 만들기</p>
-            <form action="/chat/createChatRoom" method="post" class="room-form">
-                <div class="form-group">
-                    <input type="text" name="roomname" placeholder="방 이름"
-                           class="form-username form-control" id="form-username">
-                    <br>
-                    <input type="number" name="maxnumber" placeholder="최대 인원"
-                           class="form-username form-control" id="form-username">
-                    <br>
-                    <div class="form-username form-control" id="form-username">
-                        비밀방
-                        <input type="radio" id="search" name="search" value="1" checked="checked">공개
-                        <input type="radio" id="search" name="search" value="0">비공개
-                    </div>
-                </div>
-                <button type="submit" class="btn">방 만들기</button>
-            </form>
-            <button type="button" class="btn_close">닫기</button>
-        </div>
-    </div>
-</article>
+
 
 <script>
     function searchKey() {
