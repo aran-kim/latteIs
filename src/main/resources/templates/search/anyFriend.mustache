@@ -1,0 +1,43 @@
+{{>layout/header}}
+
+<nav class="codrops-demos">
+    <a href="/">Home</a>
+    <a href="/chat/chatroom">Chatting</a>
+    <a class="current-demo" href="/search">Search</a>
+    <a href="/board">Board</a>
+    <a href="/info">Info</a>
+</nav>
+</header>
+
+<div>
+    <!-- Top content -->
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <h3>모든 친구들</h3>
+                    <div class="card">
+                        <div class="board">
+                            <td class="td_name">
+                                {{#userList}}
+                                    <img src="../profile_images/{{user.image}}" alt="no_profile" style="width: 55px;height: 55px;margin:10px;">{{user.nickName}}
+                                    <a onclick="location.href='friendDetail?user_id='+{{user.id}}">정보 보기</a>
+                                {{/userList}}
+                            </td>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer>
+
+        </footer>
+    </div>
+
+{{>layout/footer}}

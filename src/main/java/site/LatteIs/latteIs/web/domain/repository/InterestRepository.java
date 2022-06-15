@@ -13,6 +13,8 @@ public interface InterestRepository extends JpaRepository<Interest, Long> {
 
     List<Interest> findAllByMbti(String mbti);
 
+    List<Interest> findAllByUniversity(String university);
+
     @Query(value = "select * from interest where mbti= ?1 and university = ?2 and user_id != ?3", nativeQuery = true)
     List<Interest> findAllByMbtiandUniversity(String mbti, String university, int user_id);
 

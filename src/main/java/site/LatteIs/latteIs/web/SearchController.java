@@ -181,6 +181,47 @@ public class SearchController {
         return "search/hobbyFriend";
     }
 
+    @GetMapping("/search/anyFriend")
+    public String anyFriend(Model model, @LoginUser SessionUser user){
+        if(user != null){
+            System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("접속 닉네임 : " + user.getNickName());
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("nickName", user.getNickName());
+
+            User userinfo = userRepository.findByUsername(user.getUsername());
+            Interest userInterest = interestRepository.findByUserId(userinfo.getId());
+
+            List<Interest> userList = interestRepository.findAll();
+            System.out.println("userList : " + userList);
+
+            model.addAttribute("userList", userList);
+
+        }
+        return "search/anyFriend";
+    }
+
+    @GetMapping("/search/universityFriend")
+    public String universityFriend(Model model, @LoginUser SessionUser user){
+        if(user != null){
+            System.out.println("접속 아이디 : " + user.getUsername());
+            System.out.println("접속 닉네임 : " + user.getNickName());
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("nickName", user.getNickName());
+
+            User userinfo = userRepository.findByUsername(user.getUsername());
+            Interest userInterest = interestRepository.findByUserId(userinfo.getId());
+            model.addAttribute("university", userInterest.getUniversity());
+
+            List<Interest> userList = interestRepository.findAllByUniversity(userInterest.getUniversity());
+            System.out.println("userList : " + userList);
+
+            model.addAttribute("userList", userList);
+
+        }
+        return "search/universityFriend";
+    }
+
     @GetMapping("/search/friendDetail")
     public String friendDetail(@RequestParam(value = "user_id") Long user_id, Model model, @LoginUser SessionUser user, Interest friendInterest){
         if(user != null){
