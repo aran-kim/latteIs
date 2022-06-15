@@ -15,7 +15,7 @@
 <main>
     <section id="chatlist">
         <h3>채팅방 리스트</h3>
-        <article1>
+        <article>
             <a href="#pop_info_1" class="btn-open">채팅방 만들기</a>
             <div id="pop_info_1" class="pop_wrap" style="display:none;">
                 <div class="pop_inner">
@@ -39,7 +39,7 @@
                     <button type="button" class="btn_close">닫기</button>
                 </div>
             </div>
-        </article1>
+        </article>
 
         <h3>채팅방 검색</h3>
         <input id="textMessage" class="textMessage" type="text" onkeyup="if(window.event.keyCode==13){sendMessage()}">
@@ -87,6 +87,8 @@
 
 
 
+{{>layout/footer}}
+
 <script>
     function searchKey() {
         var key = document.getElementById("textMessage");
@@ -113,6 +115,3 @@
     }
 
 </script>
-
-
-{{>layout/footer}}
