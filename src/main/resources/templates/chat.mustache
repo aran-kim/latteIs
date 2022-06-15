@@ -1,5 +1,4 @@
 {{>layout/header}}
-<script src="../../js/chat.js"></script>
 
 <nav class="codrops-demos">
     <a href="/">Home</a>
@@ -175,8 +174,11 @@
 </div>
 </div>
 
+<script src="../../js/chat.js"></script>
 
 <script type="text/javascript">
+    const button = document.getElementById('button_copy');
+    button.addEventListener('click', copyToClipboard);
 
     function copyToClipboard(val) {
         const str = "https://" + location.host + "/chat/chatting?id=" +{{chatroom.id}};
@@ -270,7 +272,6 @@
             location.href = "/chat/changeMaster?room_id=" + "{{chatroom.id}}" + "&user_id=" + user_id;
         }
     }
-
 
 </script>
 

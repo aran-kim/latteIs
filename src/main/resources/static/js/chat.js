@@ -1,5 +1,3 @@
-const button = document.getElementById('button_copy');
-button.addEventListener('click', copyToClipboard);
 
 var target = document.querySelectorAll('.btn-open');
 var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
