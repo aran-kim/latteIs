@@ -12,3 +12,4 @@ public class ChatDTO {
     private String chatRoom;
     private String message;
 }
+
