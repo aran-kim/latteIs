@@ -192,7 +192,7 @@ public class SearchController {
             User userinfo = userRepository.findByUsername(user.getUsername());
             Interest userInterest = interestRepository.findByUserId(userinfo.getId());
 
-            List<Interest> userList = interestRepository.findAll();
+            List<Interest> userList = interestRepository.findAllExceptId(userinfo.getId());
             System.out.println("userList : " + userList);
 
             model.addAttribute("userList", userList);
@@ -213,7 +213,7 @@ public class SearchController {
             Interest userInterest = interestRepository.findByUserId(userinfo.getId());
             model.addAttribute("university", userInterest.getUniversity());
 
-            List<Interest> userList = interestRepository.findAllByUniversity(userInterest.getUniversity());
+            List<Interest> userList = interestRepository.findAllByUniversityExceptId(userInterest.getUniversity(), userinfo.getId());;
             System.out.println("userList : " + userList);
 
             model.addAttribute("userList", userList);
