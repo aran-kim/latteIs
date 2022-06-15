@@ -17,7 +17,7 @@
         <h3>채팅방 리스트</h3>
         <article>
             <a href="#pop_info_1" class="btn-open">채팅방 만들기</a>
-            <div id="pop_info_1" style="display:none;" class="pop_wrap" >
+            <div id="pop_info_1" class="pop_wrap" style="display:none;">
                 <div class="pop_inner">
                     <p class="dsc">채팅창 만들기</p>
                     <form action="/chat/createChatRoom" method="post" class="room-form">
@@ -49,7 +49,7 @@
             <tr>
                 <td>{{roomname}}</td>
                 <td>({{currentnumber}}/{{maxnumber}})</td>
-                <button type="btn" onclick="location.href='/chat/chatting?id='+{{id}}">입장</button>
+                <a type="button" href="/chat/chatting?id={{id}}" style="height:28px; float:right">입장</a>
             </tr>
         {{/searchedRoom}}
 
@@ -62,12 +62,11 @@
                 <tr>
                     <td>{{chatRoom.roomname}}</td>
                     <td>({{chatRoom.currentnumber}}/{{chatRoom.maxnumber}})</td>
-                    <button type="button" onclick="location.href='/chat/chatting?id='+{{chatRoom.id}}" style="height:28px; float:right">입장</button>
+                    <a type="button" href="/chat/chatting?id={{chatRoom.id}}" style="height:28px; float:right">입장</a>
                 </tr>
                 <br>
             {{/mychatroom}}
         </article>
-
 
         <h3>내가 만든 채팅방</h3>
         <article>
@@ -75,16 +74,14 @@
                 <tr>
                     <td>{{roomname}}</td>
                     <td>({{currentnumber}}/{{maxnumber}})</td>
-                    <button type="button" onclick="location.href='/chat/chatting?id='+{{id}}" style="height:28px; float:right">입장</button>
+                    <a type="button" href="/chat/chatting?id={{id}}" style="height:28px; float:right">입장</a>
                 </tr>
                 <br>
             {{/chatroom}}
         </article>
     </section>
 
-
 </main>
-
-<script src="../../js/chat.js"></script>
+<script src="../../js/chatroom.js"></script>
 
 {{>layout/footer}}
