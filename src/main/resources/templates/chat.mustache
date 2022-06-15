@@ -175,16 +175,7 @@
 </div>
 
 <script src="../../js/chat.js"></script>
-
-<script type="text/javascript">
-    const button = document.getElementById('button_copy');
-    button.addEventListener('click', copyToClipboard);
-
-    function copyToClipboard(val) {
-        const str = "https://" + location.host + "/chat/chatting?id=" +{{chatroom.id}};
-        navigator.clipboard.writeText(str);
-        alert("URL이 클립보드에 복사되었습니다");
-    }
+<script>
 
     const socket = new SockJS('/ws/chat');
     const stompClient  = Stomp.over(socket);
@@ -193,11 +184,12 @@
 
     stompClient.connect({}, function () {
         var option = {
-        type: "ENTER",
-        chatRoom: {{chatroom.id}},
-        user: "{{nickName}}",
-        message: "님이 채팅방을 들어왔습니다."
+            type: "ENTER",
+            chatRoom: {{chatroom.id}},
+            user: "{{nickName}}",
+            message: "님이 채팅방을 들어왔습니다."
         }
+
         stompClient.send("/pub/chat/send", {}, JSON.stringify(option));
         stompClient.subscribe("/sub/chat/chatting?id=" + {{chatroom.id}}, function (chat) {
             const content = JSON.parse(chat.body);
@@ -272,8 +264,8 @@
             location.href = "/chat/changeMaster?room_id=" + "{{chatroom.id}}" + "&user_id=" + user_id;
         }
     }
-
 </script>
+
 
 {{>layout/footer}}
 

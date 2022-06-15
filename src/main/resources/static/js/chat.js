@@ -1,4 +1,3 @@
-
 var target = document.querySelectorAll('.btn-open');
 var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
 var targetID;
@@ -17,3 +16,13 @@ for (var j = 0; j < target.length; j++) {
         this.parentNode.parentNode.style.display = 'none';
     });
 }
+
+const button = document.getElementById('button_copy');
+button.addEventListener('click', copyToClipboard);
+
+function copyToClipboard(val) {
+    const str = "https://" + location.host + "/chat/chatting?id=";
+    navigator.clipboard.writeText(str);
+    alert("URL이 클립보드에 복사되었습니다");
+}
+
