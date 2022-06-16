@@ -1,7 +1,7 @@
     function searchKey() {
     var key = document.getElementById("textMessage");
     location.href = "/chat/chatroom?searchkey=" + $("#textMessage").val()
-}
+    }
 
     var target = document.querySelectorAll('.btn-open');
     var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
