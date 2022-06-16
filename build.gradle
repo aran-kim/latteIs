@@ -32,6 +32,7 @@ dependencies {
 
 	implementation('org.springframework.session:spring-session-jdbc') //JDBC 의존성
 	implementation('org.springframework.boot:spring-boot-starter-oauth2-client') //oauth2 의존성
+	implementation('org.springframework.boot:spring-boot-starter-oauth2')
 
 	runtimeOnly('mysql:mysql-connector-java')
 
