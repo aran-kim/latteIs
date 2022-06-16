@@ -129,16 +129,16 @@ a:active {
 	display: inline-block;
 	margin: 0.5em;
 	padding: 0.7em 1.1em;
-	border: 3px solid #b3b9bf;
-	color: #b3b9bf;
+	border: 3px solid #FADCA5;
+	color: #FADCA5;
 	font-weight: 700;
 }
 
 .codrops-demos a:hover,
 .codrops-demos a.current-demo,
 .codrops-demos a.current-demo:hover {
-	border-color: #2c3f52;
-	color: #2c3f52;
+	border-color: #8B6331;
+	color: #8B6331;
 }
 
 @media screen and (max-width: 25em) {

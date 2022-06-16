@@ -16,7 +16,7 @@
     <section id="chatlist">
         <h3>채팅방 리스트</h3>
         <article>
-            <a href="#pop_info_1" class="btn-open">채팅방 만들기</a>
+            <a href="#pop_info_1" class="btn-open" >채팅방 만들기</a>
             <div id="pop_info_1" class="pop_wrap" style="display:none;">
                 <div class="pop_inner">
                     <p class="dsc">채팅창 만들기</p>
@@ -49,7 +49,7 @@
             <tr>
                 <td>{{roomname}}</td>
                 <td>({{currentnumber}}/{{maxnumber}})</td>
-                <a type="button" href="/chat/chatting?id={{id}}" style="height:28px; float:right">입장</a>
+                <a type="button" href="/chat/chatting?id={{id}}" style="height:28px; float:right; color:#8b6331; background: #ffe2bdba; padding: 2px 10px; border-radius: 5px;">입장</a>
             </tr>
         {{/searchedRoom}}
 
@@ -62,7 +62,7 @@
                 <tr>
                     <td>{{chatRoom.roomname}}</td>
                     <td>({{chatRoom.currentnumber}}/{{chatRoom.maxnumber}})</td>
-                    <a type="button" href="/chat/chatting?id={{chatRoom.id}}" style="height:28px; float:right">입장</a>
+                    <a type="button" href="/chat/chatting?id={{chatRoom.id}}" style="height:28px; float:right; color:#8b6331; background: #ffe2bdba; padding: 2px 10px; border-radius: 5px;">입장</a>
                 </tr>
                 <br>
             {{/mychatroom}}
@@ -74,7 +74,7 @@
                 <tr>
                     <td>{{roomname}}</td>
                     <td>({{currentnumber}}/{{maxnumber}})</td>
-                    <a type="button" href="/chat/chatting?id={{id}}" style="height:28px; float:right">입장</a>
+                    <a type="button" href="/chat/chatting?id={{id}}" style="height:28px; float:right; color:#8b6331; background: #ffe2bdba; padding: 2px 10px; border-radius: 5px;">입장</a>
                 </tr>
                 <br>
             {{/chatroom}}
