@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .logoutSuccessUrl("/") //로그아웃 성공 시 "/"로 이동
                 .and()
                     .oauth2Login() // oauth2 기반의 로그인인 경우
-                        .loginPage("/loginForm")
+                        .loginPage("/login")
                         .defaultSuccessUrl("/")
                         .failureUrl("/login")
                         .userInfoEndpoint()
