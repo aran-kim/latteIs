@@ -6,7 +6,9 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.socket.TextMessage;
+import site.LatteIs.latteIs.web.domain.entity.FilterWord;
 import site.LatteIs.latteIs.web.domain.entity.User;
+import site.LatteIs.latteIs.web.domain.repository.FilterWordRepository;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
 
 import java.util.List;
@@ -23,6 +25,8 @@ public class MessageController {
     UserRepository userRepository;
     @Autowired
     ChatRoomRepository chatRoomRepository;
+    @Autowired
+    FilterWordRepository filterWordRepository;
 
     @MessageMapping("/chat/send")
     public void sendMsg(ChatDTO message) throws Exception{
@@ -50,9 +54,12 @@ public class MessageController {
             chatMessage.setType(type);
 
             String str = message.getMessage();
-            if (str.contains("씨발")) {
-                str = str.replace("씨발", "**");
-                message.getMessage().replace(message.getMessage(), str);
+            List<FilterWord> filterWordList = filterWordRepository.findAll();
+            for(int i = 0; i < filterWordList.size(); i++) {
+                if (str.contains(filterWordList.get(i).getWord())) {
+                    str = str.replace(filterWordList.get(i).getWord(), "**");
+                    message.getMessage().replace(message.getMessage(), str);
+                }
             }
             chatMessage.setMessage(str);
             chatMessage.setChatRoom(chatRoom);
