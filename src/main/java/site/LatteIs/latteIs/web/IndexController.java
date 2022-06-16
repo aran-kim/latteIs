@@ -36,6 +36,7 @@ public class IndexController {
         return "index"; //src/main/resources/templates/index.mustache
     }
 
+    @CrossOrigin("*")
     @GetMapping("/login")
     public String login(){
         return "login";
