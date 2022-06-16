@@ -2,7 +2,7 @@ package site.LatteIs.latteIs.oauth.provider;
 
 import java.util.Map;
 
-public class GoogleUserInfo implements OAuth2UserInfo{
+public class GoogleUserInfo extends OAuth2UserInfo{
 
     private Map<String, Object> attributes;
 
