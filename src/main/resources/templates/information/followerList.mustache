@@ -23,6 +23,9 @@
                                 {{#followerList}}
                                     <img src="images/no_profile.png" alt="no_profile" style="width: 55px;height: 55px;margin:10px;">{{user.nickName}}
                                     <a onclick="location.href='friendDetail?user_id='+{{user.id}}">정보 보기</a>
+                                    <button type="button"
+                                            onclick="location.href = '/chat/personalChat?user_id=' + {{User.id}}">개인톡
+                                    </button>
                                     <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
                                     <button type="button" id="btn-followerCancel" class="btn-followerCancel" value="{{user.id}}">팔로우 취소</button><br>
                                 {{/followerList}}
