@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin() // form 기반의 로그인인 경우
                         .loginPage("/loginForm") // 인증이 필요한 url에 접근하면 /loginForm으로 이동
-                        .loginProcessingUrl("/login") // "/login" 주소가 호출이 되면 시큐리티가 낚아채서 대신 로그인을 진행
+                        .loginProcessingUrl("/loginProc") // "/login" 주소가 호출이 되면 시큐리티가 낚아채서 대신 로그인을 진행
                         .defaultSuccessUrl("/") // 로그인 성공 시 "/"로 이동
                         .failureUrl("/loginForm") // 로그인 실패 시 "/loginForm"으로 이동
                 .and()
@@ -40,9 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .logoutSuccessUrl("/") //로그아웃 성공 시 "/"로 이동
                 .and()
                     .oauth2Login() // oauth2 기반의 로그인인 경우
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/")
-                        .failureUrl("/login")
+                        .loginPage("/loginForm")
                         .userInfoEndpoint()
                         .userService(principalOauth2UserService);
     }
