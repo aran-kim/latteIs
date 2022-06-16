@@ -10,12 +10,9 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import site.LatteIs.latteIs.auth.PrincipalDetails;
 import site.LatteIs.latteIs.auth.SessionUser;
-import site.LatteIs.latteIs.oauth.provider.NaverUserInfo;
+import site.LatteIs.latteIs.oauth.provider.*;
 import site.LatteIs.latteIs.web.domain.entity.User;
 import site.LatteIs.latteIs.web.domain.repository.UserRepository;
-import site.LatteIs.latteIs.oauth.provider.FacebookUserInfo;
-import site.LatteIs.latteIs.oauth.provider.GoogleUserInfo;
-import site.LatteIs.latteIs.oauth.provider.OAuth2UserInfo;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -65,7 +62,12 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")){
             System.out.println("네이버 로그인 요청~");
             oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
-        } else {
+        }
+        else if (userRequest.getClientRegistration().getRegistrationId().equals("kakao")){
+            System.out.println("카카오 로그인 요청~");
+            oAuth2UserInfo = new KakaoUserInfo((Map)oAuth2User.getAttributes().get("Kakao"));
+        }
+        else {
             System.out.println("구글과 페이스북만 지원");
         }
 
