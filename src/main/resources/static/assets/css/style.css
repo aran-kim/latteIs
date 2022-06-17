@@ -441,3 +441,26 @@ div.search > div.search-list > a {
     border-bottom: 1px solid #e3e3e3;
 }
 
+
+/*radio button영역--------------*/
+.control{
+  display block
+  position relative
+  padding-left 30px
+  margin-bottom 15px
+  cursor pointer
+  font-size 18px
+}
+
+.control__indicator{
+  position absolute
+  top 2px
+  left 0
+  height 20px
+  width 20px
+  background $color--light-grey
+}
+
+.control--radio{
+    border-radius 50% // Makes radio buttons circlular
+}

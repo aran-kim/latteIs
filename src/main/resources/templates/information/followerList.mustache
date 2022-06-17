@@ -21,13 +21,14 @@
                         <div class="search-list">
                             <td class="td_name">
                                 {{#followerList}}
-                                    <img src="../profile_images/{{user.image}}" alt="no_profile" style="width: 55px; height: 55px; margin:10px; border-radius: 70%">{{user.nickName}}
-                                    <a onclick="location.href='/search/friendDetail?user_id='+{{user.id}}">정보 보기</a>
+                                    <img src="../profile_images/{{user.image}}" alt="no_profile" style="width: 55px; height: 55px; margin:10px; border-radius: 70%">{{user.nickName}}<br>
                                     <button type="button"
                                             onclick="location.href = '/chat/personalChat?user_id=' + {{User.id}}">개인톡
                                     </button>
                                     <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
                                     <button type="button" id="btn-followerCancel" class="btn-followerCancel" value="{{user.id}}">팔로우 취소</button><br>
+                                    <a onclick="location.href='/search/friendDetail?user_id='+{{user.id}}">정보 보기</a>
+
                                 {{/followerList}}
                                 {{^followerList}}
                                     팔로워한 친구가 없어용
