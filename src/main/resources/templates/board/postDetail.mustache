@@ -19,7 +19,7 @@
                     <div class="form-box">
                         <div class="form-top">
                             <div class="form-top-left">
-                                <a onclick="location.href='board/post?board_id=1'"><h3>자유 게시판</h3></a>
+                                <a href="/board/post?board_id={{board_id}}"><h3>{{board_name}}</h3></a>
                             </div>
 
                         </div>
@@ -57,7 +57,9 @@
                                 </tbody>
 
                             </table>
-
+                        {{#writerToken}}
+                            <button type="submit" id="btn-post-delete" class="w-btn btn-black" onclick="location.href='/board/post/postDeleteProc?board_id='+{{board_id}}+'&post_id='+{{post.id}}" style="margin:10px 5px">게시글 삭제</button><br>
+                        {{/writerToken}}
                     </div>
 
 

@@ -79,6 +79,7 @@ public class IndexController {
         user.setPassword(encPassword); // 비밀번호 인코딩해서 저장
         user.setRole("ROLE_USER");
         user.setInit(0);
+        user.setImage("no_profile.png");
         userRepository.save(user); // 회원가입
         System.out.println("회원가입 진행 후 : " + user);
         return "redirect:/loginForm";

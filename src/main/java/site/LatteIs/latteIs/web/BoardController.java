@@ -1,6 +1,7 @@
 package site.LatteIs.latteIs.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,6 +60,7 @@ public class BoardController {
 
             System.out.println("받은 board_id : " + board_id);
             model.addAttribute("board_id", board_id);
+            model.addAttribute("board_name", boardRepository.findById(board_id.intValue()).getSubject());
 
             int check_id = board_id.intValue();
             List<Post> post = postRepository.findAllByBoardId(check_id);
@@ -109,11 +111,26 @@ public class BoardController {
             System.out.println("받은 board_id : " + board_id);
             System.out.println("받은 post_id : " + post_id);
             model.addAttribute("board_id", board_id);
+            model.addAttribute("board_name", boardRepository.findById(board_id.intValue()).getSubject());
             post = postRepository.findById(post_id.intValue());
             model.addAttribute("post", post);
             int writerId = post.getUser().getId();
-            model.addAttribute("writername", userRepository.findById(writerId).getUsername());
+            String writerNickname = userRepository.findById(writerId).getNickName();
+            model.addAttribute("writername", writerNickname);
+            if(writerNickname.equals(user.getNickName())){
+                model.addAttribute("writerToken", 1);
+                model.addAttribute("user_id", userRepository.findByUsername(user.getUsername()).getId());
+            }
         }
         return "board/postDetail";
+    }
+
+    @GetMapping("/board/post/postDeleteProc")
+    public String postUpdateProc(@RequestParam(value = "board_id") Long board_id, @RequestParam(value = "post_id") Long post_id, Model model, @LoginUser SessionUser user, Post post){
+        User user1 = userRepository.findByUsername(user.getUsername());
+        post = postRepository.findById(post_id.intValue());
+        System.out.println("Post delete 전 정보 : " + post);
+        postRepository.delete(post);
+        return "redirect:/board/post?board_id=" + board_id;
     }
 }

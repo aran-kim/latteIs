@@ -17,12 +17,12 @@
             <div class="container" id="container">
                 <div class="row">
                     <h3>팔로워 친구들</h3>
-                    <div class="card">
-                        <div class="board">
+                    <div class="search">
+                        <div class="search-list">
                             <td class="td_name">
                                 {{#followerList}}
-                                    <img src="images/no_profile.png" alt="no_profile" style="width: 55px;height: 55px;margin:10px;">{{user.nickName}}
-                                    <a onclick="location.href='friendDetail?user_id='+{{user.id}}">정보 보기</a>
+                                    <img src="../profile_images/{{user.image}}" alt="no_profile" style="width: 55px; height: 55px; margin:10px; border-radius: 70%">{{user.nickName}}
+                                    <a onclick="location.href='/search/friendDetail?user_id='+{{user.id}}">정보 보기</a>
                                     <button type="button"
                                             onclick="location.href = '/chat/personalChat?user_id=' + {{User.id}}">개인톡
                                     </button>

@@ -69,7 +69,7 @@ var main = {
     },
     follower : function(user_id){
         $.ajax({
-            url : "/friendDetail/follower",
+            url : "/search/friendDetail/follower",
             type : "GET",
             cache : false,
             data : {user_id : user_id},
@@ -81,7 +81,7 @@ var main = {
     },
     followerCancel : function(user_id){
         $.ajax({
-            url : "/friendDetail/followerCancel",
+            url : "/search/friendDetail/followerCancel",
             type : "GET",
             cache : false,
             data : {user_id : user_id},
@@ -93,7 +93,7 @@ var main = {
     },
     black : function(user_id){
         $.ajax({
-            url : "/friendDetail/black",
+            url : "/search/friendDetail/black",
             type : "GET",
             cache : false,
             data : {user_id : user_id},
@@ -105,7 +105,7 @@ var main = {
     },
     blackCancel : function(user_id){
         $.ajax({
-            url : "/friendDetail/blackCancel",
+            url : "/search/friendDetail/blackCancel",
             type : "GET",
             cache : false,
             data : {user_id : user_id},
