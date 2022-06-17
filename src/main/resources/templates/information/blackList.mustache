@@ -17,14 +17,14 @@
             <div class="container" id="container">
                 <div class="row">
                     <h3>차단한 친구들</h3>
-                    <div class="card">
-                        <div class="board">
+                    <div class="search">
+                        <div class="search-list">
                             <td class="td_name">
                                 {{#blackList}}
                                     <img src="../profile_images/{{user.image}}" alt="no_profile" style="width: 55px; height: 55px; margin:10px; border-radius: 70%">{{user.nickName}}
-                                    <a onclick="location.href='/search/friendDetail?user_id='+{{user.id}}">정보 보기</a>
+                                    <a onclick="location.href='/search/friendDetail?user_id='+{{user.id}}">정보 보기 <button type="button" id="btn-blackCancel" class="btn-blackCancel" value="{{user.id}}" style="margin-left:10px">차단 풀기</button><br></a>
                                     <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
-                                    <button type="button" id="btn-blackCancel" class="btn-blackCancel" value="{{user.id}}" style="float:right">차단 풀기</button><br>
+
                                 {{/blackList}}
                                 {{^blackList}}
                                     차단한 친구가 없어용
