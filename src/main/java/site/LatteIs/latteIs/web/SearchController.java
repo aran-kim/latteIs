@@ -125,8 +125,28 @@ public class SearchController {
             model.addAttribute("searchMbti", good);
 
             List<Interest> userList = interestRepository.findAllByMbtiandUniversity(good, userInterest.getUniversity(), userInterest.getUser().getId());
+            Blacklist blacklist = blacklistRepository.findByUserId(userinfo.getId());
+            if(blacklist != null) {
+                for (int i = 0; i < userList.size(); i++) {
+                    int end = 0, uId = 0, start = 0;
+                    boolean loop = true;
+                    while (loop) {
+                        end = blacklist.getBlackUserIdList().indexOf(", ", end);
+                        System.out.println("end : " + end + ", _e : " + start);
+                        if (end < 0) {
+                            uId = Integer.parseInt(blacklist.getBlackUserIdList().substring(start, blacklist.getBlackUserIdList().length()));
+                            loop = false;
+                        } else
+                            uId = Integer.parseInt(blacklist.getBlackUserIdList().substring(start, end));
+                        System.out.println("u : " + uId);
+                        if(userList.get(i).getUser().getId() == uId)
+                            userList.remove(i);
+                        end += 2;
+                        start = end;
+                    }
+                }
+            }
             model.addAttribute("userList", userList);
-
             System.out.println("userList : " + userList);
         }
         return "search/mbtiFriend";
@@ -173,6 +193,27 @@ public class SearchController {
             }
 
             List<Interest> userList = interestRepository.findAllByEqualInterest(arr[0], arr[1], arr[2], userInterest.getUniversity(), userinfo.getId());
+            Blacklist blacklist = blacklistRepository.findByUserId(userinfo.getId());
+            if(blacklist != null) {
+                for (int i = 0; i < userList.size(); i++) {
+                    int end = 0, uId = 0, start = 0;
+                    boolean loop = true;
+                    while (loop) {
+                        end = blacklist.getBlackUserIdList().indexOf(", ", end);
+                        System.out.println("end : " + end + ", _e : " + start);
+                        if (end < 0) {
+                            uId = Integer.parseInt(blacklist.getBlackUserIdList().substring(start, blacklist.getBlackUserIdList().length()));
+                            loop = false;
+                        } else
+                            uId = Integer.parseInt(blacklist.getBlackUserIdList().substring(start, end));
+                        System.out.println("u : " + uId);
+                        if(userList.get(i).getUser().getId() == uId)
+                            userList.remove(i);
+                        end += 2;
+                        start = end;
+                    }
+                }
+            }
             System.out.println("userList : " + userList);
 
             model.addAttribute("userList", userList);
@@ -193,10 +234,29 @@ public class SearchController {
             Interest userInterest = interestRepository.findByUserId(userinfo.getId());
 
             List<Interest> userList = interestRepository.findAllExceptId(userinfo.getId());
-            System.out.println("userList : " + userList);
-
+            Blacklist blacklist = blacklistRepository.findByUserId(userinfo.getId());
+            if(blacklist != null) {
+                for (int i = 0; i < userList.size(); i++) {
+                    int end = 0, uId = 0, start = 0;
+                    boolean loop = true;
+                    while (loop) {
+                        end = blacklist.getBlackUserIdList().indexOf(", ", end);
+                        System.out.println("end : " + end + ", _e : " + start);
+                        if (end < 0) {
+                            uId = Integer.parseInt(blacklist.getBlackUserIdList().substring(start, blacklist.getBlackUserIdList().length()));
+                            loop = false;
+                        } else
+                            uId = Integer.parseInt(blacklist.getBlackUserIdList().substring(start, end));
+                        System.out.println("u : " + uId);
+                        if(userList.get(i).getUser().getId() == uId)
+                            userList.remove(i);
+                        end += 2;
+                        start = end;
+                    }
+                }
+            }
             model.addAttribute("userList", userList);
-
+            System.out.println("userList : " + userList);
         }
         return "search/anyFriend";
     }
@@ -213,9 +273,29 @@ public class SearchController {
             Interest userInterest = interestRepository.findByUserId(userinfo.getId());
             model.addAttribute("university", userInterest.getUniversity());
 
-            List<Interest> userList = interestRepository.findAllByUniversityExceptId(userInterest.getUniversity(), userinfo.getId());;
+            List<Interest> userList = interestRepository.findAllByUniversityExceptId(userInterest.getUniversity(), userinfo.getId());
+            Blacklist blacklist = blacklistRepository.findByUserId(userinfo.getId());
+            if(blacklist != null) {
+                for (int i = 0; i < userList.size(); i++) {
+                    int end = 0, uId = 0, start = 0;
+                    boolean loop = true;
+                    while (loop) {
+                        end = blacklist.getBlackUserIdList().indexOf(", ", end);
+                        System.out.println("end : " + end + ", _e : " + start);
+                        if (end < 0) {
+                            uId = Integer.parseInt(blacklist.getBlackUserIdList().substring(start, blacklist.getBlackUserIdList().length()));
+                            loop = false;
+                        } else
+                            uId = Integer.parseInt(blacklist.getBlackUserIdList().substring(start, end));
+                        System.out.println("u : " + uId);
+                        if(userList.get(i).getUser().getId() == uId)
+                            userList.remove(i);
+                        end += 2;
+                        start = end;
+                    }
+                }
+            }
             System.out.println("userList : " + userList);
-
             model.addAttribute("userList", userList);
 
         }

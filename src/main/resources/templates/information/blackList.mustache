@@ -22,9 +22,9 @@
                             <td class="td_name">
                                 {{#blackList}}
                                     <img src="../profile_images/{{user.image}}" alt="no_profile" style="width: 55px; height: 55px; margin:10px; border-radius: 70%">{{user.nickName}}
-                                    <a onclick="location.href='/search/friendDetail?user_id='+{{user.id}}">정보 보기 <button type="button" id="btn-blackCancel" class="btn-blackCancel" value="{{user.id}}" style="margin-left:10px">차단 풀기</button><br></a>
+                                    <a onclick="location.href='/search/friendDetail?user_id='+{{user.id}}">정보 보기 </a>
                                     <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"/>
-
+                                    <button type="button" id="btn-blackCancel" class="btn-blackCancel" value="{{user.id}}" style="margin-left:10px">차단 풀기</button><br>
                                 {{/blackList}}
                                 {{^blackList}}
                                     차단한 친구가 없어용
